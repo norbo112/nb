@@ -5,27 +5,32 @@
  */
 package com.norbo.projects.progj18edzesnaplo.data;
 
+import org.json.JSONObject;
+
 /**
  *
  * @author igloi
  */
-public abstract class AbstractGyakorlat implements IGyakorlat {
-    private final int id;
-    private final String nev;
-    private final Izomcsoport izomcsoport;
-    private final String leiras;
-    private final String videoId;
-    private final int videoPoz;
+public abstract class AbstractGyakorlat implements IGyakorlat, Comparable<IGyakorlat> {
+    private int id;
+    private String megnevezes;
+    private Izomcsoport izomcsoport;
+    private String leiras;
+    private String videolink;
+    private int videostartpoz;
+
+    public AbstractGyakorlat() {
+    }
 
     public AbstractGyakorlat(int id, String nev, 
             Izomcsoport izomcsoport, String leiras, 
             String videoId, int videoPoz) {
         this.id = id;
-        this.nev = nev;
+        this.megnevezes = nev;
         this.izomcsoport = izomcsoport;
         this.leiras = leiras;
-        this.videoId = videoId;
-        this.videoPoz = videoPoz;
+        this.videolink = videoId;
+        this.videostartpoz = videoPoz;
     }
     
     @Override
@@ -34,8 +39,8 @@ public abstract class AbstractGyakorlat implements IGyakorlat {
     }
 
     @Override
-    public String getNew() {
-        return nev;
+    public String getMegnevezes() {
+        return megnevezes;
     }
 
     @Override
@@ -49,24 +54,63 @@ public abstract class AbstractGyakorlat implements IGyakorlat {
     }
 
     @Override
-    public String getVideoId() {
-        return videoId;
+    public String getVideolink() {
+        return videolink;
     }
 
     @Override
-    public int getVideoPoz() {
-        return videoPoz;
+    public int getVideostartpoz() {
+        return videostartpoz;
     }
 
     @Override
     public String toString() {
-        return "id=" + id + 
-                ", nev=" + nev + 
-                ", izomcsoport=" + izomcsoport +
-                ", leiras=" + leiras + 
-                ", videoId=" + videoId + 
-                ", videoPoz=" + videoPoz;
+        return "[" + id + 
+                "] " + megnevezes + 
+                " " + izomcsoport +
+                " "+ leiras + " "+
+                (videolink.length() != 0 ? videolink : " ") +
+                (videostartpoz != 0 ? videostartpoz : " ");
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public void setMegnevezes(String megnevezes) {
+        this.megnevezes = megnevezes;
+    }
+
+    @Override
+    public void setIzomcsoport(Izomcsoport izomcsop) {
+        this.izomcsoport = izomcsop;
+    }
+
+    @Override
+    public void setLeiras(String leiras) {
+        this.leiras = leiras;
+    }
+
+    @Override
+    public void setVideolink(String videolink) {
+        this.videolink = videolink;
+    }
+
+    @Override
+    public void setVideostartpoz(int videostartpoz) {
+        this.videostartpoz = videostartpoz;
     }
     
     
+
+    @Override
+    public abstract JSONObject readObject(String source);
+
+    @Override
+    public abstract void loadGyakorlatFromJson(JSONObject jsonobject);
+
+    @Override
+    public abstract int compareTo(IGyakorlat o);
 }
