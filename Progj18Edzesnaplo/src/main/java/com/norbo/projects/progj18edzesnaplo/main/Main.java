@@ -19,12 +19,16 @@ public class Main {
     
     public static void main(String[] args) {
         try {
-            List<IGyakorlat> gyfromurl = GyakorlatLista.getGyakorlatList(GyakorlatLista.GYAKURL);
-//            for(IGyakorlat g: gyfromurl) {
-//                System.out.println(g);
-//            }
+            GyakorlatLista gyakorlatLista = new GyakorlatLista();
+            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatList(GyakorlatLista.GYAKURL);
             gyfromurl.sort(COMP_IZOMCSOP);
-            new Gyakorlatok(gyfromurl).showFrame();
+            List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
+            
+//            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatFromCSV("gyakorlat.csv");
+//            gyfromurl.sort(COMP_IZOMCSOP);
+//            List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
+            
+            new Gyakorlatok(gyfromurl, izomcsoportok).showFrame();
         } catch (IOException ex) {
             System.out.println("Hiba törént az adatok elérése közben: "+ex);
         }
