@@ -13,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -31,6 +30,11 @@ import org.json.JSONObject;
  */
 public class GyakorlatLista {
     public static final String GYAKURL = "http://www.edzesnaplo.eu/android/naplolistause.php";
+    
+    /**
+     * Majd lesz egy szöveges fájlból való betöltés is
+     * @return 
+     */
     public static List<IGyakorlat> getGyakorlatList() {
         List<IGyakorlat> result = new ArrayList<>();
         
@@ -71,7 +75,6 @@ public class GyakorlatLista {
         
         if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
             String inputstring = getStringFromInput(con.getInputStream());
-//            System.out.println(inputstring);
             JSONObject job = new JSONObject(inputstring);
 
             if(getOpt(job, "hgyakorlatlista").isPresent()) {
