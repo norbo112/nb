@@ -7,6 +7,7 @@ package com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
+import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.szuro.GyakorlatSzuro;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,17 +17,22 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Gyakorlatok extends javax.swing.JFrame {
     private List<IGyakorlat> gyakorlats;
+    private List<String> izomcsoportok;
     private DefaultTableModel sajatTableModel;
-    /**
-     * Creates new form Gyakorlatok
-     */
-    public Gyakorlatok(List<IGyakorlat> gyaksik) {
+    
+    private GyakorlatSzuro gyakorlatSzuro;
+    
+    private final String VALASSZ = "-- válassz --";
+
+    public Gyakorlatok(List<IGyakorlat> gyaksik, List<String> izomcsoportok) {
         this.gyakorlats = gyaksik;
+        this.izomcsoportok = izomcsoportok;
         initComponents();
         settings();
     }
     
     private void settings() {
+        gyakorlatSzuro = new GyakorlatSzuro();
         final String[] oszlopNevek = new String[] {
             "ID","Izomcsoport","Megnevezés","Leírás","VideoLink","VideoStartPoz"
         };
@@ -55,6 +61,15 @@ public class Gyakorlatok extends javax.swing.JFrame {
         gyakorlatTabla.setModel(sajatTableModel);
         
         loadGyaksik(gyakorlats);
+        loadIzomcsoportok(izomcsoportok);
+    }
+    
+    private void loadIzomcsoportok(List<String> izomcsops) {
+        cbIzomcsop.removeAllItems();
+        cbIzomcsop.addItem(VALASSZ);
+        for (String csoport : izomcsops) {
+            cbIzomcsop.addItem(csoport);
+        }
     }
     
     private void loadGyaksik(List<IGyakorlat> gyaksik) {
@@ -80,6 +95,9 @@ public class Gyakorlatok extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        cbIzomcsop = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         gyakorlatTabla = new javax.swing.JTable();
@@ -88,15 +106,45 @@ public class Gyakorlatok extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyakorlat Szűrő"));
 
+        jLabel1.setText("Izomcsoport");
+
+        cbIzomcsop.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- válassz --" }));
+        cbIzomcsop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbIzomcsopActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(cbIzomcsop, 0, 146, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbIzomcsop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 152, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyakorlatok"));
@@ -155,9 +203,26 @@ public class Gyakorlatok extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param gyakorlatok Betöltött gyakorlat lista, főleg a netről, vagy helyi fájlból
-     */
+    private void cbIzomcsopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbIzomcsopActionPerformed
+
+        if(cbIzomcsop.getSelectedIndex() > 0) {
+            while(sajatTableModel.getRowCount()>0) {
+                sajatTableModel.removeRow(0);
+            }
+            Izomcsoport izomcsoportNev = Izomcsoport.getIzomCsoport(cbIzomcsop.getSelectedItem().toString());
+            gyakorlatSzuro.setIzomcsoport(izomcsoportNev);
+            List<IGyakorlat> pszurtLista = gyakorlatSzuro.pszures(gyakorlats);
+            pszurtLista.forEach((iGyakorlat) -> {
+                sajatTableModel.addRow(new Object[]{
+                    iGyakorlat.getId(), iGyakorlat.getIzomcsoport(), iGyakorlat.getMegnevezes(),
+                    iGyakorlat.getLeiras(), iGyakorlat.getVideolink(), iGyakorlat.getVideostartpoz()
+                });
+            });        
+        } else {
+            loadGyaksik(gyakorlats);
+        }
+    }//GEN-LAST:event_cbIzomcsopActionPerformed
+                                   
     public void showFrame() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -186,15 +251,18 @@ public class Gyakorlatok extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Gyakorlatok(gyakorlats).setVisible(true);
+                new Gyakorlatok(gyakorlats, izomcsoportok).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbIzomcsop;
     private javax.swing.JTable gyakorlatTabla;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
