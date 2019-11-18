@@ -5,10 +5,7 @@
  */
 package com.norbo.projects.progj18edzesnaplo.dodata;
 
-import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
-import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
-import com.norbo.projects.progj18edzesnaplo.example.MasikGyakImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,9 +15,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import org.json.JSONArray;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,37 +30,9 @@ import org.json.JSONObject;
 public class GyakorlatLista {
     public static final String GYAKURL = "http://www.edzesnaplo.eu/android/naplolistause.php";
     
-    /**
-     * Majd lesz egy szöveges fájlból való betöltés is
-     * @return 
-     */
-    public static List<IGyakorlat> getGyakorlatList() {
-        List<IGyakorlat> result = new ArrayList<>();
-        
-        //csak tesz, két gyakorlatot kézzel adok hozzá
-        //itt tölteném be mysqlből
-        
-        result.add(new Gyakorlat(1,"Fekvenyomás",
-                Izomcsoport.MELL, 
-                "Vizszintesen lefekszünk a padra...",
-                "xsoUWuJglGc", 22));
-        
-        result.add(new Gyakorlat(2,"45°ba nyomás kétkezessel",
-                Izomcsoport.MELL, 
-                "45 fokos padon fekve...",
-                "", 0));
-        
-        result.add(new Gyakorlat(3,"30°ba nyomás kétkezessel",
-                Izomcsoport.MELL, 
-                "30 fokba lefekszünk a padra...",
-                "",0));
-        
-        result.add(new MasikGyakImpl(5, "Kétkezes evezés", Izomcsoport.HAT, "Pucsít", "", 0));
-        
-        return result;
-    }
+    private List<IGyakorlat> gyakorlatok;
     
-    public static List<IGyakorlat> getGyakorlatList(String url) throws MalformedURLException, IOException {
+    public List<IGyakorlat> getGyakorlatList(String url) throws MalformedURLException, IOException {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
         HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
         con.setRequestMethod("POST");
@@ -83,31 +54,37 @@ public class GyakorlatLista {
                 return null;
             }
 
-            JSONArray josarr = job.getJSONArray("gyakorlatlista");
-            for (int i = 0; i < josarr.length(); i++) {
-                Gyakorlat gyaksi = new Gyakorlat();
-                gyaksi.loadGyakorlatFromJson(josarr.getJSONObject(i));
-                gyakorlats.add(gyaksi);
-            } 
+            GyakorlatBetolto<JSONObject> gyakorlatBetolto = new GyakorlatBetolto(new JSONGyTransform(url));
+            gyakorlats = gyakorlatBetolto.betolt(job);
         } else {
             System.out.println("Nem lehetett elérni az adatokat a szerverről");
         }
         
+        gyakorlatok = gyakorlats;
         return gyakorlats;
     }
     
-    private static String getStringFromInput(InputStream in) throws IOException {
+    public List<IGyakorlat> getGyakorlatFromCSV(String fn) throws IOException {
+        InputStream in = getClass().getClassLoader().getResourceAsStream(fn);
+        String src = getStringFromInput(in);
+        
+        GyakorlatBetolto<String> gyakorlatBetolto = new GyakorlatBetolto<>(new CsvGyTranform(fn));
+        gyakorlatok = gyakorlatBetolto.betolt(src);
+        return gyakorlatok;
+    }
+    
+    private String getStringFromInput(InputStream in) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader bin = new BufferedReader(new InputStreamReader(in));
         String line;
         while((line = bin.readLine()) != null) {
-            sb.append(line);
+            sb.append(line).append("\n");
         }
         
         return sb.toString();
     }
     
-    private static Optional<String> getOpt(JSONObject obj, String key) {
+    private Optional<String> getOpt(JSONObject obj, String key) {
         Optional<String> res = Optional.empty();
         try {
             res = Optional.ofNullable(obj.getString(key));
@@ -115,5 +92,11 @@ public class GyakorlatLista {
             System.out.println("Hiba történt: loggolni való lesz: "+e.getMessage());
         }
         return res;
+    }
+    
+    public List<String> getIzomCsoport() {
+        Set<String> izomcsoportok = gyakorlatok.stream().map(f->f.getIzomcsoport().toString()).collect(
+            Collectors.toSet());
+        return new ArrayList<>(izomcsoportok);
     }
 }
