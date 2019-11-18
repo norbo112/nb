@@ -8,6 +8,8 @@ package com.norbo.projects.progj18edzesnaplo.dodata;
 import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -27,11 +29,17 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 public class ExcelGyTransform extends AbstractTrasform<String>{
 
     @Override
+    String getStringFromFile(String path) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
+    @Override
     public List<IGyakorlat> betolt(String source) {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
         try {
             
-            InputStream in = this.getClass().getClassLoader().getResourceAsStream(source);
+            InputStream in = new FileInputStream(new File(source));
             
             XSSFWorkbook workbook = XSSFWorkbookFactory.createWorkbook(in);
             XSSFSheet sheet = workbook.getSheetAt(0);
