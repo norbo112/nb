@@ -27,11 +27,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 public class ExcelGyTransform extends AbstractTrasform<String>{
 
     @Override
-    public List<IGyakorlat> betolt(String fn) {
+    public List<IGyakorlat> betolt(String source) {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
         try {
             
-            InputStream in = this.getClass().getClassLoader().getResourceAsStream(fn);
+            InputStream in = this.getClass().getClassLoader().getResourceAsStream(source);
             
             XSSFWorkbook workbook = XSSFWorkbookFactory.createWorkbook(in);
             XSSFSheet sheet = workbook.getSheetAt(0);
