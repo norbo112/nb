@@ -26,6 +26,11 @@ public class CsvGyTranform extends AbstractTrasform<String>{
     @Override
     String getStringFromFile(String path) {
         StringBuilder sb = new StringBuilder();
+        
+        if(!path.endsWith(".csv")) {
+            return path;
+        }
+        
         try(BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(path)))) {
             String line;
