@@ -14,6 +14,7 @@ import java.util.List;
  * @param <T>
  */
 public abstract class AbstractTrasform<T> implements IGyTramsform<T> {
+    abstract String getStringFromFile(String path);
     
     @Override
     public abstract List<IGyakorlat> betolt(T source);
