@@ -17,12 +17,7 @@ import org.json.JSONObject;
  *
  * @author igloi
  */
-public class JSONGyTransform extends AbstractTrasform<JSONObject>{
-
-    public JSONGyTransform(String url) {
-        super(url);
-    }
-
+public class JSONGyTransform extends AbstractTrasform<JSONObject> {
     @Override
     public List<IGyakorlat> betolt(JSONObject source) {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
