@@ -14,15 +14,6 @@ import java.util.List;
  * @param <T>
  */
 public abstract class AbstractTrasform<T> implements IGyTramsform<T> {
-    private final String url;
-
-    public AbstractTrasform(String url) {
-        this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
-    } 
     
     @Override
     public abstract List<IGyakorlat> betolt(T source);
