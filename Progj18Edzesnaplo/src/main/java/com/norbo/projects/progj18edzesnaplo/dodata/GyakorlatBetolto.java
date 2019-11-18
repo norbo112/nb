@@ -11,7 +11,7 @@ import java.util.List;
 /**
  *
  * @author igloi
- * @param <T>
+ * @param <T> Bármely objektum amit átszeretnénk konvertálni gyakorlat listává
  */
 public class GyakorlatBetolto<T> {
     private final AbstractTrasform<T> transformer;
