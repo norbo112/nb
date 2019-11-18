@@ -18,6 +18,12 @@ import org.json.JSONObject;
  * @author igloi
  */
 public class JSONGyTransform extends AbstractTrasform<JSONObject> {
+
+    @Override
+    String getStringFromFile(String path) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
     public List<IGyakorlat> betolt(JSONObject source) {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
@@ -29,7 +35,7 @@ public class JSONGyTransform extends AbstractTrasform<JSONObject> {
                     jobi.getInt("gyak_id"),
                     jobi.getString("megnevezes"),
                     Izomcsoport.getIzomCsoport(jobi.getString("csoport")),
-                    jobi.getString("leiras"),
+                    jobi.get("leiras").toString(),
                     jobi.getString("videolink"),
                     jobi.getInt("videostartpoz")
             ));
