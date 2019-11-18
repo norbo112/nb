@@ -1,7 +1,7 @@
 package com.norbo.projects.progj18edzesnaplo.main;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
-import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatLista;
+import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
 import java.io.IOException;
 import java.util.Collections;
@@ -19,16 +19,18 @@ public class Main {
     
     public static void main(String[] args) {
         try {
-            GyakorlatLista gyakorlatLista = new GyakorlatLista();
-            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatList(GyakorlatLista.GYAKURL);
+            GyakorlatListaKeszito gyakorlatLista = new GyakorlatListaKeszito();
+            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatList(GyakorlatListaKeszito.GYAKURL);
             gyfromurl.sort(COMP_IZOMCSOP);
             List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
             
-//            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatFromCSV("gyakorlat.csv");
-//            gyfromurl.sort(COMP_IZOMCSOP);
-//            List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
+            List<IGyakorlat> csvgyfromurl = gyakorlatLista.getGyakorlatFromCSV(GyakorlatListaKeszito.CSBFILE);
+            csvgyfromurl.sort(COMP_IZOMCSOP);
+            List<String> csvizomcsoportok = gyakorlatLista.getIzomCsoport();
             
             new Gyakorlatok(gyfromurl, izomcsoportok).showFrame();
+            new Gyakorlatok(csvgyfromurl, csvizomcsoportok).showFrame();
+            
         } catch (IOException ex) {
             System.out.println("Hiba törént az adatok elérése közben: "+ex);
         }
