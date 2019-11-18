@@ -25,22 +25,20 @@ public class Main {
             gyfromurl.sort(COMP_IZOMCSOP);
             List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
             
-            List<IGyakorlat> csvgyfromurl = gyakorlatLista.getGyakorlatCSV(GyakorlatListaKeszito.CSVFILE);
-            csvgyfromurl.sort(COMP_IZOMCSOP);
-            List<String> csvizomcsoportok = gyakorlatLista.getIzomCsoport();
+//            List<IGyakorlat> csvgyfromurl = gyakorlatLista.getGyakorlatCSV(GyakorlatListaKeszito.CSVFILE);
+//            csvgyfromurl.sort(COMP_IZOMCSOP);
+//            List<String> csvizomcsoportok = gyakorlatLista.getIzomCsoport();
+//            
+//            List<IGyakorlat> excelgyfromurl = gyakorlatLista.getGyakorlatExcel(GyakorlatListaKeszito.EXCELFILE);
+//            csvgyfromurl.sort(COMP_IZOMCSOP);
+//            List<String> excelizomcsoportok = gyakorlatLista.getIzomCsoport();
             
-            List<IGyakorlat> excelgyfromurl = gyakorlatLista.getGyakorlatExcel(GyakorlatListaKeszito.EXCELFILE);
-            csvgyfromurl.sort(COMP_IZOMCSOP);
-            List<String> excelizomcsoportok = gyakorlatLista.getIzomCsoport();
-            
-            new Gyakorlatok("JSON-ból felépített gyakorlat", gyfromurl, izomcsoportok).showFrame();
-            new Gyakorlatok("CSV fájlból felépített gyakorlat", csvgyfromurl, csvizomcsoportok).showFrame();
-            new Gyakorlatok("Excel fájlból felépített gyakorlat", excelgyfromurl, excelizomcsoportok).showFrame();
+            new Gyakorlatok("Gyakorlatok betöltése fájlból", gyfromurl, izomcsoportok).showFrame();
+//            new Gyakorlatok("CSV fájlból felépített gyakorlat", csvgyfromurl, csvizomcsoportok).showFrame();
+//            new Gyakorlatok("Excel fájlból felépített gyakorlat", excelgyfromurl, excelizomcsoportok).showFrame();
             
         } catch (IOException ex) {
             System.out.println("Hiba törént az adatok elérése közben: "+ex);
-        } catch (InvalidFormatException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
