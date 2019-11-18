@@ -32,6 +32,13 @@ import org.json.JSONObject;
  */
 public class GyakorlatListaKeszito extends Keszito {
     private List<IGyakorlat> gyakorlatok;
+
+    public GyakorlatListaKeszito() {
+    }
+
+    public void setGyakorlatok(List<IGyakorlat> gyakorlatok) {
+        this.gyakorlatok = gyakorlatok;
+    }
     
     public List<IGyakorlat> getGyakorlatListWeb(String url) throws MalformedURLException, IOException {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
