@@ -5,23 +5,25 @@
  */
 package com.norbo.projects.progj18edzesnaplo.dodata;
 
+import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
+import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
 import com.norbo.projects.progj18edzesnaplo.dodata.alap.Keszito;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.json.JSONException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 import org.json.JSONObject;
 
 /**
@@ -31,7 +33,7 @@ import org.json.JSONObject;
 public class GyakorlatListaKeszito extends Keszito {
     private List<IGyakorlat> gyakorlatok;
     
-    public List<IGyakorlat> getGyakorlatList(String url) throws MalformedURLException, IOException {
+    public List<IGyakorlat> getGyakorlatListWeb(String url) throws MalformedURLException, IOException {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
         HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
         con.setRequestMethod("POST");
@@ -53,7 +55,7 @@ public class GyakorlatListaKeszito extends Keszito {
                 return null;
             }
 
-            GyakorlatBetolto<JSONObject> gyakorlatBetolto = new GyakorlatBetolto(new JSONGyTransform(url));
+            GyakorlatBetolto<JSONObject> gyakorlatBetolto = new GyakorlatBetolto(new JSONGyTransform());
             gyakorlats = gyakorlatBetolto.betolt(job);
         } else {
             System.out.println("Nem lehetett elérni az adatokat a szerverről");
@@ -62,12 +64,17 @@ public class GyakorlatListaKeszito extends Keszito {
         gyakorlatok = gyakorlats;
         return gyakorlats;
     }
+    
+    public List<IGyakorlat> getGyakorlatExcel(String fn) throws IOException, InvalidFormatException {
+        GyakorlatBetolto<String> gyakorlatBetolto = new GyakorlatBetolto<>(new ExcelGyTransform());
+        return gyakorlatBetolto.betolt(fn);
+    }
  
-    public List<IGyakorlat> getGyakorlatFromCSV(String fn) throws IOException {
+    public List<IGyakorlat> getGyakorlatCSV(String fn) throws IOException {
         InputStream in = getClass().getClassLoader().getResourceAsStream(fn);
         String src = getStringFromInput(in);
         
-        GyakorlatBetolto<String> gyakorlatBetolto = new GyakorlatBetolto<>(new CsvGyTranform(fn));
+        GyakorlatBetolto<String> gyakorlatBetolto = new GyakorlatBetolto<>(new CsvGyTranform());
         gyakorlatok = gyakorlatBetolto.betolt(src);
         return gyakorlatok;
     }
