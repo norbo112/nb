@@ -25,22 +25,12 @@ public class Gyakorlat extends AbstractGyakorlat {
     }
 
     @Override
-    public JSONObject readObject(String source) {
-        return new JSONObject(source);
-    }
-
-    @Override
-    public void loadGyakorlatFromJson(JSONObject jsonobject) {
-        setId(jsonobject.getInt("gyak_id"));
-        setMegnevezes(jsonobject.getString("megnevezes"));
-        setIzomcsoport(Izomcsoport.getIzomCsoport(jsonobject.getString("csoport")));
-        setLeiras(jsonobject.getString("leiras"));
-        setVideolink(jsonobject.getString("videolink"));
-        setVideostartpoz(jsonobject.getInt("videostartpoz"));
-    }
-
-    @Override
     public int compareTo(IGyakorlat o) {
         return getIzomcsoport().compareTo(o.getIzomcsoport());
+    }
+
+    @Override
+    public int compare(IGyakorlat o1, IGyakorlat o2) {
+        return o1.getIzomcsoport().toString().compareTo(o2.getIzomcsoport().toString());
     }
 }
