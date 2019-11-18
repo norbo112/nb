@@ -16,10 +16,6 @@ import java.util.List;
  * @author igloi
  */
 public class CsvGyTranform extends AbstractTrasform<String>{
-
-    public CsvGyTranform(String url) {
-        super(url);
-    }
     
     @Override
     public List<IGyakorlat> betolt(String source) {
