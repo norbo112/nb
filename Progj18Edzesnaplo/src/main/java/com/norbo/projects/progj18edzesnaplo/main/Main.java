@@ -4,10 +4,11 @@ import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -20,19 +21,26 @@ public class Main {
     public static void main(String[] args) {
         try {
             GyakorlatListaKeszito gyakorlatLista = new GyakorlatListaKeszito();
-            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatList(GyakorlatListaKeszito.GYAKURL);
+            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatListWeb(GyakorlatListaKeszito.GYAKURL);
             gyfromurl.sort(COMP_IZOMCSOP);
             List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
             
-            List<IGyakorlat> csvgyfromurl = gyakorlatLista.getGyakorlatFromCSV(GyakorlatListaKeszito.CSBFILE);
+            List<IGyakorlat> csvgyfromurl = gyakorlatLista.getGyakorlatCSV(GyakorlatListaKeszito.CSVFILE);
             csvgyfromurl.sort(COMP_IZOMCSOP);
             List<String> csvizomcsoportok = gyakorlatLista.getIzomCsoport();
             
-            new Gyakorlatok(gyfromurl, izomcsoportok).showFrame();
-            new Gyakorlatok(csvgyfromurl, csvizomcsoportok).showFrame();
+            List<IGyakorlat> excelgyfromurl = gyakorlatLista.getGyakorlatExcel(GyakorlatListaKeszito.EXCELFILE);
+            csvgyfromurl.sort(COMP_IZOMCSOP);
+            List<String> excelizomcsoportok = gyakorlatLista.getIzomCsoport();
+            
+            new Gyakorlatok("JSON-ból felépített gyakorlat", gyfromurl, izomcsoportok).showFrame();
+            new Gyakorlatok("CSV fájlból felépített gyakorlat", csvgyfromurl, csvizomcsoportok).showFrame();
+            new Gyakorlatok("Excel fájlból felépített gyakorlat", excelgyfromurl, excelizomcsoportok).showFrame();
             
         } catch (IOException ex) {
             System.out.println("Hiba törént az adatok elérése közben: "+ex);
+        } catch (InvalidFormatException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
