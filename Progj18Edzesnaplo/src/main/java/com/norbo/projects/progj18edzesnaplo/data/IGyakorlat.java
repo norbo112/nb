@@ -21,7 +21,4 @@ public interface IGyakorlat extends Serializable {
     public void setLeiras(String leiras);
     public void setVideolink(String videolink);
     public void setVideostartpoz(int videostartpoz);
-    
-    public JSONObject readObject(String source);
-    public void loadGyakorlatFromJson(JSONObject jsonobject);
 }
