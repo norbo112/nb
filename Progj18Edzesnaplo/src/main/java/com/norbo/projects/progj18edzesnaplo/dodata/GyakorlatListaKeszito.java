@@ -30,7 +30,7 @@ import org.json.JSONObject;
  *
  * @author igloi
  */
-public class GyakorlatListaKeszito extends Keszito {
+public class GyakorlatListaKeszito {
     private List<IGyakorlat> gyakorlatok;
 
     public GyakorlatListaKeszito() {
@@ -40,49 +40,25 @@ public class GyakorlatListaKeszito extends Keszito {
         this.gyakorlatok = gyakorlatok;
     }
     
-    public List<IGyakorlat> getGyakorlatListWeb(String url) throws MalformedURLException, IOException {
+    public List<IGyakorlat> getGyakorlatListJSON(String url) throws MalformedURLException, IOException {
         List<IGyakorlat> gyakorlats = new ArrayList<>();
-        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-        con.setRequestMethod("POST");
-        con.setDoOutput(true);
         
-        String params = "keres=GYAKLISTALEKER";
-        
-        try (OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream())) {
-            out.write(params);
-        }
-        
-        if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            String inputstring = getStringFromInput(con.getInputStream());
-            JSONObject job = new JSONObject(inputstring);
-
-            if(getOpt(job, "hgyakorlatlista").isPresent()) {
-                System.out.println("Hiba történt az adatok fogadása közben: "+
-                        getOpt(job,"hgyakorlatlista").get());
-                return null;
-            }
-
-            GyakorlatBetolto<JSONObject> gyakorlatBetolto = new GyakorlatBetolto(new JSONGyTransform());
-            gyakorlats = gyakorlatBetolto.betolt(job);
-        } else {
-            System.out.println("Nem lehetett elérni az adatokat a szerverről");
-        }
-        
+        GyakorlatBetolto betolto = new GyakorlatBetolto(new JSONGyTransform());
+        gyakorlats = betolto.betolt(url);
         gyakorlatok = gyakorlats;
         return gyakorlats;
     }
     
     public List<IGyakorlat> getGyakorlatExcel(String fn) throws IOException, InvalidFormatException {
-        GyakorlatBetolto<String> gyakorlatBetolto = new GyakorlatBetolto<>(new ExcelGyTransform());
+        GyakorlatBetolto gyakorlatBetolto = new GyakorlatBetolto(new ExcelGyTransform());
         return gyakorlatBetolto.betolt(fn);
     }
  
     public List<IGyakorlat> getGyakorlatCSV(String fn) throws IOException {
         InputStream in = getClass().getClassLoader().getResourceAsStream(fn);
-        String src = getStringFromInput(in);
         
-        GyakorlatBetolto<String> gyakorlatBetolto = new GyakorlatBetolto<>(new CsvGyTranform());
-        gyakorlatok = gyakorlatBetolto.betolt(src);
+        GyakorlatBetolto gyakorlatBetolto = new GyakorlatBetolto(new CsvGyTranform());
+        gyakorlatok = gyakorlatBetolto.betolt(fn);
         return gyakorlatok;
     }
 
