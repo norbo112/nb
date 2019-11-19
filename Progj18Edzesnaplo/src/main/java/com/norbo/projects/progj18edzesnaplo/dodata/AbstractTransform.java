@@ -33,6 +33,9 @@ public abstract class AbstractTransform implements IGyTramsform {
     
     @Override
     public abstract List<IGyakorlat> betolt(String path);
+
+    @Override
+    public abstract boolean gyakorlatMent(List<IGyakorlat> gyks, String path);
     
     protected String getString(String path, String query) throws MalformedURLException, IOException {
         if(path.startsWith("http://")) {
