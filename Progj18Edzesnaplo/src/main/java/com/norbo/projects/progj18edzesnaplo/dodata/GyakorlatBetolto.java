@@ -13,14 +13,14 @@ import java.util.List;
  * @author igloi
  * @param <T> Bármely objektum amit átszeretnénk konvertálni gyakorlat listává
  */
-public class GyakorlatBetolto<T> {
-    private final AbstractTrasform<T> transformer;
+public class GyakorlatBetolto {
+    private final AbstractTrasform transformer;
 
-    public GyakorlatBetolto(AbstractTrasform<T> transformer) {
+    public GyakorlatBetolto(AbstractTrasform transformer) {
         this.transformer = transformer;
     }
     
-    public List<IGyakorlat> betolt(T src) {
-        return transformer.betolt(src);
+    public List<IGyakorlat> betolt(String path) {
+        return transformer.betolt(path);
     }
 }
