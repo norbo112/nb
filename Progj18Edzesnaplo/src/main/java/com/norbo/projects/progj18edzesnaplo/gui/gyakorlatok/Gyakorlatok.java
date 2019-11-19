@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Gyakorlatok extends javax.swing.JFrame {
     private List<IGyakorlat> gyakorlats;
+    private List<IGyakorlat> szurtlista; //ha esetleg csak ezt mentené az ember....
     private List<String> izomcsoportok;
     private DefaultTableModel sajatTableModel;
     
@@ -119,6 +120,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
         btnJson = new javax.swing.JButton();
         btnCsv = new javax.swing.JButton();
         btnExcel = new javax.swing.JButton();
+        cbSzurte = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gyakorlatok");
@@ -191,8 +193,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1))
         );
 
         lbCimsor.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -235,32 +236,35 @@ public class Gyakorlatok extends javax.swing.JFrame {
             }
         });
 
+        cbSzurte.setText("Szűrt lista mentése?");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCsv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnJson, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
-                    .addContainerGap()))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCsv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnJson, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(cbSzurte)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(btnJson)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnCsv)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnExcel)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cbSzurte)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnJson)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCsv)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnExcel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -269,11 +273,12 @@ public class Gyakorlatok extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,7 +287,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -344,9 +349,14 @@ public class Gyakorlatok extends javax.swing.JFrame {
                     iGyakorlat.getId(), iGyakorlat.getIzomcsoport(), iGyakorlat.getMegnevezes(),
                     iGyakorlat.getLeiras(), iGyakorlat.getVideolink(), iGyakorlat.getVideostartpoz()
                 });
-            });        
+            });
+            
+            szurtlista = pszurtLista;
+            //ha véletlen a kiválasztott gyakorlatokat akarja az ember kimenteni
+            cbSzurte.setSelected(true);
         } else {
             loadGyaksik(gyakorlats);
+            cbSzurte.setSelected(false);
         }
     }//GEN-LAST:event_cbIzomcsopActionPerformed
 
@@ -380,37 +390,50 @@ public class Gyakorlatok extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
-        JFileChooser jfc = new JFileChooser();
-        String filename = new String(JOptionPane.showInputDialog("Kérem a fájl nevét").getBytes());
-        jfc.setFileFilter(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                return f.isDirectory();
-            }
 
-            @Override
-            public String getDescription() {
-                return "";
-            }
-        });
-        
-        String jfcPath = jfc.getSelectedFile().getAbsolutePath();
-        
-        GyakorlatBetolto bt = new GyakorlatBetolto(new ExcelGyTransform());
-        if(bt.ment(gyakorlats,new File(jfcPath, filename+".xlsx").getAbsolutePath())) {
+        String filename = JOptionPane.showInputDialog("Kérem a fájl nevét\ndokumentumokba való mentéshez");
+
+        if (filename != null) {
+            GyakorlatBetolto bt = new GyakorlatBetolto(new ExcelGyTransform());
+            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, System.getProperty("user.home")
+                + System.getProperty("file.separator") + "Dokumentumok"
+                + System.getProperty("file.separator") + filename + ".xlsx")) {
             JOptionPane.showMessageDialog(rootPane, "Sikeres fájl export");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Hiba történt a fájl mentése közben");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Hiba történt a fájl mentése közben");
+            }
         }
     }//GEN-LAST:event_btnExcelActionPerformed
 
-    private void btnJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJsonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnJsonActionPerformed
-
     private void btnCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCsvActionPerformed
-        // TODO add your handling code here:
+
+        String filename = JOptionPane.showInputDialog("Kérem a fájl nevét\n(dokumentumokba lesz mentve)");
+        
+        if (filename != null) {
+            GyakorlatBetolto bt = new GyakorlatBetolto(new CsvGyTransform());
+            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, System.getProperty("user.home")
+                    + System.getProperty("file.separator") + "Dokumentumok"
+                    + System.getProperty("file.separator") + filename + ".csv")) {
+                JOptionPane.showMessageDialog(rootPane, "Sikeres fájl export");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Hiba történt a fájl mentése közben");
+            }
+        }
     }//GEN-LAST:event_btnCsvActionPerformed
+
+    private void btnJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJsonActionPerformed
+        String filename = JOptionPane.showInputDialog("Kérem a fájl nevét\ndokumentumokba való mentéshez");
+        if (filename != null) {
+            GyakorlatBetolto bt = new GyakorlatBetolto(new JSONGyTransform());
+            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, System.getProperty("user.home")
+                + System.getProperty("file.separator") + "Dokumentumok"
+                + System.getProperty("file.separator") + filename + ".json")) {
+            JOptionPane.showMessageDialog(rootPane, "Sikeres fájl export");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Hiba történt a fájl mentése közben");
+            }
+        }
+    }//GEN-LAST:event_btnJsonActionPerformed
                                    
     public void showFrame() {
         /* Set the Nimbus look and feel */
@@ -450,6 +473,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
     private javax.swing.JButton btnExcel;
     private javax.swing.JButton btnJson;
     private javax.swing.JComboBox<String> cbIzomcsop;
+    private javax.swing.JCheckBox cbSzurte;
     private javax.swing.JTable gyakorlatTabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
