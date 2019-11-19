@@ -8,10 +8,8 @@ package com.norbo.projects.progj18edzesnaplo.dodata;
 import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,32 +19,18 @@ import java.util.logging.Logger;
  *
  * @author igloi
  */
-public class CsvGyTranform extends AbstractTrasform<String>{
-
+public class CsvGyTranform extends AbstractTrasform {
     @Override
-    String getStringFromFile(String path) {
-        StringBuilder sb = new StringBuilder();
-        
-        if(!path.endsWith(".csv")) {
-            return path;
-        }
-        
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(
-                new FileInputStream(path)))) {
-            String line;
-            while((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
+    public List<IGyakorlat> betolt(String path) {
+        String source = null;
+        try {
+            source = getString(path, null);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(CsvGyTranform.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(CsvGyTranform.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return sb.toString();
-    }
-    
-    @Override
-    public List<IGyakorlat> betolt(String source) {
-        source = getStringFromFile(source);
         List<IGyakorlat> gyakorlats = new ArrayList<>();
         String[] sorok = source.split("\n");
         for (String string : sorok) {
