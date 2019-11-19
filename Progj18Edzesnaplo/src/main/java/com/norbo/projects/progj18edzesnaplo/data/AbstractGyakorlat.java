@@ -5,13 +5,14 @@
  */
 package com.norbo.projects.progj18edzesnaplo.data;
 
+import java.util.Comparator;
 import org.json.JSONObject;
 
 /**
  *
  * @author igloi
  */
-public abstract class AbstractGyakorlat implements IGyakorlat, Comparable<IGyakorlat> {
+public abstract class AbstractGyakorlat implements IGyakorlat, Comparable<IGyakorlat>, Comparator<IGyakorlat> {
     private int id;
     private String megnevezes;
     private Izomcsoport izomcsoport;
@@ -103,14 +104,30 @@ public abstract class AbstractGyakorlat implements IGyakorlat, Comparable<IGyako
         this.videostartpoz = videostartpoz;
     }
     
-    
-
-    @Override
-    public abstract JSONObject readObject(String source);
-
-    @Override
-    public abstract void loadGyakorlatFromJson(JSONObject jsonobject);
-
     @Override
     public abstract int compareTo(IGyakorlat o);
+
+    @Override
+    public abstract int compare(IGyakorlat o1, IGyakorlat o2);
+
+    @Override
+    public JSONObject makeJsonObject() {
+        JSONObject job = new JSONObject();
+        job.append("gyak_id", id)
+                .append("csoport", izomcsoport.toString())
+                .append("megnevezes", megnevezes)
+                .append("leiras", leiras)
+                .append("Videolink", videolink)
+                .append("Videostartpoz", videostartpoz);
+        return job;
+    }
+
+    @Override
+    public String makeCsvForm() {
+        return id+";"+megnevezes+";"+izomcsoport.toString()+";"+
+                (leiras != null && leiras.length()>5 ? leiras : "nincs leírás")+";"+
+                (videolink != null && videolink.length() > 5 ? videolink : "nincs video")+";"+videostartpoz;
+    }
+    
+    
 }
