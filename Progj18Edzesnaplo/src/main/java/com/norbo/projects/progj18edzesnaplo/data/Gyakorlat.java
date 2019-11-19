@@ -26,7 +26,7 @@ public class Gyakorlat extends AbstractGyakorlat {
 
     @Override
     public int compareTo(IGyakorlat o) {
-        return getIzomcsoport().compareTo(o.getIzomcsoport());
+        return getIzomcsoport().toString().compareTo(o.getIzomcsoport().toString());
     }
 
     @Override
