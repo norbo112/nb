@@ -8,6 +8,8 @@ package com.norbo.projects.progj18edzesnaplo.dodata;
 import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONWriter;
 
 /**
  *
@@ -49,5 +52,27 @@ public class JSONGyTransform extends AbstractTransform {
         }
         
         return gyakorlats;
+    }
+
+    @Override
+    public boolean gyakorlatMent(List<IGyakorlat> gyks, String path) {
+        JSONObject job = new JSONObject();
+        JSONArray arr = new JSONArray();
+        
+        for (IGyakorlat gyk : gyks) {
+            arr.put(gyk.makeJsonObject());
+        }
+        
+        job.append("gyakorlatlista", arr);
+        
+        try(BufferedWriter br = new BufferedWriter(new FileWriter(path))) {
+            br.append(job.toString());
+            
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(JSONGyTransform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 }
