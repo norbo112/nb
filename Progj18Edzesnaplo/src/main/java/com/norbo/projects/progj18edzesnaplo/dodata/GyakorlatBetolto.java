@@ -14,9 +14,9 @@ import java.util.List;
  * @param <T> Bármely objektum amit átszeretnénk konvertálni gyakorlat listává
  */
 public class GyakorlatBetolto {
-    private final AbstractTrasform transformer;
+    private final AbstractTransform transformer;
 
-    public GyakorlatBetolto(AbstractTrasform transformer) {
+    public GyakorlatBetolto(AbstractTransform transformer) {
         this.transformer = transformer;
     }
     
