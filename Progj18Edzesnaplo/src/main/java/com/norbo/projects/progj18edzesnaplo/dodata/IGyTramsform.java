@@ -13,6 +13,6 @@ import java.util.List;
  * @author igloi
  * @param <T>
  */
-public interface IGyTramsform<T> {
-    List<IGyakorlat> betolt(T source);
+public interface IGyTramsform {
+    List<IGyakorlat> betolt(String path);
 }
