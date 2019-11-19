@@ -300,34 +300,30 @@ public class Gyakorlatok extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         List<IGyakorlat> gyaklista = null;
-        try {
-            JFileChooser jFileChooser = new JFileChooser();
-            int select = jFileChooser.showOpenDialog(jPanel1);
-            if (select == JFileChooser.APPROVE_OPTION) {
-                File f = jFileChooser.getSelectedFile();
-                String path = f.getAbsolutePath();
-                System.out.println(path);
-                if (path.endsWith(".json")) {
-                    GyakorlatBetolto<JSONObject> betolto = new GyakorlatBetolto<JSONObject>(new JSONGyTransform());
-                    gyaklista = betolto.betolt(new JSONObject(new String(Files.readAllBytes(Paths.get(path)))));
-                } else if (path.endsWith(".xlsx")) {
-                    GyakorlatBetolto<String> betolto = new GyakorlatBetolto<String>(new ExcelGyTransform());
-                    gyaklista = betolto.betolt(path);
-                } else if (path.endsWith(".csv")) {
-                    GyakorlatBetolto<String> betolto = new GyakorlatBetolto<String>(new CsvGyTranform());
-                    gyaklista = betolto.betolt(path);
-                }
-                
-                GyakorlatListaKeszito gyk = new GyakorlatListaKeszito();
-                gyk.setGyakorlatok(gyaklista);
-                gyakorlats = gyaklista;
-                Collections.sort(gyakorlats, (IGyakorlat o1, IGyakorlat o2) -> o1.getIzomcsoport().toString().compareTo(
-                        o2.getIzomcsoport().toString()));
-                loadGyaksik(gyaklista);
-                loadIzomcsoportok(gyk.getIzomCsoport());
+        JFileChooser jFileChooser = new JFileChooser();
+        int select = jFileChooser.showOpenDialog(jPanel1);
+        if (select == JFileChooser.APPROVE_OPTION) {
+            File f = jFileChooser.getSelectedFile();
+            String path = f.getAbsolutePath();
+            System.out.println(path);
+            if (path.endsWith(".json")) {
+                GyakorlatBetolto betolto = new GyakorlatBetolto(new JSONGyTransform());
+                gyaklista = betolto.betolt(path);
+            } else if (path.endsWith(".xlsx")) {
+                GyakorlatBetolto betolto = new GyakorlatBetolto(new ExcelGyTransform());
+                gyaklista = betolto.betolt(path);
+            } else if (path.endsWith(".csv")) {
+                GyakorlatBetolto betolto = new GyakorlatBetolto(new CsvGyTranform());
+                gyaklista = betolto.betolt(path);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Gyakorlatok.class.getName()).log(Level.SEVERE, null, ex);
+            
+            GyakorlatListaKeszito gyk = new GyakorlatListaKeszito();
+            gyk.setGyakorlatok(gyaklista);
+            gyakorlats = gyaklista;
+            Collections.sort(gyakorlats, (IGyakorlat o1, IGyakorlat o2) -> o1.getIzomcsoport().toString().compareTo(
+                    o2.getIzomcsoport().toString()));
+            loadGyaksik(gyaklista);
+            loadIzomcsoportok(gyk.getIzomCsoport());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
                                    
