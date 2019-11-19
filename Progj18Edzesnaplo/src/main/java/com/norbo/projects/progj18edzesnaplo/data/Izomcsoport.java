@@ -12,7 +12,7 @@ package com.norbo.projects.progj18edzesnaplo.data;
 public enum Izomcsoport {
     MELL("Mell"), HAT("Hát"), LAB("Láb"),
     HAS("Has"), ALKAR("Alkar"), BICEPSZ("Bicepsz"),
-    TRICEPSZ("Tricepsz"), VADLI("Vádli"), VALL("Váll");
+    TRICEPSZ("Tricepsz"), VADLI("Vádli"), VALL("Váll"), CSUKLYA("Csuklya");
     
     String s;
     
@@ -25,5 +25,19 @@ public enum Izomcsoport {
         return s;
     }
 
-    
+    public static Izomcsoport getIzomCsoport(String nev) {
+        switch(nev) {
+            case "Mell" : return MELL;
+            case "Hát" : return HAT;
+            case "Láb" : return LAB;
+            case "Alkar" : return ALKAR;
+            case "Bicepsz" : return BICEPSZ;
+            case "Tricepsz" : return TRICEPSZ;
+            case "Has" : return HAS;
+            case "Váll": return VALL;
+            case "Vádli" : return VADLI;
+            case "Csuklya" : return CSUKLYA;
+            default: return null;
+        }
+    }
 }
