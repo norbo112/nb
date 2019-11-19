@@ -23,4 +23,8 @@ public class GyakorlatBetolto {
     public List<IGyakorlat> betolt(String path) {
         return transformer.betolt(path);
     }
+    
+    public boolean ment(List<IGyakorlat> gyks, String path) {
+        return transformer.gyakorlatMent(gyks, path);
+    }
 }
