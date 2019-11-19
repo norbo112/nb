@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface IGyTramsform {
     List<IGyakorlat> betolt(String path);
+    boolean gyakorlatMent(List<IGyakorlat> gyks, String path);
 }
