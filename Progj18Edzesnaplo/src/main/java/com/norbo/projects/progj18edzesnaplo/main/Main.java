@@ -31,7 +31,7 @@ public class Main {
 //            csvgyfromurl.sort(COMP_IZOMCSOP);
 //            List<String> excelizomcsoportok = gyakorlatLista.getIzomCsoport();
             
-            new Gyakorlatok("Gyakorlatok betöltése fájlból", gyfromurl, izomcsoportok).showFrame();
+            new Gyakorlatok(gyfromurl, izomcsoportok).showFrame();
 //            new Gyakorlatok("CSV fájlból felépített gyakorlat", csvgyfromurl, csvizomcsoportok).showFrame();
 //            new Gyakorlatok("Excel fájlból felépített gyakorlat", excelgyfromurl, excelizomcsoportok).showFrame();
             
