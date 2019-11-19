@@ -20,7 +20,7 @@ import org.json.JSONObject;
  *
  * @author igloi
  */
-public class JSONGyTransform extends AbstractTrasform { 
+public class JSONGyTransform extends AbstractTransform { 
     
     @Override
     public List<IGyakorlat> betolt(String path) {
