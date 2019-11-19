@@ -48,6 +48,7 @@ public class CsvGyTransform extends AbstractTransform {
     @Override
     public boolean gyakorlatMent(List<IGyakorlat> gyks, String path) {
         try(BufferedWriter br = new BufferedWriter(new FileWriter(path))) {
+            br.append("Id;Megnevezés;Izomcsoport;Leírás;Videolink;Videostartpoz\n");
             for (IGyakorlat gyk : gyks) {
                 br.append(gyk.makeCsvForm());
                 br.append("\n");
