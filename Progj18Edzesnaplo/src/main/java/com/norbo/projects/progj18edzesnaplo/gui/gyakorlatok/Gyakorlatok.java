@@ -8,7 +8,7 @@ package com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok;
 import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
-import com.norbo.projects.progj18edzesnaplo.dodata.CsvGyTranform;
+import com.norbo.projects.progj18edzesnaplo.dodata.CsvGyTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.ExcelGyTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatBetolto;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
@@ -313,7 +313,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
                 GyakorlatBetolto betolto = new GyakorlatBetolto(new ExcelGyTransform());
                 gyaklista = betolto.betolt(path);
             } else if (path.endsWith(".csv")) {
-                GyakorlatBetolto betolto = new GyakorlatBetolto(new CsvGyTranform());
+                GyakorlatBetolto betolto = new GyakorlatBetolto(new CsvGyTransform());
                 gyaklista = betolto.betolt(path);
             }
             
