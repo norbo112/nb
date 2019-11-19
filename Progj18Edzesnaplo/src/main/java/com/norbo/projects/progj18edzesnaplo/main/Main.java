@@ -1,14 +1,12 @@
 package com.norbo.projects.progj18edzesnaplo.main;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
+import com.norbo.projects.progj18edzesnaplo.dodata.AbstractTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -21,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             GyakorlatListaKeszito gyakorlatLista = new GyakorlatListaKeszito();
-            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatListWeb(GyakorlatListaKeszito.GYAKURL);
+            List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatListJSON(AbstractTransform.GYAKURL);
             gyfromurl.sort(COMP_IZOMCSOP);
             List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
             
