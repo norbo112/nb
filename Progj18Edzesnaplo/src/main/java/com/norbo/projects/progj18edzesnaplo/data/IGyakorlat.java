@@ -23,4 +23,5 @@ public interface IGyakorlat extends Serializable {
     public void setVideostartpoz(int videostartpoz);
     
     public JSONObject makeJsonObject();
+    public String makeCsvForm();
 }
