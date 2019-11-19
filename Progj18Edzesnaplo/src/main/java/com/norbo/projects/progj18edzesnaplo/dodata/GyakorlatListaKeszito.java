@@ -5,26 +5,15 @@
  */
 package com.norbo.projects.progj18edzesnaplo.dodata;
 
-import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
-import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
-import com.norbo.projects.progj18edzesnaplo.dodata.alap.Keszito;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
-import org.json.JSONObject;
 
 /**
  *
@@ -57,7 +46,7 @@ public class GyakorlatListaKeszito {
     public List<IGyakorlat> getGyakorlatCSV(String fn) throws IOException {
         InputStream in = getClass().getClassLoader().getResourceAsStream(fn);
         
-        GyakorlatBetolto gyakorlatBetolto = new GyakorlatBetolto(new CsvGyTranform());
+        GyakorlatBetolto gyakorlatBetolto = new GyakorlatBetolto(new CsvGyTransform());
         gyakorlatok = gyakorlatBetolto.betolt(fn);
         return gyakorlatok;
     }
