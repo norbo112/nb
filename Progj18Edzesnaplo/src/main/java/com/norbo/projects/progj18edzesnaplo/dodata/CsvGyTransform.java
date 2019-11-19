@@ -8,6 +8,8 @@ package com.norbo.projects.progj18edzesnaplo.dodata;
 import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -42,5 +44,20 @@ public class CsvGyTransform extends AbstractTransform {
         
         return gyakorlats;
     }
-    
+
+    @Override
+    public boolean gyakorlatMent(List<IGyakorlat> gyks, String path) {
+        try(BufferedWriter br = new BufferedWriter(new FileWriter(path))) {
+            for (IGyakorlat gyk : gyks) {
+                br.append(gyk.makeCsvForm());
+                br.append("\n");
+            }
+            
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(CsvGyTransform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
 }
