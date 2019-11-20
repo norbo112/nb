@@ -395,15 +395,17 @@ public class Gyakorlatok extends javax.swing.JFrame {
 
         if (filename != null) {
             GyakorlatBetolto bt = new GyakorlatBetolto(new ExcelGyTransform());
-            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, System.getProperty("user.home")
-                + System.getProperty("file.separator") + "Dokumentumok"
-                + System.getProperty("file.separator") + filename + ".xlsx")) {
+            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, propertyUserHome
+                + propertyPSeparator + "Dokumentumok"
+                + propertyPSeparator + filename + ".xlsx")) {
             JOptionPane.showMessageDialog(rootPane, "Sikeres fájl export");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Hiba történt a fájl mentése közben");
             }
         }
     }//GEN-LAST:event_btnExcelActionPerformed
+    private final String propertyPSeparator = System.getProperty("file.separator");
+    private final String propertyUserHome = System.getProperty("user.home");
 
     private void btnCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCsvActionPerformed
 
@@ -411,9 +413,9 @@ public class Gyakorlatok extends javax.swing.JFrame {
         
         if (filename != null) {
             GyakorlatBetolto bt = new GyakorlatBetolto(new CsvGyTransform());
-            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, System.getProperty("user.home")
-                    + System.getProperty("file.separator") + "Dokumentumok"
-                    + System.getProperty("file.separator") + filename + ".csv")) {
+            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, propertyUserHome
+                    + propertyPSeparator + "Dokumentumok"
+                    + propertyPSeparator + filename + ".csv")) {
                 JOptionPane.showMessageDialog(rootPane, "Sikeres fájl export");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Hiba történt a fájl mentése közben");
@@ -425,9 +427,9 @@ public class Gyakorlatok extends javax.swing.JFrame {
         String filename = JOptionPane.showInputDialog("Kérem a fájl nevét\ndokumentumokba való mentéshez");
         if (filename != null) {
             GyakorlatBetolto bt = new GyakorlatBetolto(new JSONGyTransform());
-            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, System.getProperty("user.home")
-                + System.getProperty("file.separator") + "Dokumentumok"
-                + System.getProperty("file.separator") + filename + ".json")) {
+            if (bt.ment(cbSzurte.isSelected() ? szurtlista : gyakorlats, propertyUserHome
+                + propertyPSeparator + "Dokumentumok"
+                + propertyPSeparator + filename + ".json")) {
             JOptionPane.showMessageDialog(rootPane, "Sikeres fájl export");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Hiba történt a fájl mentése közben");
