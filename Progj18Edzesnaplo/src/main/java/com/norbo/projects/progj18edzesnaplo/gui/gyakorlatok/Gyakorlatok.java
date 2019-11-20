@@ -13,11 +13,15 @@ import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatBetolto;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
 import com.norbo.projects.progj18edzesnaplo.dodata.JSONGyTransform;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.szuro.GyakorlatSzuro;
+import java.awt.Frame;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +34,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
     private List<IGyakorlat> szurtlista; //ha esetleg csak ezt mentené az ember....
     private List<String> izomcsoportok;
     private DefaultTableModel sajatTableModel;
+    private final JFrame owner = this;
     
     private GyakorlatSzuro gyakorlatSzuro;
     
@@ -73,6 +78,16 @@ public class Gyakorlatok extends javax.swing.JFrame {
         
         loadGyaksik(gyakorlats);
         loadIzomcsoportok(izomcsoportok);
+    }
+    
+    private IGyakorlat getGyakorlatById(int id) {
+        for (IGyakorlat gyakorlat : gyakorlats) {
+            if(gyakorlat.getId() == id) {
+                return gyakorlat;
+            }
+        }
+        
+        return null;
     }
     
     private void loadIzomcsoportok(List<String> izomcsops) {
@@ -181,6 +196,11 @@ public class Gyakorlatok extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        gyakorlatTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gyakorlatTablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(gyakorlatTabla);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -436,6 +456,14 @@ public class Gyakorlatok extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnJsonActionPerformed
+
+    private void gyakorlatTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gyakorlatTablaMouseClicked
+        if(evt.getClickCount() == 2) {
+            new EgyGyakorlatDialog(getGyakorlatById(
+                        (Integer)gyakorlatTabla.getValueAt(
+                        gyakorlatTabla.getSelectedRow(), 0)), owner);
+        }
+    }//GEN-LAST:event_gyakorlatTablaMouseClicked
                                    
     public void showFrame() {
         /* Set the Nimbus look and feel */
