@@ -6,19 +6,7 @@
 package com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
-import java.awt.BorderLayout;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.media.Manager;
-import javax.media.MediaLocator;
-import javax.media.NoPlayerException;
-import javax.media.Player;
-import javax.media.protocol.DataSource;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 
 /**
  *
@@ -193,6 +181,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
             
             taLeiras.append(sp[i]+" ");
         }
+        
+        
     }
-    
 }
