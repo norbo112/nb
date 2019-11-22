@@ -6,9 +6,12 @@
 package com.norbo.projects.progj18edzesnaplo.data.naplo;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -19,8 +22,13 @@ public class AbstractSorozat implements SorozatInterface {
     List<Integer> ismList;
     IGyakorlat gyakorlat;
     List<LocalTime> ismIdoList;
+    LocalDateTime rogzitesiIdopont;
 
-    public AbstractSorozat() {
+    public AbstractSorozat(IGyakorlat gyakorlat) {
+        this.gyakorlat = gyakorlat;
+        this.sulyList = new ArrayList<>();
+        this.ismIdoList = new ArrayList<>();
+        this.ismList = new ArrayList<>();
     }
 
     public AbstractSorozat(List<Integer> sulyList, List<Integer> ismList, IGyakorlat gyakorlat, List<LocalTime> ismIdoList) {
@@ -29,6 +37,18 @@ public class AbstractSorozat implements SorozatInterface {
         this.gyakorlat = gyakorlat;
         this.ismIdoList = ismIdoList;
     }
+
+    @Override
+    public LocalDateTime getGyakRogzitesIdopontja() {
+        return rogzitesiIdopont;
+    }
+
+    @Override
+    public void setGyakRogzitesIdopontja(LocalDateTime idopont) {
+        this.rogzitesiIdopont = idopont;
+    }
+    
+    
 
     @Override
     public IGyakorlat getGyakorlat() {
@@ -94,6 +114,8 @@ public class AbstractSorozat implements SorozatInterface {
     public void setIsmAt(int index, int nism) {
         ismList.set(index, nism);
     }
+    
+    
 
     @Override
     public int hashCode() {
@@ -119,6 +141,4 @@ public class AbstractSorozat implements SorozatInterface {
         }
         return true;
     }
-    
-    
 }
