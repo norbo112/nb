@@ -6,10 +6,17 @@
 package com.norbo.projects.progj18edzesnaplo.gui;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.AbstractSorozat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatTableModel;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,6 +27,11 @@ public class NapiTerv extends javax.swing.JFrame {
     
     private List<IGyakorlat> gyakorlatList;
     private List<String> izomcsList;
+    private SorozatTableModel sajatTableModel;
+    private Sorozat actualSorozat;
+    
+    //csak tesztként
+    private List<Sorozat> sorozatok;
     
     private int suly;
     private int ismetles;
@@ -64,7 +76,7 @@ public class NapiTerv extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        sorozatTable = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -72,6 +84,8 @@ public class NapiTerv extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -92,6 +106,11 @@ public class NapiTerv extends javax.swing.JFrame {
         jPanel4.setForeground(new java.awt.Color(0, 0, 0));
 
         cbGyakorlatLista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGyakorlatLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbGyakorlatListaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Súly");
@@ -114,6 +133,11 @@ public class NapiTerv extends javax.swing.JFrame {
         });
 
         btnHozzaad.setText("Hozzáad");
+        btnHozzaad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHozzaadActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Töröl");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +237,7 @@ public class NapiTerv extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sorozatok", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel6.setForeground(new java.awt.Color(0, 0, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        sorozatTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -222,7 +246,7 @@ public class NapiTerv extends javax.swing.JFrame {
                 "Sorszám","Felvétel dátuma","Gyakorlat","Súly x Ismétlés","Időpont"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(sorozatTable);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -312,6 +336,10 @@ public class NapiTerv extends javax.swing.JFrame {
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Betöltés");
         jMenu1.add(jMenuItem2);
+        jMenu1.add(jSeparator1);
+
+        jMenuItem5.setText("Kilépés");
+        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
@@ -391,6 +419,36 @@ public class NapiTerv extends javax.swing.JFrame {
         initGyakLista();
     }//GEN-LAST:event_cbIzomcsoportListaActionPerformed
 
+    private void btnHozzaadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHozzaadActionPerformed
+        if(! ellenorzes(textSuly, textIsm)) {
+            JOptionPane.showMessageDialog(this, "Csak számokat tartalmazhat a suly és ismétlés mezők");
+        } else {
+//            IGyakorlat gy = getGyakorlatByName(cbGyakorlatLista.getSelectedItem().toString());
+            if(actualSorozat != null) {
+//                Sorozat s = new Sorozat(gy);
+                if(! sorozatok.contains(actualSorozat)) {
+                    actualSorozat.setGyakRogzitesIdopontja(LocalDateTime.now());
+                }
+                actualSorozat.addSuly(suly);
+                actualSorozat.addIsm(ismetles);
+                actualSorozat.addIsmIdo(LocalTime.now());
+            } else {
+                JOptionPane.showMessageDialog(this, "Nem találtam a kiválasztott gyakorlatot");
+            }
+        }
+    }//GEN-LAST:event_btnHozzaadActionPerformed
+
+    private void cbGyakorlatListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGyakorlatListaActionPerformed
+        String nev = cbGyakorlatLista.getSelectedItem().toString();
+        Sorozat sor = getSorozatByGyaknev(nev);
+        if(sor != null) {
+            actualSorozat = sor;
+        } else {
+            sajatTableModel.add(actualSorozat);
+            actualSorozat = new Sorozat(getGyakorlatByName(nev));
+        }
+    }//GEN-LAST:event_cbGyakorlatListaActionPerformed
+
     /**
      * 
      */
@@ -441,6 +499,7 @@ public class NapiTerv extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -450,13 +509,17 @@ public class NapiTerv extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable sorozatTable;
     private javax.swing.JTextField textIsm;
     private javax.swing.JTextField textSuly;
     // End of variables declaration//GEN-END:variables
 
     private void initMyCumok() {
+        sajatTableModel = new SorozatTableModel();
+        sorozatTable.setModel(sajatTableModel);
+        sorozatok = new ArrayList<>();
         initIzomCsopLista();
     }
 
@@ -474,5 +537,36 @@ public class NapiTerv extends javax.swing.JFrame {
         ))).forEachOrdered((gyak) -> {
             cbGyakorlatLista.addItem(gyak.getMegnevezes());
         });
+    }
+
+    private boolean ellenorzes(JTextField ...textfileds) {
+        for (int i = 0; i < textfileds.length; i++) {
+            JTextField textfiled = textfileds[i];
+            if(!textfiled.getText().matches("[0-9]+") && textfiled.getText().length() <= 0) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    private IGyakorlat getGyakorlatByName(String gyaknev) {
+        for (IGyakorlat iGyakorlat : gyakorlatList) {
+            if(iGyakorlat.getMegnevezes().equals(gyaknev)) {
+                return iGyakorlat;
+            }
+        }
+        
+        return null;
+    }
+    
+    private Sorozat getSorozatByGyaknev(String gyaknev) {
+        for (Sorozat sorozat : sorozatok) {
+            if(sorozat.getGyakorlat().getMegnevezes().equals(gyaknev)) {
+                return sorozat;
+            }
+        }
+        
+        return null;
     }
 }
