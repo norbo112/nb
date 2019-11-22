@@ -6,6 +6,7 @@
 package com.norbo.projects.progj18edzesnaplo.data;
 
 import java.util.Comparator;
+import java.util.Objects;
 import org.json.JSONObject;
 
 /**
@@ -127,6 +128,51 @@ public abstract class AbstractGyakorlat implements IGyakorlat, Comparable<IGyako
         return id+";"+megnevezes+";"+izomcsoport.toString()+";"+
                 (leiras != null && leiras.length()>5 ? leiras : "nincs leírás")+";"+
                 (videolink != null && videolink.length() > 5 ? videolink : "nincs video")+";"+videostartpoz;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + this.id;
+        hash = 83 * hash + Objects.hashCode(this.megnevezes);
+        hash = 83 * hash + Objects.hashCode(this.izomcsoport);
+        hash = 83 * hash + Objects.hashCode(this.leiras);
+        hash = 83 * hash + Objects.hashCode(this.videolink);
+        hash = 83 * hash + this.videostartpoz;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractGyakorlat other = (AbstractGyakorlat) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.videostartpoz != other.videostartpoz) {
+            return false;
+        }
+        if (!Objects.equals(this.megnevezes, other.megnevezes)) {
+            return false;
+        }
+        if (!Objects.equals(this.leiras, other.leiras)) {
+            return false;
+        }
+        if (!Objects.equals(this.videolink, other.videolink)) {
+            return false;
+        }
+        if (this.izomcsoport != other.izomcsoport) {
+            return false;
+        }
+        return true;
     }
     
     
