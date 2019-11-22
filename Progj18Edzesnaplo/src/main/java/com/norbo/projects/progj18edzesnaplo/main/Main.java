@@ -3,6 +3,7 @@ package com.norbo.projects.progj18edzesnaplo.main;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.dodata.AbstractTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
+import com.norbo.projects.progj18edzesnaplo.gui.NapiTerv;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
 import java.io.IOException;
 import java.util.Comparator;
@@ -31,10 +32,8 @@ public class Main {
 //            csvgyfromurl.sort(COMP_IZOMCSOP);
 //            List<String> excelizomcsoportok = gyakorlatLista.getIzomCsoport();
             
-            new Gyakorlatok(gyfromurl, izomcsoportok).showFrame();
-//            new Gyakorlatok("CSV fájlból felépített gyakorlat", csvgyfromurl, csvizomcsoportok).showFrame();
-//            new Gyakorlatok("Excel fájlból felépített gyakorlat", excelgyfromurl, excelizomcsoportok).showFrame();
-            
+//            new Gyakorlatok(gyfromurl, izomcsoportok).showFrame();
+            new NapiTerv(gyfromurl, izomcsoportok).showFrame();
         } catch (IOException ex) {
             System.out.println("Hiba törént az adatok elérése közben: "+ex);
         }
