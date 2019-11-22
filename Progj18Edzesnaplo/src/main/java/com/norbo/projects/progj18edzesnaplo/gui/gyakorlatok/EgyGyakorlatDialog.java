@@ -8,7 +8,6 @@ package com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
@@ -31,7 +30,7 @@ public class EgyGyakorlatDialog extends JDialog {
         setLayout(new BorderLayout(5,5));
         add(new EgyGyakDialogPanel(this, egyGyak));
         setMinimumSize(new Dimension(850, 400));
+        setLocationRelativeTo(null);
         setVisible(true);
-        
     }
 }
