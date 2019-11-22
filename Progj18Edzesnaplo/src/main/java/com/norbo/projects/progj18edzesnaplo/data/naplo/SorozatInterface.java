@@ -6,6 +6,7 @@
 package com.norbo.projects.progj18edzesnaplo.data.naplo;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import java.util.List;
  * @author igloi
  */
 public interface SorozatInterface {
+    public LocalDateTime getGyakRogzitesIdopontja();
+    public void setGyakRogzitesIdopontja(LocalDateTime idopont);
+    
     public IGyakorlat getGyakorlat();
     public void setGyakorlat(IGyakorlat gyakorlat);
     
