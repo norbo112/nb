@@ -7,6 +7,7 @@ package com.norbo.projects.progj18edzesnaplo.gui;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.AbstractSorozat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.MultiLineCellRenderer;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatTableModel;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
@@ -17,6 +18,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -73,10 +75,13 @@ public class NapiTerv extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         cbIzomcsoportLista = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         sorozatTable = new javax.swing.JTable();
+        lblOsszes = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -210,7 +215,33 @@ public class NapiTerv extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 122, Short.MAX_VALUE)
+        );
+
+        jPanel8.setBackground(new java.awt.Color(136, 207, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Időmérő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel8.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel3.setBackground(new java.awt.Color(0, 102, 204));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("00:00");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -219,14 +250,18 @@ public class NapiTerv extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(48, 108, 147));
@@ -248,18 +283,27 @@ public class NapiTerv extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(sorozatTable);
 
+        lblOsszes.setForeground(new java.awt.Color(0, 0, 0));
+        lblOsszes.setText("Összesen...");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addComponent(lblOsszes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(lblOsszes)
+                .addContainerGap())
         );
 
         jPanel7.setBackground(new java.awt.Color(101, 199, 255));
@@ -290,7 +334,7 @@ public class NapiTerv extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -308,7 +352,7 @@ public class NapiTerv extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -422,31 +466,30 @@ public class NapiTerv extends javax.swing.JFrame {
     private void btnHozzaadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHozzaadActionPerformed
         if(! ellenorzes(textSuly, textIsm)) {
             JOptionPane.showMessageDialog(this, "Csak számokat tartalmazhat a suly és ismétlés mezők");
-        } else {
-//            IGyakorlat gy = getGyakorlatByName(cbGyakorlatLista.getSelectedItem().toString());
-            if(actualSorozat != null) {
-//                Sorozat s = new Sorozat(gy);
-                if(! sorozatok.contains(actualSorozat)) {
-                    actualSorozat.setGyakRogzitesIdopontja(LocalDateTime.now());
-                }
-                actualSorozat.addSuly(suly);
-                actualSorozat.addIsm(ismetles);
-                actualSorozat.addIsmIdo(LocalTime.now());
-            } else {
-                JOptionPane.showMessageDialog(this, "Nem találtam a kiválasztott gyakorlatot");
+            return;
+        } 
+        
+        IGyakorlat valasztott = getGyakorlatByName(cbGyakorlatLista.getSelectedItem().toString());
+        Sorozat s = new Sorozat(valasztott);
+        if(sajatTableModel.contains(s)) {
+            if(!sajatTableModel.addSorozatAdat(valasztott, suly, ismetles)) {
+                JOptionPane.showMessageDialog(null, "Nem sikerült frissíteni a sorozatot","Sorozat",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
+        } else {
+            s = new Sorozat(valasztott);
+            s.setGyakRogzitesIdopontja(LocalDateTime.now());
+            s.addIsm(ismetles);
+            s.addSuly(suly);
+            s.addIsmIdo(LocalTime.now());
+            sajatTableModel.add(s);
         }
+        
+        setOsszesenMegmozgatottSuly();
     }//GEN-LAST:event_btnHozzaadActionPerformed
 
     private void cbGyakorlatListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGyakorlatListaActionPerformed
-        String nev = cbGyakorlatLista.getSelectedItem().toString();
-        Sorozat sor = getSorozatByGyaknev(nev);
-        if(sor != null) {
-            actualSorozat = sor;
-        } else {
-            sajatTableModel.add(actualSorozat);
-            actualSorozat = new Sorozat(getGyakorlatByName(nev));
-        }
+
     }//GEN-LAST:event_cbGyakorlatListaActionPerformed
 
     /**
@@ -491,6 +534,7 @@ public class NapiTerv extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbIzomcsoportLista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -507,10 +551,12 @@ public class NapiTerv extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lblOsszes;
     private javax.swing.JTable sorozatTable;
     private javax.swing.JTextField textIsm;
     private javax.swing.JTextField textSuly;
@@ -519,6 +565,14 @@ public class NapiTerv extends javax.swing.JFrame {
     private void initMyCumok() {
         sajatTableModel = new SorozatTableModel();
         sorozatTable.setModel(sajatTableModel);
+        sorozatTable.setDefaultRenderer(String.class, new MultiLineCellRenderer());
+        sajatTableModel.addTableModelListener((event) -> {
+            SwingUtilities.invokeLater(() -> {
+                for (int i = 0; i < sorozatTable.getRowCount(); i++) {
+                    sorozatTable.setRowHeight(i, 16*sajatTableModel.getSorCount(i));
+                }
+            });
+        });
         sorozatok = new ArrayList<>();
         initIzomCsopLista();
     }
@@ -537,6 +591,14 @@ public class NapiTerv extends javax.swing.JFrame {
         ))).forEachOrdered((gyak) -> {
             cbGyakorlatLista.addItem(gyak.getMegnevezes());
         });
+        
+        actualSorozat = new Sorozat(getGyakorlatByName(cbGyakorlatLista.getSelectedItem().toString()));
+    }
+    
+    private void setOsszesenMegmozgatottSuly() {
+        SwingUtilities.invokeLater(() -> {
+            lblOsszes.setText("Összesen megmozgatott súly: "+sajatTableModel.getOsszSuly()+" kg");
+        });   
     }
 
     private boolean ellenorzes(JTextField ...textfileds) {
