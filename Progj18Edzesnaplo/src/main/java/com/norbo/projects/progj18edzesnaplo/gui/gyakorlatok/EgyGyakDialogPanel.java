@@ -46,6 +46,9 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         videoPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(30, 69, 94));
+
+        jPanel1.setBackground(new java.awt.Color(48, 108, 147));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyakorlat informácó"));
 
         tfMegnevezes.setEditable(false);
@@ -59,6 +62,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         jLabel4.setText("Leírás");
 
         taLeiras.setEditable(false);
+        taLeiras.setBackground(new java.awt.Color(255, 255, 255));
         taLeiras.setColumns(20);
         taLeiras.setRows(5);
         jScrollPane1.setViewportView(taLeiras);
@@ -101,6 +105,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        videoPanel.setBackground(new java.awt.Color(48, 108, 147));
         videoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Video"));
 
         javax.swing.GroupLayout videoPanelLayout = new javax.swing.GroupLayout(videoPanel);
@@ -180,8 +185,6 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
             }
             
             taLeiras.append(sp[i]+" ");
-        }
-        
-        
+        }    
     }
 }
