@@ -136,7 +136,7 @@ public class AbstractSorozat implements SorozatInterface {
             return false;
         }
         final AbstractSorozat other = (AbstractSorozat) obj;
-        if (!Objects.equals(this.gyakorlat, other.gyakorlat)) {
+        if (!Objects.equals(this.gyakorlat.getMegnevezes(), other.gyakorlat.getMegnevezes())) {
             return false;
         }
         return true;
