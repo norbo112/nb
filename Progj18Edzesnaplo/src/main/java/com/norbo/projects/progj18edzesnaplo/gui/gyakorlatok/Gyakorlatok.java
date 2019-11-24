@@ -27,17 +27,23 @@ import javax.swing.table.DefaultTableModel;
  * @author igloi
  */
 public class Gyakorlatok extends javax.swing.JFrame {
+    public interface GyakorlatValaszto {
+        public void gyakKivalaszt(String izomcsop, String gyaknev);
+    }
+    
     private List<IGyakorlat> gyakorlats;
     private List<IGyakorlat> szurtlista; //ha esetleg csak ezt mentené az ember....
     private List<String> izomcsoportok;
     private DefaultTableModel sajatTableModel;
     private final JFrame owner = this;
-    
+    private GyakorlatValaszto gyv;
+   
     private GyakorlatSzuro gyakorlatSzuro;
     
     private final String VALASSZ = "-- válassz --";
 
-    public Gyakorlatok(List<IGyakorlat> gyaksik, List<String> izomcsoportok) {
+    public Gyakorlatok(GyakorlatValaszto gyv, List<IGyakorlat> gyaksik, List<String> izomcsoportok) {
+        this.gyv = gyv;
         this.gyakorlats = gyaksik;
         this.izomcsoportok = izomcsoportok;
         initComponents();
@@ -78,6 +84,8 @@ public class Gyakorlatok extends javax.swing.JFrame {
         
         loadGyaksik(gyakorlats);
         loadIzomcsoportok(izomcsoportok);
+        
+        
     }
     
     private IGyakorlat getGyakorlatById(int id) {
@@ -492,6 +500,11 @@ public class Gyakorlatok extends javax.swing.JFrame {
     }//GEN-LAST:event_btnJsonActionPerformed
 
     private void gyakorlatTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gyakorlatTablaMouseClicked
+        if(evt.getClickCount() == 1) {
+            gyv.gyakKivalaszt(gyakorlatTabla.getValueAt(gyakorlatTabla.getSelectedRow(), 1).toString(), 
+                    gyakorlatTabla.getValueAt(gyakorlatTabla.getSelectedRow(), 2).toString());
+        }
+        
         if(evt.getClickCount() == 2) {
             new EgyGyakorlatDialog(getGyakorlatById(
                         (Integer)gyakorlatTabla.getValueAt(
