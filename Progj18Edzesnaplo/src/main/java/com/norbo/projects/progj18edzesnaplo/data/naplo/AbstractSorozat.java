@@ -151,7 +151,7 @@ public class AbstractSorozat implements SorozatInterface {
     }
     
     
-    
+    @Override
     public int getOsszSuly() {
         int ossz = 0;
         for (int i = 0; i < sulyList.size(); i++) {
