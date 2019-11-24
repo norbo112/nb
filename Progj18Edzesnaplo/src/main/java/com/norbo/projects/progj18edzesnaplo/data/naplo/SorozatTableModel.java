@@ -2,19 +2,16 @@ package com.norbo.projects.progj18edzesnaplo.data.naplo;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
-import com.norbo.projects.progj18edzesnaplo.dodata.IGyTramsform;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 public class SorozatTableModel extends AbstractTableModel {
 
     private List<Sorozat> sorozatok;
-    private final String[] colNames = {"Sorszám", "Felvétel dátuma", "Gyakorlat", "Súly x Ismétlés", "Időpont"};
+    private final String[] colNames = {
+        "Sorszám", "Felvétel dátuma","Izomcsoport", "Gyakorlat", "Súly x Ismétlés", "Időpont"};
 
     public SorozatTableModel() {
         sorozatok = new ArrayList<>();
@@ -36,6 +33,20 @@ public class SorozatTableModel extends AbstractTableModel {
         }
 
         return false;
+    }
+    
+    public List<Sorozat> getSorozat() {
+        return sorozatok;
+    }
+    
+    public void removeSorozatRow(int index) {
+        sorozatok.remove(index);
+        fireTableDataChanged();
+    }
+    
+    public void removeAllSorozat() {
+        sorozatok.clear();
+        fireTableDataChanged();
     }
 
     @Override
@@ -75,16 +86,17 @@ public class SorozatTableModel extends AbstractTableModel {
                 return rowIndex + 1;
             case 1:
                 return sor.getGyakRogzitesIdopontja().toLocalDate();
-            case 2:
+            case 2: return sor.getGyakorlat().getIzomcsoport().toString();
+            case 3:
                 return sor.getGyakorlat().getMegnevezes();
-            case 3: {
+            case 4: {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < sor.getSulyList().size(); i++) {
                     sb.append(sor.getSulyList().get(i)).append("X").append(sor.getIsmList().get(i)).append("\n");
                 }
                 return sb.toString();
             }
-            case 4: {
+            case 5: {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < sor.getIsmIdoList().size(); i++) {
                     String ismidopont = sor.getIsmIdoList().get(i).toString();
@@ -99,11 +111,7 @@ public class SorozatTableModel extends AbstractTableModel {
     public int getOsszSuly() {
         int ossz = 0;
         for (Sorozat sorozat : sorozatok) {
-            List<Integer> sulylist = sorozat.getSulyList();
-            List<Integer> ismlist = sorozat.getIsmList();
-            for (int i = 0; i < sulylist.size(); i++) {
-                ossz += sulylist.get(i)*ismlist.get(i);
-            }
+            ossz += sorozat.getOsszSuly();
         }
         return ossz;
     }
