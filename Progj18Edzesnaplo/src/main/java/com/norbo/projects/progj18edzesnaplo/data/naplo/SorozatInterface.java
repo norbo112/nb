@@ -35,4 +35,6 @@ public interface SorozatInterface extends Serializable {
     public void setIsmIdoList(List<LocalTime> ismido);
     public List<LocalTime> getIsmIdoList();
     public void addIsmIdo(LocalTime idopont);
+    
+    public int getOsszSuly();
 }
