@@ -16,6 +16,7 @@ import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.JsonSorozatTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.ObjTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.SorozatMento;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -77,6 +78,19 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         }
     }
     
+    private class JsonFileFilter extends FileFilter {
+    
+        @Override
+        public boolean accept(File f) {
+            return f.getName().endsWith(".json");
+        }
+
+        @Override
+        public String getDescription() {
+            return "JSON fájlok megnyitása...";
+        }
+    }
+    
     Timer stopper = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -134,10 +148,6 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        btnJson = new javax.swing.JButton();
-        btnCsv = new javax.swing.JButton();
-        btnExcel = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         lblStopper = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -151,7 +161,16 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuBetoltes = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenu5 = new javax.swing.JMenu();
+        menuJsonimport = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -276,7 +295,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbIzomcsoportLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
@@ -305,74 +324,15 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Információ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel5.setForeground(new java.awt.Color(0, 0, 0));
 
-        jPanel9.setBackground(new java.awt.Color(0, 153, 204));
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel9.setForeground(new java.awt.Color(0, 0, 0));
-
-        btnJson.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
-        btnJson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/json.png"))); // NOI18N
-        btnJson.setText("JSON");
-        btnJson.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnJsonActionPerformed(evt);
-            }
-        });
-
-        btnCsv.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
-        btnCsv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/csv.png"))); // NOI18N
-        btnCsv.setText("CSV");
-        btnCsv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCsvActionPerformed(evt);
-            }
-        });
-
-        btnExcel.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
-        btnExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excel.png"))); // NOI18N
-        btnExcel.setText("Excel");
-        btnExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcelActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCsv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnJson, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnJson, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCsv, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 272, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+            .addGap(0, 225, Short.MAX_VALUE)
         );
 
         jPanel8.setBackground(new java.awt.Color(136, 207, 255));
@@ -539,14 +499,67 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Betöltés");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuBetoltes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menuBetoltes.setText("Betöltés");
+        menuBetoltes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuBetoltesActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(menuBetoltes);
+        jMenu1.add(jSeparator3);
+
+        jMenu5.setText("Import");
+
+        menuJsonimport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/json.png"))); // NOI18N
+        menuJsonimport.setText("JSON");
+        menuJsonimport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuJsonimportActionPerformed(evt);
+            }
+        });
+        jMenu5.add(menuJsonimport);
+
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/csv.png"))); // NOI18N
+        jMenuItem10.setText("CSV");
+        jMenu5.add(jMenuItem10);
+
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excel.png"))); // NOI18N
+        jMenuItem11.setText("Excel");
+        jMenu5.add(jMenuItem11);
+
+        jMenu1.add(jMenu5);
+
+        jMenu4.setText("Export");
+
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/json.png"))); // NOI18N
+        jMenuItem6.setText("JSON");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem6);
+
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/csv.png"))); // NOI18N
+        jMenuItem7.setText("CSV");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem7);
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excel.png"))); // NOI18N
+        jMenuItem8.setText("Excel");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem8);
+
+        jMenu1.add(jMenu4);
         jMenu1.add(jSeparator1);
 
         jMenuItem5.setText("Kilépés");
@@ -696,50 +709,47 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void btnJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJsonActionPerformed
+    private boolean exportToJSON() throws HeadlessException {
         List<SorozatInterface> sorlist = sajatTableModel.getSorozat();
-        if(sorlist.isEmpty()) {
+        if (sorlist.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nincs mit menteni!","Export - Mentés",
                     JOptionPane.ERROR_MESSAGE);
-            return;
+            return true;
         }
-        
         SorozatMento<String> sorozatMento = new SorozatMento<>(new JsonSorozatTransform(), sorlist);
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new MappaFileFilter());
-        
         if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             sorozatMento.ment(jfc.getSelectedFile().toString()+".json");
             JOptionPane.showMessageDialog(null, "Sikeres export!","Export - Mentés",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnJsonActionPerformed
+        return false;
+    }
 
-    private void btnCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCsvActionPerformed
+    private void exportToCSV() throws HeadlessException {
         JOptionPane.showMessageDialog(this, "Még fejlesztés alatt áll","Funkció",
                 JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnCsvActionPerformed
+    }
 
-    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+    private boolean exportToExcel() throws HeadlessException {
         List<SorozatInterface> sorlist = sajatTableModel.getSorozat();
-        if(sorlist.isEmpty()) {
+        if (sorlist.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nincs mit menteni!","Export - Mentés",
                     JOptionPane.ERROR_MESSAGE);
-            return;
+            return true;
         }
-        
         SorozatMento<File> sorozatMento = new SorozatMento<>(
                 new ExcelSorozatTransform(), sorlist);
-        
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new MappaFileFilter());
-        
         if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             sorozatMento.ment(jfc.getSelectedFile());
             JOptionPane.showMessageDialog(null, "Sikeres export!","Export - Mentés",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnExcelActionPerformed
+        return false;
+    }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO kimentem objectstreammel a sorozatok listáját, napidatum_edzesnap.dat néven
@@ -764,7 +774,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void menuBetoltesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBetoltesActionPerformed
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new SajatAdatFileFilter());
         if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -777,7 +787,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
                     JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menuBetoltesActionPerformed
 
     private void lblStopperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStopperMouseClicked
         stopper.stop();
@@ -787,6 +797,33 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         AboutDialog.showDialog();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        exportToJSON();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        exportToCSV();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        exportToExcel();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void menuJsonimportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJsonimportActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        jfc.setFileFilter(new JsonFileFilter());
+        if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            List<SorozatInterface> sorlist = new JsonSorozatTransform().betolt(jfc.getSelectedFile().getAbsolutePath());
+            if(sorlist != null) {
+                sajatTableModel.setSorozatok(sorlist);
+                setOsszesenMegmozgatottSuly();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sikertelen fájl betöltés!","Betöltés...",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_menuJsonimportActionPerformed
 
     /**
      * 
@@ -825,10 +862,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnCsv;
-    private javax.swing.JButton btnExcel;
     private javax.swing.JButton btnHozzaad;
-    private javax.swing.JButton btnJson;
     private javax.swing.JComboBox<String> cbGyakorlatLista;
     private javax.swing.JComboBox<String> cbIzomcsoportLista;
     private javax.swing.JTable idopontokTable;
@@ -839,12 +873,18 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -853,13 +893,15 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblOsszes;
     private javax.swing.JLabel lblStopper;
+    private javax.swing.JMenuItem menuBetoltes;
+    private javax.swing.JMenuItem menuJsonimport;
     private javax.swing.JTable sorozatTable;
     private javax.swing.JPopupMenu sorozatTablePopup;
     private javax.swing.JMenuItem tableMenuOsszesTorol;
