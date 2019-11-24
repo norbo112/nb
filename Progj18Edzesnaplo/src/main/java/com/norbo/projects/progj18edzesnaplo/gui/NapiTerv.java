@@ -34,7 +34,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author igloi
  */
-public class NapiTerv extends javax.swing.JFrame {
+public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.GyakorlatValaszto {
     private final String VALASSZ = "válassz...";
     
     private List<IGyakorlat> gyakorlatList;
@@ -597,7 +597,7 @@ public class NapiTerv extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new Gyakorlatok(gyakorlatList, izomcsList).showFrame();
+        new Gyakorlatok(this, gyakorlatList, izomcsList).showFrame();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void textIsmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIsmActionPerformed
@@ -917,5 +917,11 @@ public class NapiTerv extends javax.swing.JFrame {
         minute = 0;
         second = 0;
         lblStopper.setText("00:00");
+    }
+
+    @Override
+    public void gyakKivalaszt(String izomcsop, String gyaknev) {
+        cbIzomcsoportLista.setSelectedItem(izomcsop);
+        cbGyakorlatLista.setSelectedItem(gyaknev);
     }
 }
