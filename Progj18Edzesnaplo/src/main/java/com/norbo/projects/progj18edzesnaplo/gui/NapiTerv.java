@@ -32,6 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.filechooser.FileFilter;
+import org.json.JSONException;
 
 /**
  *
@@ -814,13 +815,18 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new JsonFileFilter());
         if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            List<SorozatInterface> sorlist = new JsonSorozatTransform().betolt(jfc.getSelectedFile().getAbsolutePath());
-            if(sorlist != null) {
-                sajatTableModel.setSorozatok(sorlist);
-                setOsszesenMegmozgatottSuly();
-            } else {
-                JOptionPane.showMessageDialog(null, "Sikertelen fájl betöltés!","Betöltés...",
-                    JOptionPane.ERROR_MESSAGE);
+            try {
+                List<SorozatInterface> sorlist = new JsonSorozatTransform().betolt(jfc.getSelectedFile().getAbsolutePath());
+                if (sorlist != null) {
+                    sajatTableModel.setSorozatok(sorlist);
+                    setOsszesenMegmozgatottSuly();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Sikertelen fájl betöltés!", "Betöltés...",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (JSONException e) {
+                JOptionPane.showMessageDialog(this, "JSON formátum hiba","Hiba",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_menuJsonimportActionPerformed
