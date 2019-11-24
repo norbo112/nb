@@ -28,6 +28,7 @@ public class IdopontTableModel extends AbstractTableModel {
 
     public void setSorozatok(List<SorozatInterface> sorozatok) {
         this.sorozatok = sorozatok;
+        fireTableDataChanged();
     }
     
     
@@ -53,7 +54,7 @@ public class IdopontTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         SorozatInterface s = sorozatok.get(rowIndex);
         switch(columnIndex) {
-            case 0: return rowIndex;
+            case 0: return rowIndex+1;
             case 1: return s.getGyakorlat().getMegnevezes();
             case 2: 
                 String time = s.getIsmIdoList().get(s.getIsmIdoList().size()-1).toString();
