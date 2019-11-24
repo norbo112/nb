@@ -11,6 +11,7 @@ import java.util.List;
 /**
  *
  * @author igloi
+ * @param <T> String, File, URL a mentés helyének meghatározására
  */
 public interface SorozatTransform<T> {
     public boolean ment(List<Sorozat> sorozats, T path);
