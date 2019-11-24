@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class SorozatTableModel extends AbstractTableModel {
 
-    private List<Sorozat> sorozatok;
+    private List<SorozatInterface> sorozatok;
     private final String[] colNames = {
         "Sorszám", "Felvétel dátuma","Izomcsoport", "Gyakorlat", "Súly x Ismétlés", "Időpont"};
 
@@ -17,12 +17,12 @@ public class SorozatTableModel extends AbstractTableModel {
         sorozatok = new ArrayList<>();
     }
 
-    public SorozatTableModel(List<Sorozat> sorozatok) {
+    public SorozatTableModel(List<SorozatInterface> sorozatok) {
         this.sorozatok = sorozatok;
     }
 
     public boolean addSorozatAdat(IGyakorlat gyakorlat, int suly, int ism) {
-        for (Sorozat sorozat : sorozatok) {
+        for (SorozatInterface sorozat : sorozatok) {
             if (sorozat.getGyakorlat().getMegnevezes().equals(gyakorlat.getMegnevezes())) {
                 sorozat.addSuly(suly);
                 sorozat.addIsm(ism);
@@ -35,11 +35,11 @@ public class SorozatTableModel extends AbstractTableModel {
         return false;
     }
     
-    public List<Sorozat> getSorozat() {
+    public List<SorozatInterface> getSorozat() {
         return sorozatok;
     }
 
-    public void setSorozatok(List<Sorozat> sorozatok) {
+    public void setSorozatok(List<SorozatInterface> sorozatok) {
         this.sorozatok = sorozatok;
         fireTableDataChanged();
     }
@@ -87,7 +87,7 @@ public class SorozatTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Sorozat sor = sorozatok.get(rowIndex);
+        SorozatInterface sor = sorozatok.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return rowIndex + 1;
@@ -117,7 +117,7 @@ public class SorozatTableModel extends AbstractTableModel {
     
     public int getOsszSuly() {
         int ossz = 0;
-        for (Sorozat sorozat : sorozatok) {
+        for (SorozatInterface sorozat : sorozatok) {
             ossz += sorozat.getOsszSuly();
         }
         return ossz;
