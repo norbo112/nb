@@ -6,6 +6,7 @@
 package com.norbo.projects.progj18edzesnaplo.dodata.sorozat;
 
 import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatInterface;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 public class ObjTransform implements SorozatTransform<String>{
 
     @Override
-    public boolean ment(List<Sorozat> sorozats, String path) {
+    public boolean ment(List<SorozatInterface> sorozats, String path) {
         try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path))) {
             out.writeObject(sorozats);
             return true;
@@ -35,10 +36,9 @@ public class ObjTransform implements SorozatTransform<String>{
         return false;
     }
     
-    public List<Sorozat> betolt(String path) {
-        List<Sorozat> sorozat = null;
+    public List<SorozatInterface> betolt(String path) {
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
-            return (List<Sorozat>) in.readObject();
+            return (List<SorozatInterface>) in.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ObjTransform.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
