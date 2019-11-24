@@ -6,6 +6,7 @@
 package com.norbo.projects.progj18edzesnaplo.dodata.sorozat;
 
 import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatInterface;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
      * @return true ha sikeres volt a fájl mentés, false ha nem
      */
     @Override
-    public boolean ment(List<Sorozat> sorozats, String path) {
+    public boolean ment(List<SorozatInterface> sorozats, String path) {
         JSONObject obj = new JSONObject();
         JSONArray arr = new JSONArray(sorozats);
         obj.append("edzesnap", arr);
@@ -37,7 +38,7 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             obj.write(bw);
             return true;
-        } catch(JSONException e) {
+        } catch(JSONException ex) {
             Logger.getLogger(JsonSorozatTransform.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(JsonSorozatTransform.class.getName()).log(Level.SEVERE, null, ex);
