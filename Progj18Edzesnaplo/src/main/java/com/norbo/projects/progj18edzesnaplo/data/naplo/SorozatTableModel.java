@@ -38,6 +38,13 @@ public class SorozatTableModel extends AbstractTableModel {
     public List<Sorozat> getSorozat() {
         return sorozatok;
     }
+
+    public void setSorozatok(List<Sorozat> sorozatok) {
+        this.sorozatok = sorozatok;
+        fireTableDataChanged();
+    }
+    
+    
     
     public void removeSorozatRow(int index) {
         sorozatok.remove(index);
@@ -68,7 +75,7 @@ public class SorozatTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return colNames.length;
     }
 
     @Override
