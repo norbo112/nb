@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface SorozatTransform<T> {
     public boolean ment(List<SorozatInterface> sorozats, T path);
+    public List<SorozatInterface> betolt(T path);
 }
