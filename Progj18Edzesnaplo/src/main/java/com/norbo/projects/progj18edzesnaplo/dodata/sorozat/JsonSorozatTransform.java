@@ -32,6 +32,7 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
 
     /**
      * Sorozatok kimentése JSon formátumba
+     *
      * @param sorozats sorozatok mint paraméter
      * @param path fájl útvonala
      * @return true ha sikeres volt a fájl mentés, false ha nem
@@ -41,11 +42,11 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
         JSONObject obj = new JSONObject();
         JSONArray arr = new JSONArray(sorozats);
         obj.append("edzesnap", arr);
-        
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             obj.write(bw);
             return true;
-        } catch(JSONException ex) {
+        } catch (JSONException ex) {
             Logger.getLogger(JsonSorozatTransform.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(JsonSorozatTransform.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,31 +55,31 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
     }
 
     @Override
-    public List<SorozatInterface> betolt(String path) {
+    public List<SorozatInterface> betolt(String path) throws JSONException {
         List<SorozatInterface> sorozat = new ArrayList<>();
-        
+
         String source = null;
         StringBuilder sb = new StringBuilder();
-        try(BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
-            
+
             source = sb.toString();
         } catch (IOException ex) {
             Logger.getLogger(JsonSorozatTransform.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(source != null) {
+
+        if (source != null) {
             JSONObject job = new JSONObject(source);
             JSONArray arr = job.getJSONArray("edzesnap");
 
-            for(int i=0; i<arr.getJSONArray(0).length(); i++) {
+            for (int i = 0; i < arr.getJSONArray(0).length(); i++) {
                 JSONObject ijob = arr.getJSONArray(0).getJSONObject(i);
-                
+
                 JSONObject gyakjob = ijob.getJSONObject("gyakorlat");
-                
+
                 Gyakorlat gy = new Gyakorlat();
                 gy.setId(gyakjob.getInt("id"));
                 gy.setIzomcsoport(Izomcsoport.getCsoportFromJSON(gyakjob.getString("izomcsoport")));
@@ -88,7 +89,7 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
                 gy.setVideostartpoz(gyakjob.getInt("videostartpoz"));
                 Sorozat s = new Sorozat(gy);
                 s.setGyakRogzitesIdopontja(LocalDateTime.parse(ijob.getString("gyakRogzitesIdopontja")));
-                
+
                 List<Integer> list = getIntList(ijob.getJSONArray("sulyList"));
                 s.setSulyList(list);
                 list = getIntList(ijob.getJSONArray("ismList"));
@@ -98,10 +99,10 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
                 sorozat.add(s);
             }
         }
-        
+
         return sorozat;
     }
-    
+
     private List<Integer> getIntList(JSONArray arr) {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
@@ -109,7 +110,7 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
         }
         return result;
     }
-    
+
     private List<LocalTime> getTimeList(JSONArray arr) {
         List<LocalTime> result = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
