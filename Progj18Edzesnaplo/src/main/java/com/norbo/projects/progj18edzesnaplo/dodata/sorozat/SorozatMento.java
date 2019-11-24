@@ -5,7 +5,7 @@
  */
 package com.norbo.projects.progj18edzesnaplo.dodata.sorozat;
 
-import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatInterface;
 import java.util.List;
 
 /**
@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class SorozatMento<T> {
     private SorozatTransform<T> sorozatTransform;
-    private List<Sorozat> sorozats;
+    private List<SorozatInterface> sorozats;
 
-    public SorozatMento(SorozatTransform<T> sorozatTransform, List<Sorozat> sorozats) {
+    public SorozatMento(SorozatTransform<T> sorozatTransform, List<SorozatInterface> sorozats) {
         this.sorozatTransform = sorozatTransform;
         this.sorozats = sorozats;
     }
