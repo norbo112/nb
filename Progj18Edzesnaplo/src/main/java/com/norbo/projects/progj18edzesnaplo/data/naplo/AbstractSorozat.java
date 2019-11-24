@@ -11,13 +11,13 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author igloi
  */
 public class AbstractSorozat implements SorozatInterface {
+    private static final long serialversionUID = 123L;
     List<Integer> sulyList;
     List<Integer> ismList;
     IGyakorlat gyakorlat;
@@ -144,6 +144,13 @@ public class AbstractSorozat implements SorozatInterface {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return gyakorlat.getMegnevezes();
+    }
+    
+    
     
     public int getOsszSuly() {
         int ossz = 0;
