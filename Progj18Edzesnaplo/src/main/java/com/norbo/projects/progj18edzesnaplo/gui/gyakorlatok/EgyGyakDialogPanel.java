@@ -6,7 +6,17 @@
 package com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
+import java.net.URL;
 import javax.swing.JDialog;
+import javax.swing.SwingUtilities;
+import org.openimaj.audio.AudioLooper;
+import org.openimaj.audio.AudioPlayer;
+import org.openimaj.audio.AudioStream;
+import org.openimaj.image.MBFImage;
+import org.openimaj.video.Video;
+import org.openimaj.video.VideoDisplay;
+import org.openimaj.video.xuggle.XuggleAudio;
+import org.openimaj.video.xuggle.XuggleVideo;
 
 /**
  *
@@ -44,6 +54,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         taLeiras = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         videoPanel = new javax.swing.JPanel();
+        videoPanelBelso = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(30, 69, 94));
@@ -59,6 +70,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         tfIzomcsoport.setEditable(false);
         tfIzomcsoport.setText("jTextField1");
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Leírás");
 
         taLeiras.setEditable(false);
@@ -73,16 +85,20 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfMegnevezes)
-                    .addComponent(tfIzomcsoport)
-                    .addComponent(jScrollPane1))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfMegnevezes, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(tfIzomcsoport)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -97,26 +113,35 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(tfIzomcsoport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         videoPanel.setBackground(new java.awt.Color(48, 108, 147));
-        videoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Video"));
+        videoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5), "Video"));
+
+        javax.swing.GroupLayout videoPanelBelsoLayout = new javax.swing.GroupLayout(videoPanelBelso);
+        videoPanelBelso.setLayout(videoPanelBelsoLayout);
+        videoPanelBelsoLayout.setHorizontalGroup(
+            videoPanelBelsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 637, Short.MAX_VALUE)
+        );
+        videoPanelBelsoLayout.setVerticalGroup(
+            videoPanelBelsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout videoPanelLayout = new javax.swing.GroupLayout(videoPanel);
         videoPanel.setLayout(videoPanelLayout);
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+            .addComponent(videoPanelBelso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(videoPanelBelso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jButton1.setText("OK");
@@ -146,13 +171,13 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(58, 58, 58))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -172,6 +197,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tfIzomcsoport;
     private javax.swing.JTextField tfMegnevezes;
     private javax.swing.JPanel videoPanel;
+    private javax.swing.JPanel videoPanelBelso;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
@@ -185,6 +211,21 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
             }
             
             taLeiras.append(sp[i]+" ");
-        }    
+        }  
+        
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                String link = getClass().getClassLoader().getResource("video/fekvenyomas.mpg").toString();
+//        
+//                Video<MBFImage> video = new XuggleVideo(link);
+//                AudioStream audio = new XuggleAudio(link);
+//
+//                VideoDisplay<MBFImage> display = VideoDisplay.createVideoDisplay(video, videoPanelBelso);
+//                AudioPlayer aplay = AudioPlayer.createAudioPlayer(audio);
+//                
+//                aplay.run();
+//            }
+//        }).start();
     }
 }
