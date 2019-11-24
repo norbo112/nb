@@ -24,6 +24,9 @@ public class AbstractSorozat implements SorozatInterface {
     List<LocalTime> ismIdoList;
     LocalDateTime rogzitesiIdopont;
 
+    public AbstractSorozat() {
+    }
+
     public AbstractSorozat(IGyakorlat gyakorlat) {
         this.gyakorlat = gyakorlat;
         this.sulyList = new ArrayList<>();
@@ -140,5 +143,13 @@ public class AbstractSorozat implements SorozatInterface {
             return false;
         }
         return true;
+    }
+    
+    public int getOsszSuly() {
+        int ossz = 0;
+        for (int i = 0; i < sulyList.size(); i++) {
+            ossz += sulyList.get(i) * ismList.get(i);
+        }
+        return ossz;
     }
 }
