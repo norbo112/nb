@@ -40,4 +40,26 @@ public enum Izomcsoport {
             default: return null;
         }
     }
+    
+    /**
+     * Valamiért amikor jsonba mentem, a JSONArray kollekcióból nem a toStringet menti
+     * hanem az enum-ot, ezért visszatöltéskor ezt használom
+     * @param jsonnev
+     * @return 
+     */
+    public static Izomcsoport getCsoportFromJSON(String jsonnev) {
+        switch(jsonnev) {
+            case "MELL" : return MELL;
+            case "HAT" : return HAT;
+            case "LAB" : return LAB;
+            case "ALKAR" : return ALKAR;
+            case "BICEPSZ" : return BICEPSZ;
+            case "TRICEPSZ" : return TRICEPSZ;
+            case "HAS" : return HAS;
+            case "VALL": return VALL;
+            case "VADLI" : return VADLI;
+            case "CSUKLYA" : return CSUKLYA;
+            default: return null;
+        }
+    }
 }
