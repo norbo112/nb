@@ -11,7 +11,7 @@ public class SorozatTableModel extends AbstractTableModel {
 
     private List<SorozatInterface> sorozatok;
     private final String[] colNames = {
-        "Sorszám", "Felvétel dátuma","Izomcsoport", "Gyakorlat", "Súly x Ismétlés", "Időpont"};
+        "Sorszám", "Felvétel dátuma","Izomcsoport", "Gyakorlat", "Súly x Ismétlés", "Időpont","Összsúly (kg)"};
 
     public SorozatTableModel() {
         sorozatok = new ArrayList<>();
@@ -110,6 +110,9 @@ public class SorozatTableModel extends AbstractTableModel {
                     sb.append(ismidopont.substring(0, ismidopont.lastIndexOf('.'))).append("\n");
                 }
                 return sb.toString();
+            }
+            case 6: {
+                return sor.getOsszSuly();
             }
         }
         return null;
