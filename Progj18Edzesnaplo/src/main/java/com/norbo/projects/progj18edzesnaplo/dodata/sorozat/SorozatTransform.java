@@ -5,7 +5,7 @@
  */
 package com.norbo.projects.progj18edzesnaplo.dodata.sorozat;
 
-import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatInterface;
 import java.util.List;
 
 /**
@@ -14,5 +14,5 @@ import java.util.List;
  * @param <T> String, File, URL a mentés helyének meghatározására
  */
 public interface SorozatTransform<T> {
-    public boolean ment(List<Sorozat> sorozats, T path);
+    public boolean ment(List<SorozatInterface> sorozats, T path);
 }
