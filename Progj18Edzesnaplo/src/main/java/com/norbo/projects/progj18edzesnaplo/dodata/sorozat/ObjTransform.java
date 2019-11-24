@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.norbo.projects.progj18edzesnaplo.dodata.sorozat;
 
 import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
@@ -18,7 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Ha nem exportáljuk az adatokat, akkor saját Adatforrást készítek el
+ * ami Objectumot ment majd tölt be
  * @author igloi
  */
 public class ObjTransform implements SorozatTransform<String>{
@@ -36,6 +32,7 @@ public class ObjTransform implements SorozatTransform<String>{
         return false;
     }
     
+    @Override
     public List<SorozatInterface> betolt(String path) {
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
             return (List<SorozatInterface>) in.readObject();
