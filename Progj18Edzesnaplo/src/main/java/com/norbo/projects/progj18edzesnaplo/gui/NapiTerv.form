@@ -96,6 +96,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -104,6 +107,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Edz&#xe9;snapl&#xf3;"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="0" green="0" red="0" type="rgb"/>
     </Property>
@@ -196,10 +200,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
                   <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jPanel8" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -238,6 +239,17 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel4" pref="83" max="32767" attributes="0"/>
+                                      <Component id="jLabel5" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="cbGyakorlatLista" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
+                                      <Component id="cbIzomcsoportLista" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel1" max="32767" attributes="0"/>
@@ -249,21 +261,11 @@
                                       <Component id="textIsm" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="btnHozzaad" pref="104" max="32767" attributes="0"/>
                                       <Component id="btnClear" max="32767" attributes="0"/>
-                                      <Component id="btnHozzaad" max="32767" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel4" pref="83" max="32767" attributes="0"/>
-                                      <Component id="jLabel5" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbGyakorlatLista" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
-                                      <Component id="cbIzomcsoportLista" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -284,7 +286,7 @@
                               <Component id="cbGyakorlatLista" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -296,11 +298,13 @@
                                       <Component id="textIsm" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="btnHozzaad" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnHozzaad" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnClear" min="-2" pref="37" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnClear" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="26" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -354,7 +358,12 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnHozzaad">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Hozz&#xe1;ad"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2c" green="2a" id="Button.darkShadow" palette="3" red="27" type="palette"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/pluszikon.png"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHozzaadActionPerformed"/>
@@ -362,7 +371,12 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnClear">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="T&#xf6;r&#xf6;l"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2c" green="2a" id="Button.darkShadow" palette="3" red="27" type="palette"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/torolikon.png"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
@@ -429,7 +443,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                          <EmptySpace pref="48" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -482,6 +496,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="btnJson">
                       <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="2c" green="2a" id="Button.darkShadow" palette="3" red="27" type="palette"/>
+                        </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/json.png"/>
                         </Property>
@@ -493,6 +510,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnCsv">
                       <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="2c" green="2a" id="Button.darkShadow" palette="3" red="27" type="palette"/>
+                        </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/csv.png"/>
                         </Property>
@@ -504,6 +524,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnExcel">
                       <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="2c" green="2a" id="Button.darkShadow" palette="3" red="27" type="palette"/>
+                        </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/excel.png"/>
                         </Property>
@@ -537,11 +560,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblStopper" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="lblStopper" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -724,7 +743,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable2">
+                    <Component class="javax.swing.JTable" name="idopontokTable">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {null, null, null},&#xa;        {null, null, null},&#xa;        {null, null, null},&#xa;        {null, null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;Sorsz&#xe1;m&quot;,&quot;Gyakorlat&quot;,&quot;&#xfa;tols&#xf3; ism&#xe9;tl&#xe9;s&quot;&#xa;    }&#xa;)" type="code"/>
