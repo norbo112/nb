@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -28,10 +30,15 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
      */
     @Override
     public boolean ment(List<Sorozat> sorozats, String path) {
-        JSONObject obj = new JSONObject(sorozats);
+        JSONObject obj = new JSONObject();
+        JSONArray arr = new JSONArray(sorozats);
+        obj.append("edzesnap", arr);
+        
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             obj.write(bw);
             return true;
+        } catch(JSONException e) {
+            Logger.getLogger(JsonSorozatTransform.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(JsonSorozatTransform.class.getName()).log(Level.SEVERE, null, ex);
         }
