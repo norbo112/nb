@@ -24,6 +24,10 @@ public abstract class AbstractGyakorlat implements IGyakorlat, Comparable<IGyako
     public AbstractGyakorlat() {
     }
 
+    public AbstractGyakorlat(String megnevezes) {
+        this.megnevezes = megnevezes;
+    }
+
     public AbstractGyakorlat(int id, String nev, 
             Izomcsoport izomcsoport, String leiras, 
             String videoId, int videoPoz) {
