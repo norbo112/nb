@@ -15,6 +15,10 @@ public class Gyakorlat extends AbstractGyakorlat {
 
     public Gyakorlat() {
     }
+
+    public Gyakorlat(String megnevezes) {
+        super(megnevezes);
+    }
     
     public Gyakorlat(int id, String nev, 
             Izomcsoport izomcsoport, 
