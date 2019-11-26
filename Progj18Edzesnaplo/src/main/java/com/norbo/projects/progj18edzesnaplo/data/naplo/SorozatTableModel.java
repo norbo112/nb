@@ -107,7 +107,10 @@ public class SorozatTableModel extends AbstractTableModel {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < sor.getIsmIdoList().size(); i++) {
                     String ismidopont = sor.getIsmIdoList().get(i).toString();
-                    sb.append(ismidopont.substring(0, ismidopont.lastIndexOf('.'))).append("\n");
+                    int last = ismidopont.lastIndexOf('.');
+                    sb.append( last != -1 ? 
+                            ismidopont.substring(0, ismidopont.lastIndexOf('.')) : 
+                            ismidopont).append("\n");
                 }
                 return sb.toString();
             }
