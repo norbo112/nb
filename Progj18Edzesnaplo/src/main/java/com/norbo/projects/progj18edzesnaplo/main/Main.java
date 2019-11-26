@@ -23,17 +23,9 @@ public class Main {
             List<IGyakorlat> gyfromurl = gyakorlatLista.getGyakorlatListJSON(AbstractTransform.GYAKURL);
             gyfromurl.sort(COMP_IZOMCSOP);
             List<String> izomcsoportok = gyakorlatLista.getIzomCsoport();
-            
-//            List<IGyakorlat> csvgyfromurl = gyakorlatLista.getGyakorlatCSV(GyakorlatListaKeszito.CSVFILE);
-//            csvgyfromurl.sort(COMP_IZOMCSOP);
-//            List<String> csvizomcsoportok = gyakorlatLista.getIzomCsoport();
-//            
-//            List<IGyakorlat> excelgyfromurl = gyakorlatLista.getGyakorlatExcel(GyakorlatListaKeszito.EXCELFILE);
-//            csvgyfromurl.sort(COMP_IZOMCSOP);
-//            List<String> excelizomcsoportok = gyakorlatLista.getIzomCsoport();
-            
-//            new Gyakorlatok(gyfromurl, izomcsoportok).showFrame();
-            new NapiTerv(gyfromurl, izomcsoportok).showFrame();
+
+            NapiTerv napiTerv = new NapiTerv(gyfromurl, izomcsoportok);
+            napiTerv.showFrame();
         } catch (IOException ex) {
             System.out.println("Hiba törént az adatok elérése közben: "+ex);
         }
