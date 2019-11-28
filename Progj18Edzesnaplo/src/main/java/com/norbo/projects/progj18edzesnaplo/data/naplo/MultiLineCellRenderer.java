@@ -5,11 +5,14 @@
  */
 package com.norbo.projects.progj18edzesnaplo.data.naplo;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Insets;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -34,7 +37,6 @@ public class MultiLineCellRenderer extends JTextArea implements TableCellRendere
             setBackground(table.getBackground());
         }
         setFont(table.getFont());
-        
         if (hasFocus) {
             setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
             if (table.isCellEditable(row, column)) {
@@ -42,8 +44,9 @@ public class MultiLineCellRenderer extends JTextArea implements TableCellRendere
                 setBackground(UIManager.getColor("Table.focusCellBackground"));
             }
         } else {
-            setBorder(new EmptyBorder(1, 2, 1, 2));
+            setBorder(new EmptyBorder(1, 2, 1, 1));
         }
+        
         setText((value == null) ? "" : value.toString());
         return this;
     }
