@@ -8,9 +8,13 @@ package com.norbo.projects.progj18edzesnaplo.gui;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.IdopontTableModel;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.MultiLineCellRenderer;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.MultiListCellRenderer;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatInterface;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatTableModel;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.diagram.GyakorlatDiagramInfo;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.diagram.GyakorlatDiagramTableModel;
+import com.norbo.projects.progj18edzesnaplo.data.naplo.mentettnaplo.MentettNaplok;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.ExcelSorozatTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.JsonSorozatTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.ObjTransform;
@@ -148,6 +152,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         tableMenuRemove = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         tableMenuOsszesTorol = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -189,6 +194,8 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        naplokMenu = new javax.swing.JMenuItem();
+        menuDiagram = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -209,6 +216,8 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         });
         sorozatTablePopup.add(tableMenuOsszesTorol);
 
+        jMenuItem1.setText("jMenuItem1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Edzésnapló");
         setBackground(new java.awt.Color(0, 0, 0));
@@ -217,7 +226,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         jPanel2.setBackground(new java.awt.Color(48, 108, 147));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Vezérlő"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vezérlő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel4.setBackground(new java.awt.Color(136, 207, 255));
@@ -399,7 +408,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         );
 
         jPanel3.setBackground(new java.awt.Color(48, 108, 147));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Napi terv"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Napi terv", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel3.setForeground(new java.awt.Color(126, 189, 247));
 
         jPanel6.setBackground(new java.awt.Color(101, 199, 255));
@@ -607,6 +616,24 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         });
         jMenu2.add(jMenuItem3);
 
+        naplokMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
+        naplokMenu.setText("Naplók");
+        naplokMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                naplokMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(naplokMenu);
+
+        menuDiagram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
+        menuDiagram.setText("Diagram");
+        menuDiagram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDiagramActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuDiagram);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setMnemonic('S');
@@ -743,7 +770,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
             return true;
         }
         SorozatMento<String> sorozatMento = new SorozatMento<>(new JsonSorozatTransform(), sorlist);
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser(userDir);
         jfc.setFileFilter(new MappaFileFilter());
         if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             sorozatMento.ment(jfc.getSelectedFile().toString()+".json");
@@ -767,7 +794,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         }
         SorozatMento<File> sorozatMento = new SorozatMento<>(
                 new ExcelSorozatTransform(), sorlist);
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser(userDir);
         jfc.setFileFilter(new MappaFileFilter());
         if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             sorozatMento.ment(jfc.getSelectedFile());
@@ -786,13 +813,15 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
             return;
         }
         
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser(userDir);
         jfc.setFileFilter(new MappaFileFilter());
         if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             String mappa = jfc.getSelectedFile().getAbsolutePath();
             mappa += "_"+LocalDate.now()+"_edzesnap.npl";
             
-            SorozatMento<String> sorozatMento = new SorozatMento<>(new ObjTransform(), sorlist);
+            //SorozatMento<String> sorozatMento = new SorozatMento<>(new ObjTransform(), sorlist);
+            SorozatMento<String> sorozatMento = new SorozatMento<>(new JsonSorozatTransform(),
+                sorlist);
             if(sorozatMento.ment(mappa)) {
                 JOptionPane.showMessageDialog(null, "Sikeres mentés!","Export - Mentés",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -801,11 +830,13 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     }//GEN-LAST:event_menuMentesActionPerformed
 
     private void menuBetoltesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBetoltesActionPerformed
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser(userDir);
         jfc.setFileFilter(new SajatAdatFileFilter());
         if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+//            List<SorozatInterface> sorlist = 
+//                    new ObjTransform().betolt(jfc.getSelectedFile().getAbsolutePath());
             List<SorozatInterface> sorlist = 
-                    new ObjTransform().betolt(jfc.getSelectedFile().getAbsolutePath());
+                    new JsonSorozatTransform().betolt(jfc.getSelectedFile().getAbsolutePath());
             if(sorlist != null) {
                 sajatTableModel.setSorozatok(sorlist);
                 setOsszesenMegmozgatottSuly();
@@ -815,6 +846,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
             }
         }
     }//GEN-LAST:event_menuBetoltesActionPerformed
+    private final String userDir = System.getProperty("user.dir");
 
     private void lblStopperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStopperMouseClicked
         stopper.stop();
@@ -838,7 +870,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void importJsonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importJsonMenuActionPerformed
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser(userDir);
         jfc.setFileFilter(new JsonFileFilter());
         if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
@@ -858,7 +890,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     }//GEN-LAST:event_importJsonMenuActionPerformed
 
     private void excelImportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelImportMenuActionPerformed
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser(userDir);
         jfc.setFileFilter(new ExcelFileFilter());
         if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             List<SorozatInterface> sorlist = new ExcelSorozatTransform().betolt(jfc.getSelectedFile());
@@ -871,6 +903,14 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
             }
         }
     }//GEN-LAST:event_excelImportMenuActionPerformed
+
+    private void naplokMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_naplokMenuActionPerformed
+        MentettNaplok.showDialog(this);
+    }//GEN-LAST:event_naplokMenuActionPerformed
+
+    private void menuDiagramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDiagramActionPerformed
+        GyakorlatDiagramInfo.showDialog(this, gyakorlatList);
+    }//GEN-LAST:event_menuDiagramActionPerformed
 
     /**
      * 
@@ -925,6 +965,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -948,7 +989,9 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     private javax.swing.JLabel lblOsszes;
     private javax.swing.JLabel lblStopper;
     private javax.swing.JMenuItem menuBetoltes;
+    private javax.swing.JMenuItem menuDiagram;
     private javax.swing.JMenuItem menuMentes;
+    private javax.swing.JMenuItem naplokMenu;
     private javax.swing.JTable sorozatTable;
     private javax.swing.JPopupMenu sorozatTablePopup;
     private javax.swing.JMenuItem tableMenuOsszesTorol;
@@ -963,6 +1006,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         idopontokTable.setModel(sajatIdopontModel);
         sorozatTable.setModel(sajatTableModel);
         sorozatTable.setDefaultRenderer(String.class, new MultiLineCellRenderer());
+//        sorozatTable.setDefaultRenderer(String[].class, new MultiListCellRenderer());
         sajatTableModel.addTableModelListener((event) -> {
             SwingUtilities.invokeLater(() -> {
                 sajatIdopontModel.setSorozatok(sajatTableModel.getSorozat());
