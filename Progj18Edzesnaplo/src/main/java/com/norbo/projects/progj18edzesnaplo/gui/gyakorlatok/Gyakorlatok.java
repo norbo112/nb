@@ -148,12 +148,13 @@ public class Gyakorlatok extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gyakorlatok");
         setBackground(new java.awt.Color(48, 108, 147));
+        setResizable(false);
 
         jPanel7.setBackground(new java.awt.Color(30, 69, 94));
         jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         jPanel1.setBackground(new java.awt.Color(48, 108, 147));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyakorlat Szűrő"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gyakorlatok", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(136, 207, 255));
@@ -187,7 +188,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbIzomcsop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(0, 110, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -200,12 +201,12 @@ public class Gyakorlatok extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(48, 108, 147));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyakorlatok"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gyakorlatok", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         gyakorlatTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -240,8 +241,10 @@ public class Gyakorlatok extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(48, 108, 147));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciók"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gyakorlatok", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel4.setForeground(new java.awt.Color(255, 255, 255));
+
+        jPanel5.setBackground(new java.awt.Color(48, 108, 147));
 
         jButton1.setBackground(new java.awt.Color(136, 207, 255));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -254,7 +257,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
         });
 
         jPanel6.setBackground(new java.awt.Color(136, 207, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Export"));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel6.setForeground(new java.awt.Color(0, 0, 0));
 
         btnJson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/json.png"))); // NOI18N
