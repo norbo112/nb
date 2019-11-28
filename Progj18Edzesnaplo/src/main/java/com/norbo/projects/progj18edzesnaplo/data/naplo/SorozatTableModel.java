@@ -4,6 +4,7 @@ import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -68,7 +69,7 @@ public class SorozatTableModel extends AbstractTableModel {
     
     public int getSorCount(int index) {
         if(!sorozatok.isEmpty()) {
-            return sorozatok.get(index).getSulyList().size();
+            return sorozatok.get(index).getSuly().size();
         }
         return 0;
     }
@@ -80,7 +81,16 @@ public class SorozatTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return String.class;
+        switch(columnIndex) {
+            case 0:
+            case 1:
+            case 2: 
+            case 3: return String.class;
+            case 4: 
+            case 5: //return String[].class;
+            case 6: return String.class;
+            default: return String.class;
+        }
     }
     
     
@@ -92,27 +102,43 @@ public class SorozatTableModel extends AbstractTableModel {
             case 0:
                 return rowIndex + 1;
             case 1:
-                return sor.getGyakRogzitesIdopontja().toLocalDate();
+                return sor.getRogzitesIdopont().toLocalDate();
             case 2: return sor.getGyakorlat().getIzomcsoport().toString();
             case 3:
                 return sor.getGyakorlat().getMegnevezes();
             case 4: {
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < sor.getSulyList().size(); i++) {
-                    sb.append(sor.getSulyList().get(i)).append("X").append(sor.getIsmList().get(i)).append("\n");
+                for (int i = 0; i < sor.getSuly().size(); i++) {
+                    sb.append(sor.getSuly().get(i)).append("X").append(sor.getIsm().get(i)).append("\n");
                 }
                 return sb.toString();
+//                  String[] strs = new String[50];
+//                  int index = 0;
+//                  for (int i = 0; i < sor.getSuly().size(); i++) {
+//                      strs[index++] = sor.getSuly().get(i)+" "+sor.getIsm().get(i);
+//                  }
+//                  return Arrays.copyOf(strs, index);
             }
             case 5: {
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < sor.getIsmIdoList().size(); i++) {
-                    String ismidopont = sor.getIsmIdoList().get(i).toString();
+                for (int i = 0; i < sor.getIsmRogzitesIdopontja().size(); i++) {
+                    String ismidopont = sor.getIsmRogzitesIdopontja().get(i).toString();
                     int last = ismidopont.lastIndexOf('.');
                     sb.append( last != -1 ? 
                             ismidopont.substring(0, ismidopont.lastIndexOf('.')) : 
                             ismidopont).append("\n");
                 }
                 return sb.toString();
+//                  String[] strs = new String[50];
+//                  int index = 0;
+//                  for (int i = 0; i < sor.getSuly().size(); i++) {
+//                      String ismidopont = sor.getIsmRogzitesIdopontja().get(i).toString();
+//                    int last = ismidopont.lastIndexOf('.');
+//                    strs[index++] = last != -1 ? 
+//                            ismidopont.substring(0, ismidopont.lastIndexOf('.')) : 
+//                            ismidopont;
+//                  }
+//                  return Arrays.copyOf(strs, index);
             }
             case 6: {
                 return sor.getOsszSuly();
