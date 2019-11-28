@@ -18,10 +18,10 @@ import java.util.Objects;
  */
 public class AbstractSorozat implements SorozatInterface {
     private static final long serialversionUID = 123L;
-    List<Integer> sulyList;
-    List<Integer> ismList;
+    List<Integer> suly;
+    List<Integer> ism;
     IGyakorlat gyakorlat;
-    List<LocalTime> ismIdoList;
+    List<LocalTime> IsmRogzitesIdopontja;
     LocalDateTime rogzitesiIdopont;
 
     public AbstractSorozat() {
@@ -29,20 +29,20 @@ public class AbstractSorozat implements SorozatInterface {
 
     public AbstractSorozat(IGyakorlat gyakorlat) {
         this.gyakorlat = gyakorlat;
-        this.sulyList = new ArrayList<>();
-        this.ismIdoList = new ArrayList<>();
-        this.ismList = new ArrayList<>();
+        this.suly = new ArrayList<>();
+        this.IsmRogzitesIdopontja = new ArrayList<>();
+        this.ism = new ArrayList<>();
     }
 
     public AbstractSorozat(List<Integer> sulyList, List<Integer> ismList, IGyakorlat gyakorlat, List<LocalTime> ismIdoList) {
-        this.sulyList = sulyList;
-        this.ismList = ismList;
+        this.suly = sulyList;
+        this.ism = ismList;
         this.gyakorlat = gyakorlat;
-        this.ismIdoList = ismIdoList;
+        this.IsmRogzitesIdopontja = ismIdoList;
     }
 
     @Override
-    public LocalDateTime getGyakRogzitesIdopontja() {
+    public LocalDateTime getRogzitesIdopont() {
         return rogzitesiIdopont;
     }
 
@@ -64,58 +64,58 @@ public class AbstractSorozat implements SorozatInterface {
     }
 
     @Override
-    public void setSulyList(List<Integer> sulylist) {
-        this.sulyList = sulylist;
+    public void setSuly(List<Integer> sulylist) {
+        this.suly = sulylist;
     }
 
     @Override
-    public List<Integer> getSulyList() {
-        return sulyList;
+    public List<Integer> getSuly() {
+        return suly;
     }
 
     @Override
     public void addSuly(int suly) {
-        sulyList.add(suly);
+        this.suly.add(suly);
     }
 
     @Override
-    public void setIsmList(List<Integer> ismlist) {
-        this.ismList = ismlist;
+    public void setIsm(List<Integer> ismlist) {
+        this.ism = ismlist;
     }
 
     @Override
-    public List<Integer> getIsmList() {
-        return ismList;
+    public List<Integer> getIsm() {
+        return ism;
     }
 
     @Override
     public void addIsm(int ism) {
-        ismList.add(ism);
+        this.ism.add(ism);
     }
 
     @Override
-    public void setIsmIdoList(List<LocalTime> ismido) {
-        this.ismIdoList = ismido;
+    public void setIsmRogzitesIdopontja(List<LocalTime> ismido) {
+        this.IsmRogzitesIdopontja = ismido;
     }
 
     @Override
-    public List<LocalTime> getIsmIdoList() {
-        return ismIdoList;
+    public List<LocalTime> getIsmRogzitesIdopontja() {
+        return IsmRogzitesIdopontja;
     }
 
     @Override
     public void addIsmIdo(LocalTime idopont) {
-        ismIdoList.add(idopont);
+        IsmRogzitesIdopontja.add(idopont);
     }
 
     @Override
     public void setSulyAt(int index, int nsuly) {
-        sulyList.set(index, nsuly);
+        suly.set(index, nsuly);
     }
 
     @Override
     public void setIsmAt(int index, int nism) {
-        ismList.set(index, nism);
+        ism.set(index, nism);
     }
     
     
@@ -154,8 +154,8 @@ public class AbstractSorozat implements SorozatInterface {
     @Override
     public int getOsszSuly() {
         int ossz = 0;
-        for (int i = 0; i < sulyList.size(); i++) {
-            ossz += sulyList.get(i) * ismList.get(i);
+        for (int i = 0; i < suly.size(); i++) {
+            ossz += suly.get(i) * ism.get(i);
         }
         return ossz;
     }
