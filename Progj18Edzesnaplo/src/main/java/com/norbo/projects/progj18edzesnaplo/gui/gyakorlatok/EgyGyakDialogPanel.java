@@ -60,16 +60,18 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(30, 69, 94));
 
         jPanel1.setBackground(new java.awt.Color(48, 108, 147));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyakorlat informácó"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gyakorlat informácó", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         tfMegnevezes.setEditable(false);
         tfMegnevezes.setText("jTextField1");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Izomcsoport");
 
         tfIzomcsoport.setEditable(false);
         tfIzomcsoport.setText("jTextField1");
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Leírás");
 
@@ -79,6 +81,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         taLeiras.setRows(5);
         jScrollPane1.setViewportView(taLeiras);
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Megnevezés");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -120,7 +123,7 @@ public class EgyGyakDialogPanel extends javax.swing.JPanel {
         );
 
         videoPanel.setBackground(new java.awt.Color(48, 108, 147));
-        videoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5), "Video"));
+        videoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5), "Video", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         javax.swing.GroupLayout videoPanelBelsoLayout = new javax.swing.GroupLayout(videoPanelBelso);
         videoPanelBelso.setLayout(videoPanelBelsoLayout);
