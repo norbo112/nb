@@ -31,6 +31,7 @@ public class EgyGyakorlatDialog extends JDialog {
         setLayout(new BorderLayout(5,5));
         add(new EgyGyakDialogPanel(this, egyGyak));
         setMinimumSize(new Dimension(850, 500));
+        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }
