@@ -16,24 +16,28 @@ import java.util.List;
  * @author igloi
  */
 public interface SorozatInterface extends Serializable {
-    public LocalDateTime getGyakRogzitesIdopontja();
+    /**
+     * Amikor bejegyezted az első sorozatot, akkor rögzűl az időpont is
+     * @return LocalDateTime amikor elkezdted a gyakorlatot
+     */
+    public LocalDateTime getRogzitesIdopont();
     public void setGyakRogzitesIdopontja(LocalDateTime idopont);
     
     public IGyakorlat getGyakorlat();
     public void setGyakorlat(IGyakorlat gyakorlat);
     
-    public void setSulyList(List<Integer> sulylist);
-    public List<Integer> getSulyList();
+    public void setSuly(List<Integer> sulylist);
+    public List<Integer> getSuly();
     public void addSuly(int suly);
     public void setSulyAt(int index, int nsuly);
     
-    public void setIsmList(List<Integer> ismlist);
-    public List<Integer> getIsmList();
+    public void setIsm(List<Integer> ismlist);
+    public List<Integer> getIsm();
     public void addIsm(int ism);
     public void setIsmAt(int index, int nism);
     
-    public void setIsmIdoList(List<LocalTime> ismido);
-    public List<LocalTime> getIsmIdoList();
+    public void setIsmRogzitesIdopontja(List<LocalTime> ismido);
+    public List<LocalTime> getIsmRogzitesIdopontja();
     public void addIsmIdo(LocalTime idopont);
     
     public int getOsszSuly();
