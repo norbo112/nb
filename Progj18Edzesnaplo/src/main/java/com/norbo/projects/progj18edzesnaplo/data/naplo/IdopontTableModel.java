@@ -57,8 +57,9 @@ public class IdopontTableModel extends AbstractTableModel {
             case 0: return rowIndex+1;
             case 1: return s.getGyakorlat().getMegnevezes();
             case 2: 
-                String time = s.getIsmIdoList().get(s.getIsmIdoList().size()-1).toString();
-                return time.substring(0, time.lastIndexOf('.'));
+                String time = s.getIsmRogzitesIdopontja().get(s.getIsmRogzitesIdopontja().size()-1).toString();
+                int last = time.lastIndexOf('.');
+                return last != -1 ? time.substring(0, last) : time;
             default: return "";
         }
     }
