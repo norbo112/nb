@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -89,14 +88,14 @@ public class JsonSorozatTransform implements SorozatTransform<String> {
                 gy.setVideolink(gyakjob.getString("videolink"));
                 gy.setVideostartpoz(gyakjob.getInt("videostartpoz"));
                 Sorozat s = new Sorozat(gy);
-                s.setGyakRogzitesIdopontja(LocalDateTime.parse(ijob.getString("gyakRogzitesIdopontja")));
+                s.setGyakRogzitesIdopontja(LocalDateTime.parse(ijob.getString("rogzitesIdopont")));
 
-                List<Integer> list = getIntList(ijob.getJSONArray("sulyList"));
-                s.setSulyList(list);
-                list = getIntList(ijob.getJSONArray("ismList"));
-                s.setIsmList(list);
-                List<LocalTime> times = getTimeList(ijob.getJSONArray("ismIdoList"));
-                s.setIsmIdoList(times);
+                List<Integer> list = getIntList(ijob.getJSONArray("suly"));
+                s.setSuly(list);
+                list = getIntList(ijob.getJSONArray("ism"));
+                s.setIsm(list);
+                List<LocalTime> times = getTimeList(ijob.getJSONArray("ismRogzitesIdopontja"));
+                s.setIsmRogzitesIdopontja(times);
                 sorozat.add(s);
             }
         }
