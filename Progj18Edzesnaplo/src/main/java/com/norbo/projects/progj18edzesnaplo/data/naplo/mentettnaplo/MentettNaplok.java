@@ -27,13 +27,19 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 /**
- *
+ * A Mentett naplók megtekintése
  * @author igloi
  */
 public class MentettNaplok extends javax.swing.JDialog implements PropertyChangeListener{
     private SorozatTableModel sorozatTableModel;
     private MentettNaplokListModel naploListModel;
     
+    /**
+     * A Listában megjelenő mentett napló adata, displaystring jelenik meg
+     * majd lekérdezésnél az elérési út adná vissza a fájl helyét
+     * 
+     * ezt lehetséges hogy cserélem majd specifikusabb osztályra pl Pathsra
+     */
     private class MentettNaploModel {
         String displaystring;
         String eleresiut;
@@ -61,6 +67,9 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         
     }
 
+    /**
+     * JList listamodelje
+     */
     private class MentettNaplokListModel extends AbstractListModel<String> {
         private List<MentettNaploModel> lista;
 
@@ -83,6 +92,9 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         }
     };
     
+    /**
+     * SwingWorker a napló betöltésére, külön szálon biztosítva
+     */
     private class NaploBetolto extends SwingWorker<List<SorozatInterface>, String> {
         private List<SorozatInterface> sorozat;
 
@@ -480,6 +492,11 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         statusPanel.setVisible(false);
     }
     
+    /**
+     * user.dir mappa végigjárása a fájlok keresése az _edzesnap.npl-re
+     * @return Mentett naplók listája
+     * @throws IOException 
+     */
     private List<MentettNaploModel> getMentettNaploLista() throws IOException {
         List<MentettNaploModel> lists = new ArrayList<>();
         java.nio.file.Path userhome = Paths.get(System.getProperty("user.dir"));

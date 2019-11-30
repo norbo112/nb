@@ -71,12 +71,13 @@ public abstract class AbstractGyakorlat implements IGyakorlat, Comparable<IGyako
 
     @Override
     public String toString() {
-        return "[" + id + 
-                "] " + megnevezes + 
-                " " + izomcsoport +
-                " "+ leiras + " "+
-                (videolink.length() != 0 ? videolink : " ") +
-                (videostartpoz != 0 ? videostartpoz : " ");
+//        return "[" + id + 
+//                "] " + megnevezes + 
+//                " " + izomcsoport +
+//                " "+ leiras + " "+
+//                (videolink.length() != 0 ? videolink : " ") +
+//                (videostartpoz != 0 ? videostartpoz : " ");
+        return izomcsoport +" - "+megnevezes;
     }
 
     @Override

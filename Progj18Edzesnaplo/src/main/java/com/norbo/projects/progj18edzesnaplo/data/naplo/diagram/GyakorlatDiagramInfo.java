@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -123,6 +124,7 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
         super(parent, false);
         this.gyakorlatLista = gyakorlatLista;
         initComponents();
+        setIconImage(new ImageIcon(getClass().getClassLoader().getResource("enlogo.png")).getImage());
         initMe();
     }
     
@@ -222,10 +224,13 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
         jScrollPane1.setViewportView(gyakorlatJList);
 
         megtekinto.setBackground(new java.awt.Color(153, 204, 255));
-        megtekinto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Megtekintő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        megtekinto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Megtekintő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
         megtekintoScroll.setBackground(new java.awt.Color(0, 102, 153));
+        megtekintoScroll.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 153)));
+        megtekintoScroll.setForeground(new java.awt.Color(255, 255, 255));
 
+        mpanel.setBackground(new java.awt.Color(153, 204, 255));
         mpanel.setLayout(new javax.swing.BoxLayout(mpanel, javax.swing.BoxLayout.PAGE_AXIS));
         megtekintoScroll.setViewportView(mpanel);
 
@@ -257,11 +262,11 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnTobbValasztas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTobbValasztas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(megtekinto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -405,10 +410,8 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
                 table.setBorder(new LineBorder(Color.BLACK, 1, true));
                 
                 sp.setViewportView(table);
-                sp.setLocation(x, y);
-                sp.setSize(megtekinto.getWidth() - 50, 150);
-
-                //panelMegtekinto.add(new JLabel(sorV.getName()));
+                sp.setBackground(tablaSzinHatter);
+                
                 mpanel.add(new JLabel(sorV.getName(), SwingConstants.CENTER));
                 mpanel.add(sp);
                 
@@ -421,6 +424,7 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
         megtekintoScroll.validate();
         //megtekinto.validate();
     }
+    private final Color tablaSzinHatter = new Color(153,204,255);
     
     /**
      * Az egész ami mentve van az adott könyvtárba - betöltésre kerül

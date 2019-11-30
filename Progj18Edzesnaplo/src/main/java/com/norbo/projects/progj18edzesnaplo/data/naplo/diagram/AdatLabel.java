@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.norbo.projects.progj18edzesnaplo.data.naplo.diagram;
 
 import java.awt.Color;
@@ -14,7 +9,8 @@ import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 
 /**
- *
+ * int[] típusú cella adatainak megjeleníése úgy mintha egy vizszintes diagram lenne
+ * a megfelelő adatokkal.
  * @author igloi
  */
 public class AdatLabel extends JLabel implements TableCellRenderer {
@@ -29,8 +25,6 @@ public class AdatLabel extends JLabel implements TableCellRenderer {
 
     public void setOsszSuly(int osszSuly) {
         this.osszSuly = osszSuly;
-//        invalidate();
-//        repaint();
     }
 
     public void setSzazalekErtek(int szazalekErtek) {
@@ -61,12 +55,12 @@ public class AdatLabel extends JLabel implements TableCellRenderer {
      * value egy kételemű tömb lesz, az első elem a kiválasztott naplók össz gyakorlat megmozgatott súéya
      * a második eleme pedig a egyes naplókban lévő gyakorlat össz megmozgatott súlya
      * @param table
-     * @param value
+     * @param value int[] típusú adat a táblázatból
      * @param isSelected
      * @param hasFocus
      * @param row
      * @param column
-     * @return 
+     * @return AdatLabel osztály mint komponens
      */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
