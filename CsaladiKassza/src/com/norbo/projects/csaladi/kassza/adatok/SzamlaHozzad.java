@@ -71,24 +71,37 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         setIconImage(null);
         setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Számla hozzáadása"));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Választott számla adatai"));
+        jPanel3.setBackground(new java.awt.Color(0, 102, 153));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Választott számla adatai", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel3.setLayout(new java.awt.GridLayout(5, 2, 5, 5));
 
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel8.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Számlaszám: ");
+        jLabel8.setOpaque(true);
         jPanel8.add(jLabel8);
+
+        tfSzamlaszam.setBackground(new java.awt.Color(0, 102, 153));
+        tfSzamlaszam.setForeground(new java.awt.Color(255, 255, 255));
         jPanel8.add(tfSzamlaszam);
 
         jPanel3.add(jPanel8);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel7.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Prioritás: ");
+        jLabel7.setOpaque(true);
         jPanel7.add(jLabel7);
 
+        cbPrioritas.setBackground(new java.awt.Color(0, 102, 153));
+        cbPrioritas.setForeground(new java.awt.Color(255, 255, 255));
         cbPrioritas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alacsony", "Közepes", "Magas" }));
         jPanel7.add(cbPrioritas);
 
@@ -96,41 +109,58 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 
         jPanel6.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel6.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Befizetési határidő:");
+        jLabel6.setOpaque(true);
         jPanel6.add(jLabel6);
 
+        jPanel10.setBackground(new java.awt.Color(0, 102, 153));
+        jPanel10.setForeground(new java.awt.Color(255, 255, 255));
         jPanel10.setLayout(new java.awt.GridBagLayout());
 
+        jLabel10.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Év:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel10.add(jLabel10, gridBagConstraints);
 
+        tfEv.setBackground(new java.awt.Color(0, 102, 153));
+        tfEv.setForeground(new java.awt.Color(255, 255, 255));
         tfEv.setText("1994");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         jPanel10.add(tfEv, gridBagConstraints);
 
+        jLabel3.setBackground(new java.awt.Color(0, 153, 204));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Hónap:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         jPanel10.add(jLabel3, gridBagConstraints);
 
+        tfHonap.setBackground(new java.awt.Color(0, 102, 153));
+        tfHonap.setForeground(new java.awt.Color(255, 255, 255));
         tfHonap.setText("11");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
         jPanel10.add(tfHonap, gridBagConstraints);
 
+        jLabel11.setBackground(new java.awt.Color(0, 153, 204));
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Nap:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
         jPanel10.add(jLabel11, gridBagConstraints);
 
+        tfNap.setBackground(new java.awt.Color(0, 102, 153));
+        tfNap.setForeground(new java.awt.Color(255, 255, 255));
         tfNap.setText("05");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
@@ -143,20 +173,33 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel4.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Megjelenített név:");
+        jLabel4.setOpaque(true);
         jPanel4.add(jLabel4);
+
+        tfMegjNev.setBackground(new java.awt.Color(0, 102, 153));
+        tfMegjNev.setForeground(new java.awt.Color(255, 255, 255));
         jPanel4.add(tfMegjNev);
 
         jPanel3.add(jPanel4);
 
         jPanel5.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel5.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Befizetésre várt összeg:");
+        jLabel5.setOpaque(true);
         jPanel5.add(jLabel5);
+
+        tfVartOsszeg.setBackground(new java.awt.Color(0, 102, 153));
+        tfVartOsszeg.setForeground(new java.awt.Color(255, 255, 255));
         jPanel5.add(tfVartOsszeg);
 
         jPanel3.add(jPanel5);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Hozzáadni kívánt számla neve:");
 
         jButton1.setText("Mégse");

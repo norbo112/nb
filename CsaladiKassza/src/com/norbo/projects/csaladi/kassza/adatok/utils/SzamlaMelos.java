@@ -50,6 +50,28 @@ public class SzamlaMelos {
         return sl;
     }
     
+    public static Szamla getSzamlaFromDB(String szamlaszam) {
+        try {
+            Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
+            Statement stmt = conn.createStatement();
+            
+            ResultSet result = stmt.executeQuery("SELECT * FROM szamlak WHERE szamlaszam = '"+szamlaszam+"'");
+            while(result.next()) {
+                return new Szamla(result.getString("szamlaszam"), 
+                        result.getString("megjelenitnev"), 
+                        getPrior(result.getInt("prioritas")),
+                        LocalDate.parse(result.getString("befizetesideje")), 
+                        result.getInt("vartosszeg"));
+            }
+            
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(Szamlak.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
     public static Szamla.Prior getPrior(int prior) {
         switch (prior) {
             case 3: return Szamla.Prior.LOW;

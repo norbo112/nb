@@ -59,14 +59,20 @@ public class SzamlakTableModel extends AbstractTableModel {
             case 0: return sz.getSzamla().getMegjelenoNev();
             case 1: {
                 LocalDateTime loc = sz.getBefizetesiido();
-                String date = loc.toLocalDate().toString();
-                String time = loc.toLocalTime().toString();
-                return date + " "+ time.substring(0, time.lastIndexOf('.'));
+                return loc.toString().replace('T', ' ');
             }
             case 2: return String.format("%,.2f (Ft)", sz.getOsszeg());
             case 3: return sz.getBefizetve();
         }
         return null;
     }
-    
+
+    public List<BeSzamla> getSzamlak() {
+        return szamlak;
+    }
+
+    public void setSzamlak(List<BeSzamla> szamlak) {
+        this.szamlak = szamlak;
+        fireTableDataChanged();
+    }
 }
