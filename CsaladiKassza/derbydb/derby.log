@@ -11,3 +11,9 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=C:\Users\igloi\Documents\GitHub\nb\CsaladiKassza\derbydb
 Az adatbázis-osztálybetöltõ elindult - derby.database.classpath=''
+----------------------------------------------------------------
+Sun Dec 01 18:21:45 CET 2019: Shutting down Derby engine
+----------------------------------------------------------------
+Sun Dec 01 18:21:45 CET 2019:
+a816c00e-016e-c1f0-adfa-00006f40a7d2 példány leállítása
+----------------------------------------------------------------

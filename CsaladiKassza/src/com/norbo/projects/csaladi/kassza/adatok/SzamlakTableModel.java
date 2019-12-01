@@ -29,9 +29,9 @@ public class SzamlakTableModel extends AbstractTableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch(columnIndex) {
-            case 0:
-            case 1:
-            case 2: return Integer.class;
+            case 0: return String.class;
+            case 1: return String.class;
+            case 2: return String.class;
             case 3: return Boolean.class;
         }
         return null;
@@ -63,7 +63,7 @@ public class SzamlakTableModel extends AbstractTableModel {
                 String time = loc.toLocalTime().toString();
                 return date + " "+ time.substring(0, time.lastIndexOf('.'));
             }
-            case 2: return sz.getOsszeg();
+            case 2: return String.format("%,.2f (Ft)", sz.getOsszeg());
             case 3: return sz.getBefizetve();
         }
         return null;

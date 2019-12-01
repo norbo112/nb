@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -233,11 +234,19 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //hibakezelés és majd szamla változó beállítása
-        szamla = new Szamla(tfSzamlaszam.getText(),
-                tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()),
-                LocalDate.parse(tfEv.getText()+"-"+tfHonap.getText()+"-"+tfNap.getText()),
-                Integer.parseInt(tfVartOsszeg.getText()));
-        setVisible(false);
+        if (validateFields()) {
+            szamla = new Szamla(tfSzamlaszam.getText(),
+            tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()),
+                    LocalDate.parse(tfEv.getText() + "-" + tfHonap.getText() + "-" + tfNap.getText()),
+                    Integer.parseInt(tfVartOsszeg.getText()));
+            setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Üres mezőket adtál meg, kötelező kitölteni mind", "Számla",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+;
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -275,4 +284,31 @@ public class SzamlaHozzad extends javax.swing.JDialog {
     private javax.swing.JTextField tfUjSzamlaMegNev;
     private javax.swing.JTextField tfVartOsszeg;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validateFields() {
+        try {
+            if(tfEv.getText().length() == 0 || !tfEv.getText().matches("[0-9]+")) {
+                return false;
+            }
+
+            if(tfHonap.getText().length() == 0 || !tfHonap.getText().matches("[0-9]+")) {
+                return false;
+            }
+
+            if(tfNap.getText().length() == 0 || !tfNap.getText().matches("[0-9]+")) {
+                return false;
+            }
+
+            if(tfSzamlaszam.getText().length() == 0 ||
+                    tfMegjNev.getText().length() == 0 ||
+                    tfVartOsszeg.getText().length() == 0 ||
+                    tfUjSzamlaMegNev.getText().length() == 0) {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+        
+        return true;
+    }
 }
