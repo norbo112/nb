@@ -15,8 +15,11 @@ import com.norbo.projects.csaladi.kassza.adatok.utils.CsvFeldolgozo;
 import com.norbo.projects.csaladi.kassza.adatok.utils.Feldolgozo;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
+import com.norbo.projects.csaladi.kassza.nyomtatas.BeSzamlaNyomat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -74,6 +77,8 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         menufile = new javax.swing.JMenu();
         menuBetoltes = new javax.swing.JMenuItem();
         menuMentes = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        menuPrint = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -243,6 +248,16 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
             }
         });
         menufile.add(menuMentes);
+        menufile.add(jSeparator2);
+
+        menuPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/ikons/kassza_print.png"))); // NOI18N
+        menuPrint.setText("Nyomtatás");
+        menuPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPrintActionPerformed(evt);
+            }
+        });
+        menufile.add(menuPrint);
         menufile.add(jSeparator1);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/ikons/kassza_exit.png"))); // NOI18N
@@ -376,6 +391,25 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void menuPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPrintActionPerformed
+        List<BeSzamla> pszamlak = tableModel.getSzamlak();
+        if(!pszamlak.isEmpty()) {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setPrintable(new BeSzamlaNyomat(pszamlak));
+            boolean okey = job.printDialog();
+            if(okey) {
+                try {
+                    job.print();
+                } catch (PrinterException e) {
+                    System.out.println("Nem tudtam nyomtatni! "+e);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Üres listát nem lehet nyomtatni", "Nyomtatás",
+                        JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_menuPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,10 +496,12 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lbVartOsszeg;
     private javax.swing.JLabel lblHatarIdo;
     private javax.swing.JMenuItem menuBetoltes;
     private javax.swing.JMenuItem menuMentes;
+    private javax.swing.JMenuItem menuPrint;
     private javax.swing.JMenuItem menuReszletek;
     private javax.swing.JMenu menufile;
     private javax.swing.JTable tableSzamlak;

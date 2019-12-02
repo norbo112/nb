@@ -45,6 +45,12 @@ public class BeSzamla {
         return osszeg;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s\t%s\t%,.2f\t%d\n", szamla.getMegjelenoNev(),
+                befizetesiido, osszeg, (befizetve ? 1 : 0));
+    }
+
     
     
 }
