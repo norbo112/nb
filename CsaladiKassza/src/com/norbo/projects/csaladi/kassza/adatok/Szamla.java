@@ -13,7 +13,18 @@ import java.time.LocalDate;
  */
 public class Szamla {
     public enum Prior {
-        LOW,MEDIUM,HIGH;
+        LOW(3),MEDIUM(2),HIGH(1);
+        
+        int a;
+
+        private Prior(int a) {
+            this.a = a;
+        }
+
+        @Override
+        public String toString() {
+            return Integer.toString(a);
+        }
     }
     
     private String szamlaSzam;
@@ -21,12 +32,14 @@ public class Szamla {
     private Prior prioritas;
     private LocalDate befizetesHatarido;
     private double osszeg;
+    private int id;
 
     //egy üres adatokkal rendelkező, a válassz listára
     public Szamla() {
     }
 
-    public Szamla(String szamlaSzam, String megjelenoNev, Prior prioritas, LocalDate befizetesHatarido, double osszeg) {
+    public Szamla(int id, String szamlaSzam, String megjelenoNev, Prior prioritas, LocalDate befizetesHatarido, double osszeg) {
+        this.id = id;
         this.szamlaSzam = szamlaSzam;
         this.megjelenoNev = megjelenoNev;
         this.prioritas = prioritas;
@@ -52,6 +65,10 @@ public class Szamla {
 
     public double getOsszeg() {
         return osszeg;
+    }
+
+    public int getId() {
+        return id;
     }
     
     

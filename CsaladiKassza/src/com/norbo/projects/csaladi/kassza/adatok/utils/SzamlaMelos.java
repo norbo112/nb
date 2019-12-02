@@ -5,13 +5,15 @@
  */
 package com.norbo.projects.csaladi.kassza.adatok.utils;
 
+import com.mysql.cj.jdbc.PreparedStatementWrapper;
 import com.norbo.projects.csaladi.kassza.adatok.Szamla;
-import com.norbo.projects.csaladi.kassza.adatok.Szamlak;
+import com.norbo.projects.csaladi.kassza.adatok.SzamlaAdatokDialog;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.logging.Logger;
  * @author igloi
  */
 public class SzamlaMelos {
-    private static final String CONNURL = "jdbc:mysql://localhost:3306/csaladikassza?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+    public static final String CONNURL = "jdbc:mysql://localhost:3306/csaladikassza?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
     //ezt talán külön szálon kellene
     public static List<Szamla> getSzamlakFromDB() {
         List<Szamla> sl = new ArrayList<>();
@@ -33,18 +35,19 @@ public class SzamlaMelos {
             
             ResultSet result = stmt.executeQuery("SELECT * FROM szamlak");
             while(result.next()) {
+                int id = result.getInt("id");
                 String szamlaszam = result.getString("szamlaszam");
                 int prior = result.getInt("prioritas");
                 String befido = result.getString("befizetesideje");
                 String megjnev = result.getString("megjelenitnev");
                 int vartosszeg = result.getInt("vartosszeg");
                 
-                sl.add(new Szamla(szamlaszam, megjnev, getPrior(prior), 
+                sl.add(new Szamla(id, szamlaszam, megjnev, getPrior(prior), 
                         LocalDate.parse(befido), vartosszeg));
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(Szamlak.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SzamlaAdatokDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return sl;
@@ -57,7 +60,8 @@ public class SzamlaMelos {
             
             ResultSet result = stmt.executeQuery("SELECT * FROM szamlak WHERE szamlaszam = '"+szamlaszam+"'");
             while(result.next()) {
-                return new Szamla(result.getString("szamlaszam"), 
+                return new Szamla(result.getInt("id"),
+                        result.getString("szamlaszam"), 
                         result.getString("megjelenitnev"), 
                         getPrior(result.getInt("prioritas")),
                         LocalDate.parse(result.getString("befizetesideje")), 
@@ -66,10 +70,62 @@ public class SzamlaMelos {
             
             return null;
         } catch (SQLException ex) {
-            Logger.getLogger(Szamlak.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SzamlaAdatokDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;
+    }
+    
+    public static boolean addSzamlaToDB(String dburl, Szamla szamla) {
+        try {
+            Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO szamlak "+
+                    "(szamlaszam, megjelenitnev, befizetesideje, prioritas, vartosszeg) "+
+                    "VALUES (?,?,?,?,?)");
+            pst.setString(1, szamla.getSzamlaSzam());
+            pst.setString(2, szamla.getMegjelenoNev());
+            pst.setString(3, szamla.getBefizetesHatarido().toString());
+            pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
+            pst.setInt(5, (int)szamla.getOsszeg());
+            
+            int cnt = pst.executeUpdate();
+            
+            if(cnt > 0) {
+                return true;
+            } else {
+                System.out.println("Nem tudtam hozzáadni a számlát!");
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SzamlaMelos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public static boolean setSzamlaInDB(String dburl, Szamla szamla) {
+        try {
+            Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
+            PreparedStatement pst = conn.prepareStatement("UPDATE szamlak SET szamlaszam = ?, megjelenitnev = ?, "+
+                    "befizetesideje = ?, prioritas = ?, vartosszeg = ? WHERE id = ?;");
+            pst.setString(1, szamla.getSzamlaSzam());
+            pst.setString(2, szamla.getMegjelenoNev());
+            pst.setString(3, szamla.getBefizetesHatarido().toString());
+            pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
+            pst.setInt(5, (int)szamla.getOsszeg());
+            pst.setInt(6, szamla.getId());
+            
+            int cnt = pst.executeUpdate();
+            
+            if(cnt > 0) {
+                return true;
+            } else {
+                System.out.println("Nem tudtam frissíteni a számlát!");
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SzamlaMelos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public static Szamla.Prior getPrior(int prior) {

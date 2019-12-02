@@ -6,15 +6,12 @@
 package com.norbo.projects.csaladi.kassza.adatok;
 
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
+import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
-import java.sql.*;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -23,13 +20,14 @@ import javax.swing.JOptionPane;
  *
  * @author igloi
  */
-public class Szamlak extends javax.swing.JDialog {
+public class SzamlaAdatokDialog extends javax.swing.JDialog {
     private List<Szamla> szamlak;
     private DefaultComboBoxModel<String> cbmodel;
+    
     /**
      * Creates new form Szamlak
      */
-    public Szamlak(java.awt.Frame parent, boolean modal) {
+    public SzamlaAdatokDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("resources/ikons/kassza_szamla.png")).getImage());
@@ -47,9 +45,6 @@ public class Szamlak extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        cbSzamlak = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -75,6 +70,9 @@ public class Szamlak extends javax.swing.JDialog {
         jPanel9 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnMentes = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        szamlaadatokTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Részletek");
@@ -83,35 +81,6 @@ public class Szamlak extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(0, 102, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Adatok szerksztése", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-
-        jPanel2.setBackground(new java.awt.Color(0, 51, 153));
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Számlák adatai: ");
-
-        cbSzamlak.setForeground(new java.awt.Color(255, 255, 255));
-        cbSzamlak.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Víz", "Gáz", "Villany", "Telefon", "Hitel" }));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbSzamlak, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cbSzamlak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Választott számla adatai", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -272,29 +241,74 @@ public class Szamlak extends javax.swing.JDialog {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnMentes)))
+                    .addComponent(btnMentes)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel11.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rögzített cégek", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(100, 100));
+
+        szamlaadatokTable.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        szamlaadatokTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        szamlaadatokTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                szamlaadatokTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(szamlaadatokTable);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel11Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 188, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel11Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -303,12 +317,19 @@ public class Szamlak extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -320,9 +341,63 @@ public class Szamlak extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnMentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMentesActionPerformed
-        //adatok módosítása az adatbázisban
+        if(validateFields()) {
+            if(szamlaadatokTable.getSelectedRow() != -1) {
+                Szamla a = szamlak.get(szamlaadatokTable.getSelectedRow());
+                Szamla sz = new Szamla(a.getId(), tfSzamlaszam.getText(), 
+                        tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()), 
+                        LocalDate.of(Integer.parseInt(tfEv.getText()),
+                                Integer.parseInt(tfHonap.getText()),
+                                Integer.parseInt(tfNap.getText())), Double.parseDouble(tfVartOsszeg.getText()));
+                if(!SzamlaMelos.setSzamlaInDB(SzamlaMelos.CONNURL, sz)) {
+                    JOptionPane.showMessageDialog(null, "Nem sikerült frissíteni az adatokat", "Számla",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+
+                ((AdatFrissitoFigyelo)getParent()).adatFrissites(getClass().getSimpleName());
+                setVisible(false);  
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Érvényes adatokat adj meg!", "Számla",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnMentesActionPerformed
 
+    private void szamlaadatokTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_szamlaadatokTableMouseClicked
+        if(evt.getClickCount() == 2) {
+            if(szamlaadatokTable.getSelectedRow() != -1) {
+                Szamla sz = szamlak.get(szamlaadatokTable.getSelectedRow());
+                szamlaAdatBeallito(sz);
+            }
+        }
+    }//GEN-LAST:event_szamlaadatokTableMouseClicked
+
+    private boolean validateFields() {
+        try {
+            if(tfEv.getText().length() == 0 || !tfEv.getText().matches("[0-9]+")) {
+                return false;
+            }
+
+            if(tfHonap.getText().length() == 0 || !tfHonap.getText().matches("[0-9]+")) {
+                return false;
+            }
+
+            if(tfNap.getText().length() == 0 || !tfNap.getText().matches("[0-9]+")) {
+                return false;
+            }
+
+            if(tfSzamlaszam.getText().length() == 0 ||
+                    tfMegjNev.getText().length() == 0 ||
+                    tfVartOsszeg.getText().length() == 0) {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -340,20 +415,23 @@ public class Szamlak extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Szamlak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SzamlaAdatokDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Szamlak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SzamlaAdatokDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Szamlak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SzamlaAdatokDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Szamlak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SzamlaAdatokDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Szamlak dialog = new Szamlak(frame, true);
+                SzamlaAdatokDialog dialog = new SzamlaAdatokDialog(frame, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -368,9 +446,7 @@ public class Szamlak extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMentes;
     private javax.swing.JComboBox<String> cbPrioritas;
-    private javax.swing.JComboBox<String> cbSzamlak;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
@@ -381,7 +457,7 @@ public class Szamlak extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -389,6 +465,8 @@ public class Szamlak extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable szamlaadatokTable;
     private javax.swing.JTextField tfEv;
     private javax.swing.JTextField tfHonap;
     private javax.swing.JTextField tfMegjNev;
@@ -398,41 +476,51 @@ public class Szamlak extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initme() {
-        cbmodel = new DefaultComboBoxModel<>();
-        cbSzamlak.setModel(cbmodel);
-        cbmodel.addElement("-- Válassz --");
+//        cbmodel = new DefaultComboBoxModel<>();
+//        cbSzamlak.setModel(cbmodel);
+//        cbmodel.addElement("-- Válassz --");
         szamlak = SzamlaMelos.getSzamlakFromDB();
+//        
+//        szamlak.forEach( o -> cbmodel.addElement(o.getMegjelenoNev()));
+//        
+//        cbSzamlak.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent arg0) {
+//                if(cbSzamlak.getSelectedIndex() != 0) {
+//                    Szamla sz = szamlak.get(cbSzamlak.getSelectedIndex() - 1);
+//                    szamlaAdatBeallito(sz);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Kérlek válassz egy lehetséges számlát", "Számla",
+//                    JOptionPane.ERROR_MESSAGE);
+//                }
+//            }
+//        });
         
-        szamlak.forEach( o -> cbmodel.addElement(o.getMegjelenoNev()));
-        
-        cbSzamlak.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                if(cbSzamlak.getSelectedIndex() != 0) {
-                    Szamla sz = szamlak.get(cbSzamlak.getSelectedIndex() - 1);
-                    LocalDate hatarido = sz.getBefizetesHatarido();
-                    tfEv.setText(""+hatarido.getYear());
-                    tfHonap.setText(Integer.toString(hatarido.getMonthValue() - 1));
-                    tfNap.setText(""+hatarido.getDayOfMonth());
-                    tfSzamlaszam.setText(sz.getSzamlaSzam());
-                    tfMegjNev.setText(sz.getMegjelenoNev());
-                    cbPrioritas.setSelectedIndex(getPriorInt(sz));
-                    tfVartOsszeg.setText(String.format("%,.2f (Ft)", sz.getOsszeg()));
-                } else {
-                    JOptionPane.showMessageDialog(null, "Kérlek válassz egy lehetséges számlát", "Számla",
-                    JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-            private int getPriorInt(Szamla sz) {
-                Szamla.Prior prioritas = sz.getPrioritas();
-                switch(prioritas) {
-                    case LOW : return 0;
-                    case MEDIUM : return 1;
-                    case HIGH : return 2;
-                }
+        //tábla init
+        szamlaadatokTable.setModel(new CegAdatokTableModel(szamlak));
+    }
+    
+    private void szamlaAdatBeallito(Szamla sz) {
+        LocalDate hatarido = sz.getBefizetesHatarido();
+        tfEv.setText("" + hatarido.getYear());
+        tfHonap.setText(Integer.toString(hatarido.getMonthValue() - 1));
+        tfNap.setText("" + hatarido.getDayOfMonth());
+        tfSzamlaszam.setText(sz.getSzamlaSzam());
+        tfMegjNev.setText(sz.getMegjelenoNev());
+        cbPrioritas.setSelectedIndex(getPriorInt(sz));
+        tfVartOsszeg.setText(""+sz.getOsszeg());
+    }
+    
+    private int getPriorInt(Szamla sz) {
+        Szamla.Prior prioritas = sz.getPrioritas();
+        switch (prioritas) {
+            case LOW:
                 return 0;
-            }
-        });
+            case MEDIUM:
+                return 1;
+            case HIGH:
+                return 2;
+        }
+        return 0;
     }
 }

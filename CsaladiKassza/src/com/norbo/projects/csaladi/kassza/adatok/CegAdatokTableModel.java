@@ -5,6 +5,7 @@
  */
 package com.norbo.projects.csaladi.kassza.adatok;
 
+import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +16,18 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author igloi
  */
-public class SzamlakTableModel extends AbstractTableModel {
-    private List<BeSzamla> szamlak = new ArrayList<>();
+public class CegAdatokTableModel extends AbstractTableModel {
+    private List<Szamla> szamlak = new ArrayList<>();
     private final String[] COLUMN = new String[] {
-            "Név","Befizetés ideje","Befizetett összeg","Állapot"
+            "Név","Számlaszám","Befizetési határidő","Várt összeg","Prioritás"
     };
+
+    public CegAdatokTableModel(List<Szamla> szamlak) {
+        this.szamlak = szamlak;
+    }
     
-    public void addBeSzamla(BeSzamla beSzamla) {
-        szamlak.add(beSzamla);
+    public void addBeSzamla(Szamla Szamla) {
+        szamlak.add(Szamla);
         fireTableDataChanged();
     }
 
@@ -32,7 +37,8 @@ public class SzamlakTableModel extends AbstractTableModel {
             case 0: return String.class;
             case 1: return String.class;
             case 2: return String.class;
-            case 3: return Boolean.class;
+            case 3: return Integer.class;
+            case 4: return String.class;
         }
         return null;
     }
@@ -54,24 +60,22 @@ public class SzamlakTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int arg0, int arg1) {
-        BeSzamla sz = szamlak.get(arg0);
+        Szamla sz = szamlak.get(arg0);
         switch (arg1) {
-            case 0: return sz.getSzamla().getMegjelenoNev();
-            case 1: {
-                LocalDateTime loc = sz.getBefizetesiido();
-                return loc.toString().replace('T', ' ').substring(0, loc.toString().lastIndexOf('.'));
-            }
-            case 2: return String.format("%,.2f (Ft)", sz.getOsszeg());
-            case 3: return sz.getBefizetve();
+            case 0: return sz.getMegjelenoNev();
+            case 1: return sz.getSzamlaSzam();
+            case 2: return sz.getBefizetesHatarido().toString();
+            case 3: return String.format("%,.2f (Ft)", sz.getOsszeg());
+            case 4: return Integer.valueOf(sz.getPrioritas().toString());
         }
         return null;
     }
 
-    public List<BeSzamla> getSzamlak() {
+    public List<Szamla> getSzamlak() {
         return szamlak;
     }
 
-    public void setSzamlak(List<BeSzamla> szamlak) {
+    public void setSzamlak(List<Szamla> szamlak) {
         this.szamlak = szamlak;
         fireTableDataChanged();
     }

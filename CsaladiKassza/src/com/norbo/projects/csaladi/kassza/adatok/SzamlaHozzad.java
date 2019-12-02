@@ -64,7 +64,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         tfUjSzamlaMegNev = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnHozzaad = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Hozzáadás");
@@ -209,10 +209,10 @@ public class SzamlaHozzad extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Hozzáad");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnHozzaad.setText("Hozzáad");
+        btnHozzaad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnHozzaadActionPerformed(evt);
             }
         });
 
@@ -230,7 +230,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
                         .addComponent(tfUjSzamlaMegNev))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnHozzaad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -247,7 +247,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(btnHozzaad)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -275,13 +275,21 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnHozzaadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHozzaadActionPerformed
         //hibakezelés és majd szamla változó beállítása
         if (validateFields()) {
-            szamla = new Szamla(tfSzamlaszam.getText(),
+            //id lényegtelen, mert amikor hozzáadom a táblához, akkor ezt figyelmen kivül hagyom és automatikusan gerenál egyet
+            //számla id-je a szerkesztéshez szükséges
+            szamla = new Szamla(0,tfSzamlaszam.getText(),
             tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()),
                     LocalDate.parse(tfEv.getText() + "-" + tfHonap.getText() + "-" + tfNap.getText()),
                     Integer.parseInt(tfVartOsszeg.getText()));
+            
+            if(!SzamlaMelos.addSzamlaToDB(SzamlaMelos.CONNURL, szamla)) {
+                JOptionPane.showMessageDialog(this, "Sikertelen adatbázis beszúrás!", "Számla",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+            
             setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Üres mezőket adtál meg, kötelező kitölteni mind", "Számla",
@@ -290,7 +298,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 ;
         
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnHozzaadActionPerformed
 
 
     public Szamla getSzamla() {
@@ -299,9 +307,9 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHozzaad;
     private javax.swing.JComboBox<String> cbPrioritas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
