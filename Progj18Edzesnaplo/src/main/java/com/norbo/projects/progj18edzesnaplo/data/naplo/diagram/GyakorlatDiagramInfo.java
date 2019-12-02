@@ -98,16 +98,12 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
         protected void done() {
             statusPanel.setVisible(false);
             try {
-                //tableModel.setSorozatLista(get());
-                //külön táblázatok hozzáadása 
                 tablaKeszitoAblakhoz(get());
             } catch (InterruptedException ex) {
                 Logger.getLogger(GyakorlatDiagramInfo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ExecutionException ex) {
                 Logger.getLogger(GyakorlatDiagramInfo.class.getName()).log(Level.SEVERE, null, ex);
             }
-//            JOptionPane.showMessageDialog(GyakorlatDiagramInfo.this, "Adatok vizsgálata megtörtént","Info",
-//                    JOptionPane.INFORMATION_MESSAGE);
         }
 
         @Override
@@ -140,18 +136,19 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        megtekinto = new javax.swing.JPanel();
+        megtekintoScroll = new javax.swing.JScrollPane();
+        mpanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        gyakorlatJList = new javax.swing.JList<>();
+        btnTobbValasztas = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         progressBar = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         lblFajlFeldolgoz = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        gyakorlatJList = new javax.swing.JList<>();
-        megtekinto = new javax.swing.JPanel();
-        megtekintoScroll = new javax.swing.JScrollPane();
-        mpanel = new javax.swing.JPanel();
-        btnTobbValasztas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Megmozgatott súly");
@@ -159,6 +156,56 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        megtekinto.setBackground(new java.awt.Color(153, 204, 255));
+        megtekinto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Megtekintő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        megtekintoScroll.setBackground(new java.awt.Color(0, 102, 153));
+        megtekintoScroll.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 153)));
+        megtekintoScroll.setForeground(new java.awt.Color(255, 255, 255));
+
+        mpanel.setBackground(new java.awt.Color(153, 204, 255));
+        mpanel.setLayout(new javax.swing.BoxLayout(mpanel, javax.swing.BoxLayout.PAGE_AXIS));
+        megtekintoScroll.setViewportView(mpanel);
+
+        javax.swing.GroupLayout megtekintoLayout = new javax.swing.GroupLayout(megtekinto);
+        megtekinto.setLayout(megtekintoLayout);
+        megtekintoLayout.setHorizontalGroup(
+            megtekintoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(megtekintoScroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+        );
+        megtekintoLayout.setVerticalGroup(
+            megtekintoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, megtekintoLayout.createSequentialGroup()
+                .addComponent(megtekintoScroll)
+                .addContainerGap())
+        );
+
+        jPanel2.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gyakorlat(ok) kiválasztása", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+
+        gyakorlatJList.setBackground(new java.awt.Color(102, 204, 255));
+        gyakorlatJList.setForeground(new java.awt.Color(0, 0, 0));
+        gyakorlatJList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        gyakorlatJList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gyakorlatJListMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(gyakorlatJList);
+
+        btnTobbValasztas.setBackground(new java.awt.Color(0, 153, 255));
+        btnTobbValasztas.setForeground(new java.awt.Color(255, 255, 255));
+        btnTobbValasztas.setText("Több választás kiértékelése");
+        btnTobbValasztas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTobbValasztasActionPerformed(evt);
+            }
+        });
 
         statusPanel.setBackground(new java.awt.Color(0, 102, 204));
         statusPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -207,66 +254,49 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
         );
 
-        gyakorlatJList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        gyakorlatJList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                gyakorlatJListMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(gyakorlatJList);
-
-        megtekinto.setBackground(new java.awt.Color(153, 204, 255));
-        megtekinto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Megtekintő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-
-        megtekintoScroll.setBackground(new java.awt.Color(0, 102, 153));
-        megtekintoScroll.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 153)));
-        megtekintoScroll.setForeground(new java.awt.Color(255, 255, 255));
-
-        mpanel.setBackground(new java.awt.Color(153, 204, 255));
-        mpanel.setLayout(new javax.swing.BoxLayout(mpanel, javax.swing.BoxLayout.PAGE_AXIS));
-        megtekintoScroll.setViewportView(mpanel);
-
-        javax.swing.GroupLayout megtekintoLayout = new javax.swing.GroupLayout(megtekinto);
-        megtekinto.setLayout(megtekintoLayout);
-        megtekintoLayout.setHorizontalGroup(
-            megtekintoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(megtekintoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-        );
-        megtekintoLayout.setVerticalGroup(
-            megtekintoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(megtekintoLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(megtekintoScroll)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTobbValasztas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        btnTobbValasztas.setBackground(new java.awt.Color(0, 153, 255));
-        btnTobbValasztas.setForeground(new java.awt.Color(255, 255, 255));
-        btnTobbValasztas.setText("Több választás kiértékelése");
-        btnTobbValasztas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTobbValasztasActionPerformed(evt);
-            }
-        });
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTobbValasztas)
+                .addContainerGap(239, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(346, 346, 346)
+                    .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnTobbValasztas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                    .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(megtekinto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -275,23 +305,17 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(megtekinto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTobbValasztas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(megtekinto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,6 +400,7 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea lblFajlFeldolgoz;
@@ -396,9 +421,6 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
     }
 
     private void tablaKeszitoAblakhoz(List<TobbValasztoSorozat> sorozatok) {
-        int x = 10;
-        int y = 20;
-
         mpanel.removeAll();
         
         for (TobbValasztoSorozat sorV : sorozatok) {
@@ -414,8 +436,6 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
                 
                 mpanel.add(new JLabel(sorV.getName(), SwingConstants.CENTER));
                 mpanel.add(sp);
-                
-                y += 150;
             } else {
                 JOptionPane.showMessageDialog(null,sorV.getName()+" gyakorlatról nincs adat rögzítve!" ,"Info",
                     JOptionPane.ERROR_MESSAGE);
