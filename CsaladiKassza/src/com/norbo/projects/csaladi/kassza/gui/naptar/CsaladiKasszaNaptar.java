@@ -5,12 +5,16 @@
  */
 package com.norbo.projects.csaladi.kassza.gui.naptar;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 /**
  *
@@ -19,7 +23,7 @@ import javax.swing.JButton;
 public class CsaladiKasszaNaptar extends javax.swing.JPanel {
 
     private LocalDate datum = LocalDate.now();
-    private List<JButton> buttons = new ArrayList<>();
+    private List<JComponent> buttons;
     
     /**
      * Creates new form CsaladiKasszaNaptar
@@ -40,6 +44,11 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel {
     private void initComponents() {
 
         napokPanel = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        lblHonapNeve = new javax.swing.JLabel();
+        btnPrevMonth = new javax.swing.JButton();
+        btnNextMonth = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -47,51 +56,12 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        lblHonapNeve = new javax.swing.JLabel();
-        btnPrevMonth = new javax.swing.JButton();
-        btnNextMonth = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 102, 153));
 
         napokPanel.setBackground(new java.awt.Color(0, 153, 204));
-        napokPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        napokPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         napokPanel.setLayout(new java.awt.GridLayout(0, 7, 5, 5));
-
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("H");
-        napokPanel.add(jLabel1);
-
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("K");
-        napokPanel.add(jLabel2);
-
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Sze");
-        napokPanel.add(jLabel3);
-
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Cs");
-        napokPanel.add(jLabel4);
-
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("P");
-        napokPanel.add(jLabel5);
-
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Szo");
-        napokPanel.add(jLabel6);
-
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("V");
-        napokPanel.add(jLabel7);
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -138,36 +108,72 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel {
                 .addComponent(btnNextMonth))
         );
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 7));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("H");
+        jPanel1.add(jLabel1);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("K");
+        jPanel1.add(jLabel2);
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Sze");
+        jPanel1.add(jLabel3);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Cs");
+        jPanel1.add(jLabel4);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("P");
+        jPanel1.add(jLabel5);
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Szo");
+        jPanel1.add(jLabel6);
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("V");
+        jPanel1.add(jLabel7);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(napokPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(napokPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(napokPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(napokPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNextMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextMonthActionPerformed
-        removeAllButtons();
         datum = datum.plusMonths(1);
         initMe();
-        revalidate();
     }//GEN-LAST:event_btnNextMonthActionPerformed
 
     private void btnPrevMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevMonthActionPerformed
-        removeAllButtons();
         datum = datum.minusMonths(1);
         initMe();
-        revalidate();
     }//GEN-LAST:event_btnPrevMonthActionPerformed
 
 
@@ -181,41 +187,42 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblHonapNeve;
     private javax.swing.JPanel napokPanel;
     // End of variables declaration//GEN-END:variables
 
     private void initMe() {
+        buttons = new ArrayList<>();
+        napokPanel.removeAll();
+        
         lblHonapNeve.setText(datum.getMonth().name());
         int napokszama = datum.lengthOfMonth();
-        
-        for (int i = 1; i <= napokszama; i++) {
-            buttons.add(new JButton(""+i));
-        }
         
         LocalDate honap = LocalDate.of(datum.getYear(), datum.getMonth(), 1);
         int elsoNapHetNapja = honap.getDayOfWeek().getValue();
         
         //panel feltöltése a gombokkal
         for (int i = 1; i < elsoNapHetNapja; i++) {
-            JButton b = new JButton();
-            b.setEnabled(false);
-            napokPanel.add(b);
+            JLabel lb = new JLabel();
+            lb.setSize(30, 30);
+            buttons.add(lb);
+        }
+        
+        for (int i = 1; i <= napokszama; i++) {
+            JButton b = new JButton(""+i);
+            b.setSize(30, 30);
+            //mai nap kijelzése
+            LocalDate most = LocalDate.now();
+            if(i == most.getDayOfMonth() && most.getMonth().equals(datum.getMonth())) {
+                b.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
+            }
+            buttons.add(b);
         }
         
         for(int i=0; i<buttons.size(); i++) {
             napokPanel.add(buttons.get(i));
         }   
-    }
-    
-    private void removeAllButtons() {
-        for(Component c: napokPanel.getComponents()) {
-            if(c instanceof JButton) {
-                napokPanel.remove(c);
-            }
-        }
-        
-        buttons.clear();
     }
 }
