@@ -14,11 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,9 +30,6 @@ public class CsvFeldolgozo implements AdatFeldolgozas<File, List<BeSzamla>>{
             bw.write("Cég neve;Számlaszám;Befizetés ideje;Összeg\n");
             
             for (BeSzamla sz : obj) {
-//                String date = sz.getBefizetesiido().toLocalDate().toString();
-//                String time = sz.getBefizetesiido().toLocalTime().toString().substring(0, 
-//                        sz.getBefizetesiido().toLocalTime().toString().lastIndexOf('.'));
                 bw.write(
                         sz.getSzamla().getMegjelenoNev()+";"+
                         sz.getSzamla().getSzamlaSzam()+";"+

@@ -76,7 +76,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Részletek");
-        setResizable(false);
+        setBackground(new java.awt.Color(0, 102, 204));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Adatok szerksztése", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -307,8 +307,8 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel11Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,7 +318,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -476,25 +476,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initme() {
-//        cbmodel = new DefaultComboBoxModel<>();
-//        cbSzamlak.setModel(cbmodel);
-//        cbmodel.addElement("-- Válassz --");
         szamlak = SzamlaMelos.getSzamlakFromDB();
-//        
-//        szamlak.forEach( o -> cbmodel.addElement(o.getMegjelenoNev()));
-//        
-//        cbSzamlak.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent arg0) {
-//                if(cbSzamlak.getSelectedIndex() != 0) {
-//                    Szamla sz = szamlak.get(cbSzamlak.getSelectedIndex() - 1);
-//                    szamlaAdatBeallito(sz);
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Kérlek válassz egy lehetséges számlát", "Számla",
-//                    JOptionPane.ERROR_MESSAGE);
-//                }
-//            }
-//        });
         
         //tábla init
         szamlaadatokTable.setModel(new CegAdatokTableModel(szamlak));
