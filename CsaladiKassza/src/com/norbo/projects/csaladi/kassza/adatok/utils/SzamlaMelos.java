@@ -116,8 +116,9 @@ public class SzamlaMelos {
             pst.setString(3, szamla.getBefizetesHatarido().toString());
             pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
             pst.setInt(5, (int)szamla.getOsszeg());
-            pst.setInt(6, szamla.getId());
-            pst.setString(7, szamla.getKijeloles());
+            pst.setString(6, szamla.getKijeloles());
+            pst.setInt(7, szamla.getId());
+            
             
             int cnt = pst.executeUpdate();
             

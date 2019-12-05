@@ -6,8 +6,10 @@
 package com.norbo.projects.csaladi.kassza.adatok;
 
 import com.norbo.projects.csaladi.kassza.adatok.table.SzinkodLabel;
+import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -15,6 +17,7 @@ import javax.swing.JFrame;
 import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,6 +71,9 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tfVartOsszeg = new javax.swing.JTextField();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        btnSzinkod = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnMentes = new javax.swing.JButton();
@@ -86,7 +92,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(0, 102, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Választott számla adatai", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(new java.awt.GridLayout(5, 2, 5, 5));
+        jPanel3.setLayout(new java.awt.GridLayout(6, 2, 5, 5));
 
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -211,6 +217,24 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         jPanel5.add(tfVartOsszeg);
 
         jPanel3.add(jPanel5);
+
+        jPanel12.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel9.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Színkód kiválasztása:");
+        jLabel9.setOpaque(true);
+        jPanel12.add(jLabel9);
+
+        btnSzinkod.setText("Színkód");
+        btnSzinkod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSzinkodActionPerformed(evt);
+            }
+        });
+        jPanel12.add(btnSzinkod);
+
+        jPanel3.add(jPanel12);
 
         jPanel9.setBackground(new java.awt.Color(0, 102, 153));
         jPanel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -349,7 +373,10 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
                         tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()), 
                         LocalDate.of(Integer.parseInt(tfEv.getText()),
                                 Integer.parseInt(tfHonap.getText()),
-                                Integer.parseInt(tfNap.getText())), Double.parseDouble(tfVartOsszeg.getText()));
+                                Integer.parseInt(tfNap.getText())), Double.parseDouble(tfVartOsszeg.getText()),
+                        GuiUtils.getColorStr(btnSzinkod.getBackground().getRed(), 
+                                btnSzinkod.getBackground().getGreen(),
+                                btnSzinkod.getBackground().getBlue()));
                 if(!SzamlaMelos.setSzamlaInDB(SzamlaMelos.CONNURL, sz)) {
                     JOptionPane.showMessageDialog(null, "Nem sikerült frissíteni az adatokat", "Számla",
                         JOptionPane.ERROR_MESSAGE);
@@ -372,6 +399,13 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_szamlaadatokTableMouseClicked
+
+    private void btnSzinkodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSzinkodActionPerformed
+        Color color = JColorChooser.showDialog(this, "Számla színkódjának kiválasztása", Color.yellow);
+        if(color != null) {
+            btnSzinkod.setBackground(color);
+        }
+    }//GEN-LAST:event_btnSzinkodActionPerformed
 
     private boolean validateFields() {
         try {
@@ -446,6 +480,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMentes;
+    private javax.swing.JButton btnSzinkod;
     private javax.swing.JComboBox<String> cbPrioritas;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
@@ -456,9 +491,11 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -493,6 +530,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         tfMegjNev.setText(sz.getMegjelenoNev());
         cbPrioritas.setSelectedIndex(getPriorInt(sz));
         tfVartOsszeg.setText(""+sz.getOsszeg());
+        btnSzinkod.setBackground(GuiUtils.parseColor(sz.getKijeloles()));
     }
     
     private int getPriorInt(Szamla sz) {

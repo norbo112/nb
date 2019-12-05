@@ -301,10 +301,20 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     public void actionPerformed(ActionEvent event) {
         NapButton b = ((NapButton)event.getSource());
         if(b.isKijelolve()) {
-            JOptionPane.showMessageDialog(this, b.getText()+" kijelölt","Befizetés ideje",
-                    JOptionPane.INFORMATION_MESSAGE);
+            Szamla sz = getSzamlaByNap(Integer.parseInt(b.getText()));
+            if(sz != null) {
+                JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+" számlának befizetési határideje","Befizetés ideje",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
     
-    
+    private Szamla getSzamlaByNap(int nap) {
+        for(Szamla sz: szamlak) {
+            if(sz.getBefizetesHatarido().getDayOfMonth() == nap) {
+                return sz;
+            }
+        }
+        return null;
+    }
 }
