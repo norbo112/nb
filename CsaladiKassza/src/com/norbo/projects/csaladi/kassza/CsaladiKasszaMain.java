@@ -13,9 +13,12 @@ import com.norbo.projects.csaladi.kassza.adatok.SzamlakTableModel;
 import com.norbo.projects.csaladi.kassza.adatok.utils.CskFilter;
 import com.norbo.projects.csaladi.kassza.adatok.utils.CsvFeldolgozo;
 import com.norbo.projects.csaladi.kassza.adatok.utils.Feldolgozo;
+import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
+import com.norbo.projects.csaladi.kassza.gui.naptar.CsaladiKasszaNaptar;
 import com.norbo.projects.csaladi.kassza.nyomtatas.BeSzamlaNyomat;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -38,6 +41,7 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
     private List<Szamla> szamlaLista;
     private DefaultComboBoxModel<String> cbmodel;
     private SzamlakTableModel tableModel;
+    private CsaladiKasszaNaptar naptar;
 
     /**
      * Creates new form CsaladiKasszaMain
@@ -73,7 +77,8 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         btnAddBeSzamla = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         lblHatarIdo = new javax.swing.JLabel();
-        csaladiKasszaNaptar2 = new com.norbo.projects.csaladi.kassza.gui.naptar.CsaladiKasszaNaptar();
+        lblSzinkod = new javax.swing.JLabel();
+        naptarPanel = new com.norbo.projects.csaladi.kassza.gui.naptar.CsaladiKasszaNaptar();
         jMenuBar1 = new javax.swing.JMenuBar();
         menufile = new javax.swing.JMenu();
         menuBetoltes = new javax.swing.JMenuItem();
@@ -118,14 +123,14 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1162, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -162,21 +167,28 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         lblHatarIdo.setForeground(new java.awt.Color(255, 255, 255));
         lblHatarIdo.setText("1900-01-01");
 
+        lblSzinkod.setForeground(new java.awt.Color(0, 0, 0));
+        lblSzinkod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSzinkod.setText("Színkód:");
+        lblSzinkod.setOpaque(true);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbSzamlaLista, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblHatarIdo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cbSzamlaLista, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblHatarIdo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblSzinkod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,7 +219,9 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                             .addComponent(jLabel4)
                             .addComponent(lblHatarIdo)))
                     .addComponent(btnAddBeSzamla))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSzinkod)
+                .addContainerGap(297, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -220,19 +234,17 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(csaladiKasszaNaptar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(naptarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 69, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(csaladiKasszaNaptar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(naptarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -332,13 +344,14 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         SzamlaHozzad szamlaHozzad = new SzamlaHozzad(this, true);
         szamlaHozzad.setVisible(true);
         
-        Szamla sz = szamlaHozzad.getSzamla();
-        if (sz != null) {
-            JOptionPane.showMessageDialog(this, "Számla hozzáadása megtörtént: " + sz.getMegjelenoNev(), "Számla",
-                    JOptionPane.INFORMATION_MESSAGE);
-            szamlaLista.add(sz);
-            cbmodel.addElement(sz.getMegjelenoNev());
-        }
+//        Ezt kiveszem, mivel adatbázisból dolgozok, igy onnan frissitem a számlákat és egyébb tartalmat
+//        Szamla sz = szamlaHozzad.getSzamla();
+//        if (sz != null) {
+//            JOptionPane.showMessageDialog(this, "Számla hozzáadása megtörtént: " + sz.getMegjelenoNev(), "Számla",
+//                    JOptionPane.INFORMATION_MESSAGE);
+//            szamlaLista.add(sz);
+//            cbmodel.addElement(sz.getMegjelenoNev());
+//        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void btnAddBeSzamlaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBeSzamlaActionPerformed
@@ -465,6 +478,8 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         cbSzamlaLista.removeAllItems();
         
         szamlaLista = SzamlaMelos.getSzamlakFromDB();
+        naptarPanel.setSzamlak(szamlaLista);
+        
         cbmodel = new DefaultComboBoxModel<>();
         cbSzamlaLista.setModel(cbmodel);
         
@@ -479,9 +494,13 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                         Szamla szamla = szamlaLista.get(cbSzamlaLista.getSelectedIndex() - 1);
                         lbVartOsszeg.setText(String.format("%,.2f Ft", szamla.getOsszeg()));
                         lblHatarIdo.setText(szamla.getBefizetesHatarido().toString());
+                        lblSzinkod.setBackground(GuiUtils.parseColor(szamla.getKijeloles()));
+                        naptarPanel.setHataridoKijeloltSzamla(szamla);
                     } else {
                         lbVartOsszeg.setText(String.format("%,.2f Ft", 0.0));
                         lblHatarIdo.setText("1900-01-01");
+                        lblSzinkod.setBackground(getBackground());
+                        naptarPanel.clearHataridoKijeloltSzamlak();
                     }
                 }
             }
@@ -491,7 +510,6 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBeSzamla;
     private javax.swing.JComboBox<String> cbSzamlaLista;
-    private com.norbo.projects.csaladi.kassza.gui.naptar.CsaladiKasszaNaptar csaladiKasszaNaptar2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -508,20 +526,24 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lbVartOsszeg;
     private javax.swing.JLabel lblHatarIdo;
+    private javax.swing.JLabel lblSzinkod;
     private javax.swing.JMenuItem menuBetoltes;
     private javax.swing.JMenuItem menuMentes;
     private javax.swing.JMenuItem menuPrint;
     private javax.swing.JMenuItem menuReszletek;
     private javax.swing.JMenu menufile;
+    private com.norbo.projects.csaladi.kassza.gui.naptar.CsaladiKasszaNaptar naptarPanel;
     private javax.swing.JTable tableSzamlak;
     private javax.swing.JTextField tfBefizetesOsszeg;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void adatFrissites(String classname) {
-        if(classname.equals(SzamlaAdatokDialog.class.getSimpleName())) {
-            initSzamlaComboBox();
-        }
+        initSzamlaComboBox();
+        //még nem kell szétszedni honnan jött, csak a számla módosítás és uj hozzáadása
+//        if(classname.equals(SzamlaAdatokDialog.class.getSimpleName())) {
+//            initSzamlaComboBox();
+//        }
     }
 
 }

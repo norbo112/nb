@@ -5,6 +5,7 @@
  */
 package com.norbo.projects.csaladi.kassza.adatok;
 
+import com.norbo.projects.csaladi.kassza.adatok.table.SzinkodLabel;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
 public class CegAdatokTableModel extends AbstractTableModel {
     private List<Szamla> szamlak = new ArrayList<>();
     private final String[] COLUMN = new String[] {
-            "Név","Számlaszám","Befizetési határidő","Várt összeg","Prioritás"
+            "Név","Számlaszám","Befizetési határidő","Várt összeg","Prioritás","Színkód"
     };
 
     public CegAdatokTableModel(List<Szamla> szamlak) {
@@ -39,6 +40,7 @@ public class CegAdatokTableModel extends AbstractTableModel {
             case 2: return String.class;
             case 3: return Integer.class;
             case 4: return String.class;
+            case 5: return SzinkodLabel.class;
         }
         return null;
     }
@@ -67,6 +69,7 @@ public class CegAdatokTableModel extends AbstractTableModel {
             case 2: return sz.getBefizetesHatarido().toString();
             case 3: return String.format("%,.2f (Ft)", sz.getOsszeg());
             case 4: return Integer.valueOf(sz.getPrioritas().toString());
+            case 5: return sz.getKijeloles();
         }
         return null;
     }

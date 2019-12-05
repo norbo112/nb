@@ -5,11 +5,13 @@
  */
 package com.norbo.projects.csaladi.kassza.adatok;
 
+import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
+import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
+import java.awt.Color;
 import java.time.LocalDate;
-import java.time.Month;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -61,6 +63,10 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tfVartOsszeg = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnSzinKod = new javax.swing.JButton();
+        lblValasztottSzin = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         tfUjSzamlaMegNev = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -76,7 +82,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Választott számla adatai", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel3.setLayout(new java.awt.GridLayout(5, 2, 5, 5));
+        jPanel3.setLayout(new java.awt.GridLayout(6, 1, 5, 5));
 
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -199,6 +205,49 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 
         jPanel3.add(jPanel5);
 
+        jPanel2.setBackground(new java.awt.Color(0, 102, 153));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Színkód kiválasztása:");
+
+        btnSzinKod.setText("Színkód");
+        btnSzinKod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSzinKodActionPerformed(evt);
+            }
+        });
+
+        lblValasztottSzin.setBackground(java.awt.Color.green);
+        lblValasztottSzin.setForeground(new java.awt.Color(0, 0, 0));
+        lblValasztottSzin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValasztottSzin.setText("Választott színkód");
+        lblValasztottSzin.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSzinKod)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblValasztottSzin, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnSzinKod)
+                    .addComponent(lblValasztottSzin))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel2);
+
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Hozzáadni kívánt számla neve:");
 
@@ -223,7 +272,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -238,12 +287,12 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfUjSzamlaMegNev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -261,9 +310,9 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -280,14 +329,18 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         if (validateFields()) {
             //id lényegtelen, mert amikor hozzáadom a táblához, akkor ezt figyelmen kivül hagyom és automatikusan gerenál egyet
             //számla id-je a szerkesztéshez szükséges
+            Color vlszin = lblValasztottSzin.getBackground();
             szamla = new Szamla(0,tfSzamlaszam.getText(),
             tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()),
                     LocalDate.parse(tfEv.getText() + "-" + tfHonap.getText() + "-" + tfNap.getText()),
-                    Integer.parseInt(tfVartOsszeg.getText()));
+                    Integer.parseInt(tfVartOsszeg.getText()), 
+                    GuiUtils.getColorStr(vlszin.getRed(), vlszin.getGreen(), vlszin.getBlue()));
             
             if(!SzamlaMelos.addSzamlaToDB(SzamlaMelos.CONNURL, szamla)) {
                 JOptionPane.showMessageDialog(this, "Sikertelen adatbázis beszúrás!", "Számla",
                     JOptionPane.ERROR_MESSAGE);
+            } else {
+                ((AdatFrissitoFigyelo)getParent()).adatFrissites(getClass().getSimpleName());
             }
             
             setVisible(false);
@@ -300,6 +353,13 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnHozzaadActionPerformed
 
+    private void btnSzinKodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSzinKodActionPerformed
+        Color valasztottSzin = JColorChooser.showDialog(null, "Számla színkódjának kiválasztása", Color.green);
+        if(valasztottSzin != null) {
+            lblValasztottSzin.setBackground(valasztottSzin);
+        }
+    }//GEN-LAST:event_btnSzinKodActionPerformed
+
 
     public Szamla getSzamla() {
         return szamla;
@@ -308,11 +368,13 @@ public class SzamlaHozzad extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHozzaad;
+    private javax.swing.JButton btnSzinKod;
     private javax.swing.JComboBox<String> cbPrioritas;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -321,12 +383,14 @@ public class SzamlaHozzad extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JLabel lblValasztottSzin;
     private javax.swing.JTextField tfEv;
     private javax.swing.JTextField tfHonap;
     private javax.swing.JTextField tfMegjNev;

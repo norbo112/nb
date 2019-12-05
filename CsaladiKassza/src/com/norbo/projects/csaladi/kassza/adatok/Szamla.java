@@ -33,6 +33,7 @@ public class Szamla {
     private LocalDate befizetesHatarido;
     private double osszeg;
     private int id;
+    private String kijeloles = "0,255,0";
 
     //egy üres adatokkal rendelkező, a válassz listára
     public Szamla() {
@@ -47,6 +48,24 @@ public class Szamla {
         this.osszeg = osszeg;
     }
 
+    public Szamla(int id, String szamlaSzam, 
+            String megjelenoNev, Prior prioritas, LocalDate befizetesHatarido, 
+            double osszeg, String kijeloles) {
+        this.id = id;
+        this.szamlaSzam = szamlaSzam;
+        this.megjelenoNev = megjelenoNev;
+        this.prioritas = prioritas;
+        this.befizetesHatarido = befizetesHatarido;
+        this.osszeg = osszeg;
+        this.kijeloles = kijeloles;
+    }
+
+    public String getKijeloles() {
+        return kijeloles;
+    }
+    
+    
+    
     public String getSzamlaSzam() {
         return szamlaSzam;
     }

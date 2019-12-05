@@ -5,6 +5,7 @@
  */
 package com.norbo.projects.csaladi.kassza.adatok;
 
+import com.norbo.projects.csaladi.kassza.adatok.table.SzinkodLabel;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
 import java.awt.event.ActionEvent;
@@ -480,6 +481,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         
         //tábla init
         szamlaadatokTable.setModel(new CegAdatokTableModel(szamlak));
+        szamlaadatokTable.setDefaultRenderer(SzinkodLabel.class, new SzinkodLabel());
     }
     
     private void szamlaAdatBeallito(Szamla sz) {

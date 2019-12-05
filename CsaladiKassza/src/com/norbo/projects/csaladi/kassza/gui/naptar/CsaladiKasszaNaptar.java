@@ -5,8 +5,13 @@
  */
 package com.norbo.projects.csaladi.kassza.gui.naptar;
 
+import com.norbo.projects.csaladi.kassza.adatok.SajatCheckBox;
+import com.norbo.projects.csaladi.kassza.adatok.Szamla;
+import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -15,22 +20,34 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author igloi
  */
-public class CsaladiKasszaNaptar extends javax.swing.JPanel {
-
+public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionListener {
+    private Color kijelolt = Color.green;
+    private Color defHatter = new Color(60,63,65);
+    
+    private final LocalDate most = LocalDate.now();
+    
     private LocalDate datum = LocalDate.now();
     private List<JComponent> buttons;
+    private List<Szamla> szamlak;
     
     /**
      * Creates new form CsaladiKasszaNaptar
      */
     public CsaladiKasszaNaptar() {
+        this.szamlak = new ArrayList<>();
         initComponents();
-        
+        initMe();
+    }
+    
+    public CsaladiKasszaNaptar(List<Szamla> szamlak) {
+        this.szamlak = szamlak;
+        initComponents();
         initMe();
     }
 
@@ -211,10 +228,10 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel {
         }
         
         for (int i = 1; i <= napokszama; i++) {
-            JButton b = new JButton(""+i);
+            NapButton b = new NapButton(""+i);
             b.setSize(30, 30);
+            defHatter = b.getBackground();
             //mai nap kijelzése
-            LocalDate most = LocalDate.now();
             if(i == most.getDayOfMonth() && most.getMonth().equals(datum.getMonth())) {
                 b.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
             }
@@ -223,6 +240,71 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel {
         
         for(int i=0; i<buttons.size(); i++) {
             napokPanel.add(buttons.get(i));
-        }   
+        }
+        
+        //ha a számlalista nem üres, akkor inicilizálja a kijelölést
+        for(Szamla sz: szamlak) {
+            hataridotKijelol(sz);
+        }
     }
+    
+    /**
+     * Kijelöli a számlához tartozó befizetési határidő napját
+     * a naptáron
+     * @param szamla 
+     */
+    public void hataridotKijelol(Szamla szamla) {
+        for(JComponent c : buttons) {
+            if(c instanceof NapButton && ((NapButton)c).getText().equals(
+                Integer.toString(szamla.getBefizetesHatarido().getDayOfMonth()))) {
+                ((NapButton)c).setBackground(GuiUtils.parseColor(szamla.getKijeloles()));
+                ((NapButton)c).setKijelolve(true);
+                ((NapButton)c).addActionListener(this);
+            }
+        }
+    }
+    
+    public void setHataridoKijeloltSzamla(Szamla szamla) {
+        for(JComponent c: buttons) {
+            if(c instanceof NapButton) {
+                NapButton nb = ((NapButton)c);
+                int nap = Integer.parseInt(nb.getText());
+                if(nap == szamla.getBefizetesHatarido().getDayOfMonth() || nap == most.getDayOfMonth()) {
+                    c.setBorder(BorderFactory.createLineBorder(kijelolt, 1));
+                } else {
+                    c.setBorder(BorderFactory.createEmptyBorder());
+                }
+            }
+        }
+    }
+    
+    public void clearHataridoKijeloltSzamlak() {
+        for(JComponent c: buttons) {
+            if(c instanceof NapButton) {
+                NapButton nb = ((NapButton)c);
+                int nap = Integer.parseInt(nb.getText());
+                if(nap == most.getDayOfMonth()) {
+                    c.setBorder(BorderFactory.createLineBorder(kijelolt, 1));
+                } else {
+                    c.setBorder(BorderFactory.createEmptyBorder());
+                }
+            }
+        }
+    }
+
+    public void setSzamlak(List<Szamla> szamlak) {
+        this.szamlak = szamlak;
+        initMe();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        NapButton b = ((NapButton)event.getSource());
+        if(b.isKijelolve()) {
+            JOptionPane.showMessageDialog(this, b.getText()+" kijelölt","Befizetés ideje",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    
 }

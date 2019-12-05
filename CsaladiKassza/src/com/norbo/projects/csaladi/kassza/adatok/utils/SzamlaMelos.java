@@ -25,7 +25,9 @@ import java.util.logging.Logger;
  * @author igloi
  */
 public class SzamlaMelos {
-    public static final String CONNURL = "jdbc:mysql://localhost:3306/csaladikassza?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+    public static final String CONNURL = "jdbc:mysql://localhost:3306/csaladikassza"+
+            "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC"+
+            "&useUnicode=true&characterEncoding=UTF-8";
     //ezt talán külön szálon kellene
     public static List<Szamla> getSzamlakFromDB() {
         List<Szamla> sl = new ArrayList<>();
@@ -41,9 +43,9 @@ public class SzamlaMelos {
                 String befido = result.getString("befizetesideje");
                 String megjnev = result.getString("megjelenitnev");
                 int vartosszeg = result.getInt("vartosszeg");
-                
+                String kijeloles = result.getString("szine");
                 sl.add(new Szamla(id, szamlaszam, megjnev, getPrior(prior), 
-                        LocalDate.parse(befido), vartosszeg));
+                        LocalDate.parse(befido), vartosszeg, kijeloles));
             }
             
         } catch (SQLException ex) {
@@ -65,7 +67,8 @@ public class SzamlaMelos {
                         result.getString("megjelenitnev"), 
                         getPrior(result.getInt("prioritas")),
                         LocalDate.parse(result.getString("befizetesideje")), 
-                        result.getInt("vartosszeg"));
+                        result.getInt("vartosszeg"),
+                        result.getString("szine"));
             }
             
             return null;
@@ -80,13 +83,14 @@ public class SzamlaMelos {
         try {
             Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
             PreparedStatement pst = conn.prepareStatement("INSERT INTO szamlak "+
-                    "(szamlaszam, megjelenitnev, befizetesideje, prioritas, vartosszeg) "+
-                    "VALUES (?,?,?,?,?)");
+                    "(szamlaszam, megjelenitnev, befizetesideje, prioritas, vartosszeg, szine) "+
+                    "VALUES (?,?,?,?,?,?)");
             pst.setString(1, szamla.getSzamlaSzam());
             pst.setString(2, szamla.getMegjelenoNev());
             pst.setString(3, szamla.getBefizetesHatarido().toString());
             pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
             pst.setInt(5, (int)szamla.getOsszeg());
+            pst.setString(6, szamla.getKijeloles());
             
             int cnt = pst.executeUpdate();
             
@@ -106,13 +110,14 @@ public class SzamlaMelos {
         try {
             Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
             PreparedStatement pst = conn.prepareStatement("UPDATE szamlak SET szamlaszam = ?, megjelenitnev = ?, "+
-                    "befizetesideje = ?, prioritas = ?, vartosszeg = ? WHERE id = ?;");
+                    "befizetesideje = ?, prioritas = ?, vartosszeg = ?, szine= ? WHERE id = ?;");
             pst.setString(1, szamla.getSzamlaSzam());
             pst.setString(2, szamla.getMegjelenoNev());
             pst.setString(3, szamla.getBefizetesHatarido().toString());
             pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
             pst.setInt(5, (int)szamla.getOsszeg());
             pst.setInt(6, szamla.getId());
+            pst.setString(7, szamla.getKijeloles());
             
             int cnt = pst.executeUpdate();
             
