@@ -66,7 +66,6 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnSzinKod = new javax.swing.JButton();
-        lblValasztottSzin = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         tfUjSzamlaMegNev = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -217,12 +216,6 @@ public class SzamlaHozzad extends javax.swing.JDialog {
             }
         });
 
-        lblValasztottSzin.setBackground(java.awt.Color.green);
-        lblValasztottSzin.setForeground(new java.awt.Color(0, 0, 0));
-        lblValasztottSzin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValasztottSzin.setText("Választott színkód");
-        lblValasztottSzin.setOpaque(true);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -230,20 +223,16 @@ public class SzamlaHozzad extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSzinKod)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblValasztottSzin, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btnSzinKod, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnSzinKod)
-                    .addComponent(lblValasztottSzin))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSzinKod, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3.add(jPanel2);
@@ -329,7 +318,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         if (validateFields()) {
             //id lényegtelen, mert amikor hozzáadom a táblához, akkor ezt figyelmen kivül hagyom és automatikusan gerenál egyet
             //számla id-je a szerkesztéshez szükséges
-            Color vlszin = lblValasztottSzin.getBackground();
+            Color vlszin = btnSzinKod.getBackground();
             szamla = new Szamla(0,tfSzamlaszam.getText(),
             tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()),
                     LocalDate.parse(tfEv.getText() + "-" + tfHonap.getText() + "-" + tfNap.getText()),
@@ -356,7 +345,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
     private void btnSzinKodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSzinKodActionPerformed
         Color valasztottSzin = JColorChooser.showDialog(null, "Számla színkódjának kiválasztása", Color.green);
         if(valasztottSzin != null) {
-            lblValasztottSzin.setBackground(valasztottSzin);
+            btnSzinKod.setBackground(valasztottSzin);
         }
     }//GEN-LAST:event_btnSzinKodActionPerformed
 
@@ -390,7 +379,6 @@ public class SzamlaHozzad extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JLabel lblValasztottSzin;
     private javax.swing.JTextField tfEv;
     private javax.swing.JTextField tfHonap;
     private javax.swing.JTextField tfMegjNev;

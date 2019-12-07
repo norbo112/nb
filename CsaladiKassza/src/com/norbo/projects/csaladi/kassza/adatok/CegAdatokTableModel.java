@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.norbo.projects.csaladi.kassza.adatok;
 
 import com.norbo.projects.csaladi.kassza.adatok.table.SzinkodLabel;
-import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JCheckBox;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Számla cég adatok szerkesztésére, amit a részletek ablakban jelenítek meg
  * @author igloi
  */
 public class CegAdatokTableModel extends AbstractTableModel {

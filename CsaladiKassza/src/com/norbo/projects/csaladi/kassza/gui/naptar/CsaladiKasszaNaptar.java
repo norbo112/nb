@@ -1,29 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.norbo.projects.csaladi.kassza.gui.naptar;
 
-import com.norbo.projects.csaladi.kassza.adatok.SajatCheckBox;
 import com.norbo.projects.csaladi.kassza.adatok.Szamla;
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *  Saját naptár panel megvílósítás a Befizetések határidejének nyomonkövetésére
  * @author igloi
  */
 public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionListener {
@@ -269,7 +260,9 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             if(c instanceof NapButton) {
                 NapButton nb = ((NapButton)c);
                 int nap = Integer.parseInt(nb.getText());
-                if(nap == szamla.getBefizetesHatarido().getDayOfMonth() || nap == most.getDayOfMonth()) {
+                if(nap == szamla.getBefizetesHatarido().getDayOfMonth() || 
+                        (nap == most.getDayOfMonth() && 
+                        lblHonapNeve.getText().equals(most.getMonth().toString()))) {
                     c.setBorder(BorderFactory.createLineBorder(kijelolt, 1));
                 } else {
                     c.setBorder(BorderFactory.createEmptyBorder());

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.norbo.projects.csaladi.kassza.adatok.utils;
 
-import com.mysql.cj.jdbc.PreparedStatementWrapper;
 import com.norbo.projects.csaladi.kassza.adatok.Szamla;
 import com.norbo.projects.csaladi.kassza.adatok.SzamlaAdatokDialog;
 import java.sql.Connection;
@@ -21,14 +15,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Számlák beállítása az adatbázisban
+ * Új felvitele, módosítás
  * @author igloi
  */
 public class SzamlaMelos {
+    /**
+     * Kapcsolat url
+     */
     public static final String CONNURL = "jdbc:mysql://localhost:3306/csaladikassza"+
             "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC"+
             "&useUnicode=true&characterEncoding=UTF-8";
-    //ezt talán külön szálon kellene
+    
+    /**
+     * Elkészíti a számla listát az adatbázisból
+     * @return 
+     */
     public static List<Szamla> getSzamlakFromDB() {
         List<Szamla> sl = new ArrayList<>();
         try {
@@ -55,6 +57,11 @@ public class SzamlaMelos {
         return sl;
     }
     
+    /**
+     * Az adatbázisból lekéri a szamlaszám paraméternek megfelelő számlát
+     * @param szamlaszam
+     * @return 
+     */
     public static Szamla getSzamlaFromDB(String szamlaszam) {
         try {
             Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
@@ -79,6 +86,13 @@ public class SzamlaMelos {
         return null;
     }
     
+    
+    /**
+     * Új számlát ad a dburl-el elért adatbázishoz (derby, mysql)
+     * @param dburl
+     * @param szamla
+     * @return true ha sikeres volt a beszúrás egyébbként false
+     */
     public static boolean addSzamlaToDB(String dburl, Szamla szamla) {
         try {
             Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
@@ -106,6 +120,12 @@ public class SzamlaMelos {
         }
     }
     
+    /**
+     * Számla adatait módosítja az adatbázisban
+     * @param dburl
+     * @param szamla
+     * @return 
+     */
     public static boolean setSzamlaInDB(String dburl, Szamla szamla) {
         try {
             Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
@@ -134,6 +154,11 @@ public class SzamlaMelos {
         }
     }
     
+    /**
+     * Prioritást alakítja át Prior enummá
+     * @param prior
+     * @return Prior objektum
+     */
     public static Szamla.Prior getPrior(int prior) {
         switch (prior) {
             case 3: return Szamla.Prior.LOW;
@@ -143,7 +168,11 @@ public class SzamlaMelos {
         return null;
     }
     
-        
+    /**
+     * String alakban kiolvasott adatot alakít át Prior objektumba
+     * @param pr
+     * @return Prior objektum
+     */
     public static Szamla.Prior getPrior(String pr) {
         switch (pr.trim()) {
             case "Alacsony": return Szamla.Prior.LOW;
