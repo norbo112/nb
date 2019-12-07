@@ -17,6 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class SzamlakTableModel extends AbstractTableModel {
     private List<BeSzamla> szamlak = new ArrayList<>();
+    private double szamlakOsszege = 0.0;
     private final String[] COLUMN = new String[] {
             "Név","Befizetés ideje","Befizetett összeg","Állapot"
     };
@@ -74,5 +75,27 @@ public class SzamlakTableModel extends AbstractTableModel {
     public void setSzamlak(List<BeSzamla> szamlak) {
         this.szamlak = szamlak;
         fireTableDataChanged();
+    }
+    
+    public void removeItem(int row) {
+        szamlak.remove(row);
+        fireTableDataChanged();
+    }
+    
+    private void szamlakOsszegeSzamol() {
+        szamlakOsszege = 0;
+        for (BeSzamla beSzamla : szamlak) {
+            szamlakOsszege += beSzamla.getOsszeg();
+        }
+    }
+
+    @Override
+    public void fireTableDataChanged() {
+        szamlakOsszegeSzamol();
+        super.fireTableDataChanged();
+    }
+
+    public double getSzamlakOsszege() {
+        return szamlakOsszege;
     }
 }

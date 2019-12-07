@@ -2,8 +2,11 @@ package com.norbo.projects.csaladi.kassza.adatok.table;
 
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import java.awt.Component;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -20,6 +23,13 @@ public class SzinkodLabel extends JLabel implements TableCellRenderer {
     public Component getTableCellRendererComponent(JTable arg0, Object arg1, boolean arg2, boolean arg3, int arg4, int arg5) {
         String szinkod = (String) arg1;
         setBackground(GuiUtils.parseColor(szinkod));
+        
+        if(arg2) {
+            setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        } else {
+            setBorder(BorderFactory.createEmptyBorder());
+        }
+        
         return this;
     }
 }
