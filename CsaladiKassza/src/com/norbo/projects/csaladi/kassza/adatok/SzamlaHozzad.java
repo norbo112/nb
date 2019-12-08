@@ -77,7 +77,7 @@ public class SzamlaHozzad extends javax.swing.JDialog {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Számla hozzáadása"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Számla hozzáadása", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Választott számla adatai", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N

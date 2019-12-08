@@ -288,6 +288,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     public void setSzamlak(List<Szamla> szamlak) {
         this.szamlak = szamlak;
         initMe();
+        revalidate();
     }
 
     @Override

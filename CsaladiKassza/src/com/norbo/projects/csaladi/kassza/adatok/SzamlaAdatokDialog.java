@@ -19,6 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -78,7 +79,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         btnMentes = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollTable = new javax.swing.JScrollPane();
         szamlaadatokTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -291,10 +292,10 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel11.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel11.setBackground(new java.awt.Color(0, 102, 153));
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rögzített cégek", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(100, 100));
+        scrollTable.setMaximumSize(new java.awt.Dimension(100, 100));
 
         szamlaadatokTable.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         szamlaadatokTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -313,7 +314,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
                 szamlaadatokTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(szamlaadatokTable);
+        scrollTable.setViewportView(szamlaadatokTable);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -323,7 +324,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel11Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                    .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel11Layout.setVerticalGroup(
@@ -332,7 +333,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel11Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                    .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -503,7 +504,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane scrollTable;
     private javax.swing.JTable szamlaadatokTable;
     private javax.swing.JTextField tfEv;
     private javax.swing.JTextField tfHonap;
@@ -519,6 +520,9 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         //tábla init
         szamlaadatokTable.setModel(new CegAdatokTableModel(szamlak));
         szamlaadatokTable.setDefaultRenderer(SzinkodLabel.class, new SzinkodLabel());
+        GuiUtils.coloriseTablaHeader(new JTable[]{szamlaadatokTable}, GuiUtils.THBGCOLOR,
+                GuiUtils.THFGCOLOR);
+        GuiUtils.coloriseTable(scrollTable, GuiUtils.DEFTABLEBGCOLOR, null);
     }
     
     private void szamlaAdatBeallito(Szamla sz) {
