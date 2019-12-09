@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *  Saját naptár panel megvílósítás a Befizetések határidejének nyomonkövetésére
@@ -211,9 +212,14 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         LocalDate honap = LocalDate.of(datum.getYear(), datum.getMonth(), 1);
         int elsoNapHetNapja = honap.getDayOfWeek().getValue();
         
+        int elozohonapszam = honap.minusMonths(1).lengthOfMonth();
+
+        int el = elozohonapszam-(elsoNapHetNapja-2);
         //panel feltöltése a gombokkal
         for (int i = 1; i < elsoNapHetNapja; i++) {
-            JLabel lb = new JLabel();
+            JLabel lb = new JLabel(""+(el++));
+            lb.setForeground(Color.white);
+            lb.setHorizontalAlignment(SwingUtilities.CENTER);
             lb.setSize(30, 30);
             buttons.add(lb);
         }
@@ -228,6 +234,18 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             }
             buttons.add(b);
         }
+        
+        //multhavi dátumok kijelzése, vagy épp a következőhavi, csak teszt, szóval köv havi
+        LocalDate temp = LocalDate.of(datum.getYear(), datum.getMonth(), napokszama);
+        int utso = temp.getDayOfWeek().getValue();
+        for (int i = 1; i <= 7 - utso; i++) {
+            JLabel lb = new JLabel(""+i);
+            lb.setForeground(Color.white);
+            lb.setHorizontalAlignment(SwingUtilities.CENTER);
+            lb.setSize(30, 30);
+            buttons.add(lb);
+        }
+        //köv honap labelje, teszt vége
         
         for(int i=0; i<buttons.size(); i++) {
             napokPanel.add(buttons.get(i));

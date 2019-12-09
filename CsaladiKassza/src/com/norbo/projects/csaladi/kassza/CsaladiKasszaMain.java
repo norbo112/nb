@@ -556,6 +556,7 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         int ok = JOptionPane.showConfirmDialog(this, "Biztosan kiakarsz lépni!", "Kilépés",
                 JOptionPane.OK_CANCEL_OPTION);
         if(ok == JOptionPane.OK_OPTION) {
+            beallitas.saveBeallitas();
             setVisible(false);
             System.exit(0);
         }
