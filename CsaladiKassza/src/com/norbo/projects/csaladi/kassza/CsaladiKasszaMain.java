@@ -18,38 +18,43 @@ import com.norbo.projects.csaladi.kassza.adatok.utils.Feldolgozo;
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
-import com.norbo.projects.csaladi.kassza.gui.naptar.CsaladiKasszaNaptar;
 import com.norbo.projects.csaladi.kassza.nyomtatas.BeSzamlaNyomat;
-import java.awt.Color;
+import com.norbo.projects.csaladi.kassza.settings.Beallitas;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.plaf.IconUIResource;
 
 /**
  *
  * @author igloi
  */
-public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissitoFigyelo{
+public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissitoFigyelo, WindowListener {
     private List<Szamla> szamlaLista;
     private SzamlakTableModel tableModel;
-
+    private Beallitas beallitas;
+    
+    private double egyenleg;
     /**
      * Creates new form CsaladiKasszaMain
      */
     public CsaladiKasszaMain() {
         initComponents();
+        beallitas = new Beallitas();
         
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("resources/ikons/kassza.png")).getImage());
         
         initContent();
+        
     }
 
     /**
@@ -71,6 +76,10 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblOsszBefizetes = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblEgyenlegKeret = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblAktualisEgyenleg = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnAddBeSzamla = new javax.swing.JButton();
         lbVartOsszeg = new javax.swing.JLabel();
@@ -79,6 +88,7 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         jLabel3 = new javax.swing.JLabel();
         lblHatarIdo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lblVartOsszegOK = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         scrollpaneCeg = new javax.swing.JScrollPane();
         szamlaadatokTable = new javax.swing.JTable();
@@ -94,6 +104,8 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuReszletek = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        menuEgyenleg = new javax.swing.JMenuItem();
 
         popupTorol.setText("Töröl");
         popupTorol.addActionListener(new java.awt.event.ActionListener() {
@@ -158,16 +170,33 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         lblOsszBefizetes.setForeground(new java.awt.Color(255, 255, 255));
         lblOsszBefizetes.setText("0 Ft");
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Egyenleg keret:");
+
+        lblEgyenlegKeret.setForeground(new java.awt.Color(255, 255, 255));
+        lblEgyenlegKeret.setText("0 FT");
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Aktuális egyenleg:");
+
+        lblAktualisEgyenleg.setForeground(new java.awt.Color(255, 255, 255));
+        lblAktualisEgyenleg.setText("0 FT");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblOsszBefizetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAktualisEgyenleg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEgyenlegKeret, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblOsszBefizetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +205,15 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblOsszBefizetes))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblEgyenlegKeret))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblAktualisEgyenleg))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(0, 102, 153));
@@ -206,6 +243,8 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Befizetési határidő:");
 
+        lblVartOsszegOK.setText(" ");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -228,7 +267,9 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                         .addContainerGap()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddBeSzamla, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAddBeSzamla, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(lblVartOsszegOK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -248,7 +289,8 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(lbVartOsszeg))
+                    .addComponent(lbVartOsszeg)
+                    .addComponent(lblVartOsszegOK))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -409,6 +451,16 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
             }
         });
         jMenu2.add(menuReszletek);
+        jMenu2.add(jSeparator3);
+
+        menuEgyenleg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/ikons/kassza_money.png"))); // NOI18N
+        menuEgyenleg.setText("Egyenleg");
+        menuEgyenleg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEgyenlegActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuEgyenleg);
 
         jMenuBar1.add(jMenu2);
 
@@ -442,15 +494,6 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         SzamlaHozzad szamlaHozzad = new SzamlaHozzad(this, true);
         szamlaHozzad.setVisible(true);
-        
-//        Ezt kiveszem, mivel adatbázisból dolgozok, igy onnan frissitem a számlákat és egyébb tartalmat
-//        Szamla sz = szamlaHozzad.getSzamla();
-//        if (sz != null) {
-//            JOptionPane.showMessageDialog(this, "Számla hozzáadása megtörtént: " + sz.getMegjelenoNev(), "Számla",
-//                    JOptionPane.INFORMATION_MESSAGE);
-//            szamlaLista.add(sz);
-//            cbmodel.addElement(sz.getMegjelenoNev());
-//        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void btnAddBeSzamlaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBeSzamlaActionPerformed
@@ -461,6 +504,9 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                 tableModel.addBeSzamla(new BeSzamla(szamla, LocalDateTime.now(), osszeg));
                 
                 lblOsszBefizetes.setText(String.format("%,.2f Ft", tableModel.getSzamlakOsszege()));
+                
+                initEgyneleg();
+                initVartOsszegIkon();
             } else {
                 JOptionPane.showMessageDialog(this, "Csak számot fogadok el!", "Számla",
                     JOptionPane.ERROR_MESSAGE);
@@ -501,6 +547,7 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
             if(szamla != null) {
                 tableModel.setSzamlak(szamla);
                 lblOsszBefizetes.setText(String.format("%,.2f Ft", tableModel.getSzamlakOsszege()));
+                initEgyneleg();
             }
         }
     }//GEN-LAST:event_menuBetoltesActionPerformed
@@ -541,6 +588,7 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
                 lblHatarIdo.setText(sz.getBefizetesHatarido().toString());
                 btnAddBeSzamla.setBackground(GuiUtils.parseColor(sz.getKijeloles()));
                 naptarPanel.setHataridoKijeloltSzamla(sz);
+                initVartOsszegIkon();
             }
         }
     }//GEN-LAST:event_szamlaadatokTableMouseClicked
@@ -550,11 +598,26 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
             tableModel.removeItem(tableSzamlak.getSelectedRow());
             
             lblOsszBefizetes.setText(String.format("%,.2f Ft", tableModel.getSzamlakOsszege()));
+            initEgyneleg();
+            initVartOsszegIkon();
         } else {
             JOptionPane.showMessageDialog(this, "Törléshez válasszd ki a törölni kívánt sort.", "Törlés",
                         JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_popupTorolActionPerformed
+
+    private void menuEgyenlegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEgyenlegActionPerformed
+        String ertek = JOptionPane.showInputDialog("Kérem a felhasználható egyenleget");
+        if(ertek != null && ertek.matches("[0-9]+")) {
+            beallitas.setProp(Beallitas.EGYENLEG, ertek);
+            egyenleg = Double.parseDouble(ertek);
+            
+            initEgyneleg();
+        } else {
+            JOptionPane.showMessageDialog(this, "Nem adtál meg értéket, vagy nem számokat írtál be!","Egyenleg",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_menuEgyenlegActionPerformed
 
     /**
      * @param args the command line arguments
@@ -608,6 +671,19 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         GuiUtils.coloriseTablaHeader(new JTable[]{tableSzamlak,szamlaadatokTable}, 
                 GuiUtils.THBGCOLOR, 
                 GuiUtils.THFGCOLOR);
+        
+        initEgyneleg();
+        addWindowListener(this);
+    }
+
+    private void initEgyneleg() throws NumberFormatException {
+        //a fentieket is a beállítás fájlban fogom majd eltárolni, szinek stb..
+        egyenleg = Double.parseDouble(beallitas.getProp(Beallitas.EGYENLEG));
+        lblEgyenlegKeret.setText(String.format("%,.2f (Ft)", egyenleg));
+        //aktiálisan kell majd frissítenem az elérhető egyenleget (minuszba nem kellene lemenni)
+        lblAktualisEgyenleg.setText(String.format("%,.2f (Ft)", (egyenleg - tableModel.getSzamlakOsszege())));
+        
+        //initVartOsszegIkon();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -617,6 +693,8 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -629,10 +707,15 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lbVartOsszeg;
+    private javax.swing.JLabel lblAktualisEgyenleg;
+    private javax.swing.JLabel lblEgyenlegKeret;
     private javax.swing.JLabel lblHatarIdo;
     private javax.swing.JLabel lblOsszBefizetes;
+    private javax.swing.JLabel lblVartOsszegOK;
     private javax.swing.JMenuItem menuBetoltes;
+    private javax.swing.JMenuItem menuEgyenleg;
     private javax.swing.JMenuItem menuMentes;
     private javax.swing.JMenuItem menuPrint;
     private javax.swing.JMenuItem menuReszletek;
@@ -654,4 +737,65 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
 //        initSzamlaComboBox();
     }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Biztosan kiakarsz lépni?","Kilépés",JOptionPane.WARNING_MESSAGE);
+        if(showConfirmDialog == JOptionPane.OK_OPTION) {
+            beallitas.saveBeallitas();
+            e.getWindow().dispose();
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        
+    }
+
+    private void initVartOsszegIkon() {
+        if(szamlaadatokTable.getSelectedRow() != -1) {
+            Szamla sz = szamlaLista.get(szamlaadatokTable.getSelectedRow());
+            List<BeSzamla> besz = tableModel.getSzamlak();
+            
+            double osszeg = 0.0;
+            for (BeSzamla be : besz) {
+                if(be.getSzamla().equals(sz)) {
+                    osszeg += be.getOsszeg();
+                }
+            }
+            
+            if (sz.getOsszeg() <= osszeg) {
+                lblVartOsszegOK.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/ikons/kassza_love_ok.png")));
+            } else {
+                lblVartOsszegOK.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/ikons/kassza_love_not.png")));
+            }
+        }
+    }
+    
+    
 }

@@ -6,6 +6,7 @@
 package com.norbo.projects.csaladi.kassza.adatok;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  *
@@ -88,6 +89,35 @@ public class Szamla {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.szamlaSzam);
+        hash = 29 * hash + Objects.hashCode(this.megjelenoNev);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Szamla other = (Szamla) obj;
+        if (!Objects.equals(this.szamlaSzam, other.szamlaSzam)) {
+            return false;
+        }
+        if (!Objects.equals(this.megjelenoNev, other.megjelenoNev)) {
+            return false;
+        }
+        return true;
     }
     
     

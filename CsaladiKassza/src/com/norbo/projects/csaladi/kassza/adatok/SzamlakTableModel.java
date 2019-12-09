@@ -71,6 +71,16 @@ public class SzamlakTableModel extends AbstractTableModel {
     public List<BeSzamla> getSzamlak() {
         return szamlak;
     }
+    
+    public BeSzamla getSzamlaByName(String megjelenoNev) {
+        for (BeSzamla be : szamlak) {
+            if(be.getSzamla().getMegjelenoNev().equals(megjelenoNev)) {
+                return be;
+            }
+        }
+        
+        return null;
+    }
 
     public void setSzamlak(List<BeSzamla> szamlak) {
         this.szamlak = szamlak;

@@ -6,6 +6,7 @@
 package com.norbo.projects.csaladi.kassza.adatok;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -49,6 +50,33 @@ public class BeSzamla {
     public String toString() {
         return String.format("%s\t%s\t%,.2f\t%d\n", szamla.getMegjelenoNev(),
                 befizetesiido, osszeg, (befizetve ? 1 : 0));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.szamla.getMegjelenoNev());
+        return hash;
+    }
+
+    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BeSzamla other = (BeSzamla) obj;
+        if (!Objects.equals(this.szamla.getMegjelenoNev(), other.szamla.getMegjelenoNev())) {
+            return false;
+        }
+        return true;
     }
 
     
