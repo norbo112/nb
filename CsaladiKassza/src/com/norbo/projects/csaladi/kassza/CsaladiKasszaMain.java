@@ -18,6 +18,8 @@ import com.norbo.projects.csaladi.kassza.adatok.utils.Feldolgozo;
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
+import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaLista;
+import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaListaKeszito;
 import com.norbo.projects.csaladi.kassza.nyomtatas.BeSzamlaNyomat;
 import com.norbo.projects.csaladi.kassza.settings.Beallitas;
 import java.awt.event.WindowEvent;
@@ -25,7 +27,10 @@ import java.awt.event.WindowListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -675,6 +680,18 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         
         initEgyneleg();
         addWindowListener(this);
+        
+        initBeSzamlaMentesekToNaptar();
+    }
+
+    private void initBeSzamlaMentesekToNaptar() {
+        //mentett számlalista betöltésének tesztelése
+        SzamlaListaKeszito<File, List<BeSzamla>> makelist = new SzamlaListaKeszito<>(
+                System.getProperty("user.home"), new CsvFeldolgozo());
+        List<SzamlaLista> lista = makelist.getSzamlaListas();
+        for (SzamlaLista szl : lista) {
+            naptarPanel.setNapMentese(szl);
+        }
     }
 
     private void initEgyneleg() throws NumberFormatException {
@@ -735,7 +752,6 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
         szamlaLista = SzamlaMelos.getSzamlakFromDB();
         naptarPanel.setSzamlak(szamlaLista);
         ((CegAdatokTableModel)szamlaadatokTable.getModel()).setSzamlak(szamlaLista);
-//        initSzamlaComboBox();
     }
 
     @Override

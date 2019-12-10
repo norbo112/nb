@@ -2,10 +2,14 @@ package com.norbo.projects.csaladi.kassza.gui.naptar;
 
 import com.norbo.projects.csaladi.kassza.adatok.Szamla;
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
+import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaLista;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -248,7 +252,11 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         //köv honap labelje, teszt vége
         
         for(int i=0; i<buttons.size(); i++) {
-            napokPanel.add(buttons.get(i));
+            JComponent jc = buttons.get(i); 
+            if(jc instanceof NapButton) {
+                ((NapButton)jc).addActionListener(this);
+            }
+            napokPanel.add(jc);
         }
         
         //ha a számlalista nem üres, akkor inicilizálja a kijelölést
@@ -256,11 +264,16 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             hataridotKijelol(sz);
         }
         
+    }
+
+    public void setNapMentese(SzamlaLista sz) {
+        LocalDateTime from = LocalDateTime.from(sz.getLastModified().atZone(ZoneId.systemDefault()));
         //példa init 15. np egy képpel
         for (JComponent button : buttons) {
             if(button instanceof NapButton) {
-                if(((NapButton)button).getText().equals("14")) {
-                    ((NapButton)button).setFilenev("csakugy");
+                NapButton b = (NapButton)button;
+                if(Integer.parseInt(b.getText()) == from.getDayOfMonth() && from.getMonth() == datum.getMonth()) {
+                    ((NapButton)button).setFilenev(sz.getFilenev());
                 }
             }
         }
@@ -277,7 +290,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
                 Integer.toString(szamla.getBefizetesHatarido().getDayOfMonth()))) {
                 ((NapButton)c).setBackground(GuiUtils.parseColor(szamla.getKijeloles()));
                 ((NapButton)c).setKijelolve(true);
-                ((NapButton)c).addActionListener(this);
+                //((NapButton)c).addActionListener(this);
             }
         }
     }
@@ -325,9 +338,14 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             Szamla sz = getSzamlaByNap(Integer.parseInt(b.getText()));
             if(sz != null) {
                 JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+
-                        " számlának befizetési határideje; \nMentés volt e: "+b.getFilenev(),"Befizetés ideje",
+                        " számlának befizetési határideje", "Befizetés ideje",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+        }
+        
+        if(b.getFilenev() != null) {
+            JOptionPane.showMessageDialog(this, "Mentés volt: "+b.getFilenev(),"Befizetések a napon",
+                        JOptionPane.INFORMATION_MESSAGE);
         }
     }
     

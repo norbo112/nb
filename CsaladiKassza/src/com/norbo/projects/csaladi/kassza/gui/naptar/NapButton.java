@@ -17,19 +17,18 @@ import javax.swing.JButton;
  * @author igloi
  */
 public class NapButton extends JButton {
+    /**
+     * Hol és merre jelenleg meg a kis kép, ha van mentett fájl az adott napon
+     */
     public enum Orient {
         DK, DNY, ENY, EK;
     }
 
     private boolean kijelolve = false;
     private String filenev;
-    private ImageIcon haveikon;
+    private final ImageIcon haveikon = new ImageIcon(getClass().getClassLoader().getResource("resources/button/kassza_button_have.png"));
     
     private Orient orient = Orient.DNY;
-    
-    {
-        haveikon = new ImageIcon(getClass().getClassLoader().getResource("resources/button/kassza_button_have.png"));
-    }
     
     public NapButton() {
     }
