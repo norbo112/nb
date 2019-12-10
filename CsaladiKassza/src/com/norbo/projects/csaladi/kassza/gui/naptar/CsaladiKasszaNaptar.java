@@ -255,6 +255,15 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         for(Szamla sz: szamlak) {
             hataridotKijelol(sz);
         }
+        
+        //példa init 15. np egy képpel
+        for (JComponent button : buttons) {
+            if(button instanceof NapButton) {
+                if(((NapButton)button).getText().equals("14")) {
+                    ((NapButton)button).setFilenev("csakugy");
+                }
+            }
+        }
     }
     
     /**
@@ -315,7 +324,8 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         if(b.isKijelolve()) {
             Szamla sz = getSzamlaByNap(Integer.parseInt(b.getText()));
             if(sz != null) {
-                JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+" számlának befizetési határideje","Befizetés ideje",
+                JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+
+                        " számlának befizetési határideje; \nMentés volt e: "+b.getFilenev(),"Befizetés ideje",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
