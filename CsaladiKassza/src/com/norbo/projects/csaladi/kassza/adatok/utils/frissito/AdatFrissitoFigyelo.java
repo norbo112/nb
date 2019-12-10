@@ -11,4 +11,9 @@ package com.norbo.projects.csaladi.kassza.adatok.utils.frissito;
  */
 public interface AdatFrissitoFigyelo {
     public void adatFrissites(String classname);
+    
+    /**
+     * init, újra felépítendő mentések, naptár hónapja változott
+     */
+    public void initMentettSzamlak();
 }

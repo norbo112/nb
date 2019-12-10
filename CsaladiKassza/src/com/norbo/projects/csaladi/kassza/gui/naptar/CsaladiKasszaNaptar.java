@@ -2,6 +2,7 @@ package com.norbo.projects.csaladi.kassza.gui.naptar;
 
 import com.norbo.projects.csaladi.kassza.adatok.Szamla;
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
+import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
 import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaLista;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -32,11 +34,15 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     private List<JComponent> buttons;
     private List<Szamla> szamlak;
     
+    private AdatFrissitoFigyelo mainframe;
+    
     /**
      * Creates new form CsaladiKasszaNaptar
+     * @param mainframe főablak
      */
-    public CsaladiKasszaNaptar() {
+    public CsaladiKasszaNaptar(JFrame mainframe) {
         this.szamlak = new ArrayList<>();
+        this.mainframe = (AdatFrissitoFigyelo) mainframe;
         initComponents();
         initMe();
     }
@@ -71,6 +77,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 102, 153));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         napokPanel.setBackground(new java.awt.Color(0, 153, 204));
         napokPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -159,34 +166,35 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(napokPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(napokPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(napokPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(napokPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNextMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextMonthActionPerformed
         datum = datum.plusMonths(1);
         initMe();
+        mainframe.initMentettSzamlak();
     }//GEN-LAST:event_btnNextMonthActionPerformed
 
     private void btnPrevMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevMonthActionPerformed
         datum = datum.minusMonths(1);
         initMe();
+        mainframe.initMentettSzamlak();
     }//GEN-LAST:event_btnPrevMonthActionPerformed
 
 
@@ -334,18 +342,23 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     @Override
     public void actionPerformed(ActionEvent event) {
         NapButton b = ((NapButton)event.getSource());
-        if(b.isKijelolve()) {
-            Szamla sz = getSzamlaByNap(Integer.parseInt(b.getText()));
+        Szamla sz = getSzamlaByNap(Integer.parseInt(b.getText()));
+        if(b.isKijelolve() && b.getFilenev() != null) {
             if(sz != null) {
                 JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+
-                        " számlának befizetési határideje", "Befizetés ideje",
+                        " számlának befizetési határideje\n"+
+                        "Elmentett számla mentés volt: \n"+b.getFilenev(), "Naptár",
                         JOptionPane.INFORMATION_MESSAGE);
             }
-        }
-        
-        if(b.getFilenev() != null) {
-            JOptionPane.showMessageDialog(this, "Mentés volt: "+b.getFilenev(),"Befizetések a napon",
+        } else if(b.getFilenev() != null) {
+            JOptionPane.showMessageDialog(this, "Elmentett számla mentés volt: \n"+b.getFilenev(),"Naptár",
                         JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            if(sz != null) {
+                JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+
+                        " számlának befizetési határideje", "Naptár",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
     
