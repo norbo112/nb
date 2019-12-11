@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Árukereső</title>
+        <style>
+            td {vertical-align: top;}
+        </style>
+    </head>
+    <body>
+        <h1>Árukereső</h1>
+        <table>
+            <tr>
+                <td>
+                    <h2>Szűrők</h2>
+                    <form>
+                        <table>
+                            <tr>
+                                <td>Megnevezés:</td>
+                                <td><input name="megnevezes" type="text" value="${megnevezes}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Mennyiségi egység:</td>
+                                <td>
+                                    <select name="megyseg" size="${megysegekSzama}" multiple style="width: 100%">
+                                        ${megysegek}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Min. ár:</td>
+                                <td><input name="minAr" type="number" value="${minAr}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Max. ár:</td>
+                                <td><input name="maxAr" type="number" value="${maxAr}"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="text-align: right"><input type="submit" value="Szűrés"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+                <td>
+                    <h2>Cikkek</h2>
+                    <table>
+                        <thead>
+                            <th>Cikkszám</th>
+                            <th>Megnevezés</th>
+                            <th>M.e.</th>
+                            <th>Áfakulcs</th>
+                            <th>Eladási ár</th>
+                            <th>Készlet</th>
+                        </thead>
+                        ${cikkek}
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

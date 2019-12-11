@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Árukereső</title>
+        <style>
+            td {vertical-align: top;}
+        </style>
+    </head>
+    <body>
+        <h1>Árukereső</h1>
+        <table>
+            <tr>
+                <td>
+                    <h2>Szűrők</h2>
+                    <form>
+                        <table>
+                            <tr>
+                                <td>Megnevezés:</td>
+                                <td><input name="megnevezes" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Mennyiségi egység:</td>
+                                <td>
+                                    <select name="megyseg" size="8" multiple style="width: 100%">
+                                        <option value="CSOMAG">CSOMAG</option>
+                                        <option value="DARAB">DARAB</option>
+                                        <option value="DOBOZ">DOBOZ</option>
+                                        <option value="ÜVEG">ÜVEG</option>
+                                        <option value="PALACK">PALACK</option>
+                                        <option value="KARTON">KARTON</option>
+                                        <option value="KG">KG</option>
+                                        <option value="TASAK">TASAK</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Min. ár:</td>
+                                <td><input name="minAr" type="number"/></td>
+                            </tr>
+                            <tr>
+                                <td>Max. ár:</td>
+                                <td><input name="maxAr" type="number"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="text-align: right"><input type="submit" value="Szűrés"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+                <td>
+                    <h2>Cikkek</h2>
+                    <table>
+                        <thead>
+                            <th>Cikkszám</th>
+                            <th>Megnevezés</th>
+                            <th>M.e.</th>
+                            <th>Áfakulcs</th>
+                            <th>Eladási ár</th>
+                            <th>Készlet</th>
+                        </thead>
+                        <tr>
+                            <td>09079728</td>
+                            <td>SOFTY GYÜMIZÜ RÁGÓ</td>
+                            <td>CSOMAG</td>
+                            <td>25</td>
+                            <td>63</td>
+                            <td>297</td>
+                        </tr>
+                        <tr>
+                            <td>11111111</td>
+                            <td>NESTLE TEJCSOKOLÁDÉ 50 GR.</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>107</td>
+                            <td>485</td>
+                        </tr>
+                        <tr>
+                            <td>11111112</td>
+                            <td>NESTLE CSOKOLÁDÉ 100 GR.</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>339</td>
+                            <td>23</td>
+                        </tr>
+                        <tr>
+                            <td>12093554</td>
+                            <td>KINDER TOJÁS</td>
+                            <td>CSOMAG</td>
+                            <td>25</td>
+                            <td>136</td>
+                            <td>42</td>
+                        </tr>
+                        <tr>
+                            <td>12105502</td>
+                            <td>MILKA TEJCSOKOLÁDÉ</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>145</td>
+                            <td>155</td>
+                        </tr>
+                        <tr>
+                            <td>12109600</td>
+                            <td>NESTLE TÁBLÁS TEJCS 50GR</td>
+                            <td>DOBOZ</td>
+                            <td>0</td>
+                            <td>154</td>
+                            <td>280</td>
+                        </tr>
+                        <tr>
+                            <td>12109808</td>
+                            <td>NESTLE TÁBLÁS ÉTCSOK.50GR</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>192</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>12111440</td>
+                            <td>NESTLE TÁBLÁS CSOKOLÁDÉ</td>
+                            <td>DARAB</td>
+                            <td>0</td>
+                            <td>152</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>12117308</td>
+                            <td>CIKLÁMEN DESSERT 292GR</td>
+                            <td>DOBOZ</td>
+                            <td>25</td>
+                            <td>797</td>
+                            <td>286</td>
+                        </tr>
+                        <tr>
+                            <td>12170258</td>
+                            <td>MACI MOGYORÓS NUGÁT</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>152</td>
+                            <td>43</td>
+                        </tr>
+
+                        <tr>
+                            <td>12201084</td>
+                            <td>COTE D'OR MOGYORÓS CSOKOLÁDÉ</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>347</td>
+                            <td>142</td>
+                        </tr>
+                        <tr>
+                            <td>12378876</td>
+                            <td>NESTLE PICCOLO 5GR</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>23</td>
+                            <td>278</td>
+                        </tr>
+                        <tr>
+                            <td>12832333</td>
+                            <td>TEJCSOKOLÁDÉ 200GR</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>387</td>
+                            <td>213</td>
+                        </tr>
+                        <tr>
+                            <td>12888488</td>
+                            <td>MILKA MOGYORÓS CSOKOLÁDÉ</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>292</td>
+                            <td>106</td>
+                        </tr>
+                        <tr>
+                            <td>12913091</td>
+                            <td>TEJCSOKOLÁDÉ 100GR</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>195</td>
+                            <td>81</td>
+                        </tr>
+                        <tr>
+                            <td>12956436</td>
+                            <td>AFRICANA CSOKOLÁDÉ</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>133</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>12974575</td>
+                            <td>AFRICANA CSOKOLÁDÉ 50GR</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>74</td>
+                            <td>168</td>
+                        </tr>
+                        <tr>
+                            <td>16022189</td>
+                            <td>QUENN COLA 1.5 L</td>
+                            <td>ÜVEG</td>
+                            <td>25</td>
+                            <td>370</td>
+                            <td>270</td>
+                        </tr>
+                        <tr>
+                            <td>16080409</td>
+                            <td>MARINA NARANCSSZÖRP 0.5 L</td>
+                            <td>ÜVEG</td>
+                            <td>0</td>
+                            <td>192</td>
+                            <td>163</td>
+                        </tr>
+                        <tr>
+                            <td>16080508</td>
+                            <td>MARINA MEGGYSZÖRP 0.5 L</td>
+                            <td>ÜVEG</td>
+                            <td>0</td>
+                            <td>188</td>
+                            <td>72</td>
+                        </tr>
+                        <tr>
+                            <td>21214899</td>
+                            <td>PIRITOTT NAPRAFORGÓMAG,HÁNTOLT</td>
+                            <td>CSOMAG</td>
+                            <td>12</td>
+                            <td>46</td>
+                            <td>203</td>
+                        </tr>
+                        <tr>
+                            <td>21547674</td>
+                            <td>KUKORICA PEHELY 100 G</td>
+                            <td>CSOMAG</td>
+                            <td>12</td>
+                            <td>61</td>
+                            <td>257</td>
+                        </tr>
+                        <tr>
+                            <td>30126404</td>
+                            <td>CSERESZNYEPÁLINKA 0.5 L</td>
+                            <td>ÜVEG</td>
+                            <td>25</td>
+                            <td>588</td>
+                            <td>103</td>
+                        </tr>
+                        <tr>
+                            <td>30127104</td>
+                            <td>ELIT PÁLINKA 0.5 L</td>
+                            <td>ÜVEG</td>
+                            <td>25</td>
+                            <td>735</td>
+                            <td>207</td>
+                        </tr>
+                        <tr>
+                            <td>30161115</td>
+                            <td>VILMOS KÖRTE PÁLINKA 0.5 L</td>
+                            <td>ÜVEG</td>
+                            <td>25</td>
+                            <td>1970</td>
+                            <td>141</td>
+                        </tr>
+                        <tr>
+                            <td>30165722</td>
+                            <td>KIWI LIKÖR 0.5 L</td>
+                            <td>ÜVEG</td>
+                            <td>25</td>
+                            <td>1745</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>30167726</td>
+                            <td>YELLOW PEACH LIKÖR 0.7 L</td>
+                            <td>ÜVEG</td>
+                            <td>25</td>
+                            <td>1977</td>
+                            <td>167</td>
+                        </tr>
+                        <tr>
+                            <td>30214004</td>
+                            <td>GYÜMÖLCSPÁLINKA GYÜMÖLCCSEL</td>
+                            <td>ÜVEG</td>
+                            <td>25</td>
+                            <td>1912</td>
+                            <td>177</td>
+                        </tr>
+                        <tr>
+                            <td>33211221</td>
+                            <td>EGRI BIKAVÉR 0.7 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>887</td>
+                            <td>188</td>
+                        </tr>
+                        <tr>
+                            <td>33676459</td>
+                            <td>BADACSONYI KÉKNYELÜ 0.7 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>351</td>
+                            <td>37</td>
+                        </tr>
+                        <tr>
+                            <td>33687675</td>
+                            <td>SZEKSZÁRDI KÉKFRANKOS 0.7 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>317</td>
+                            <td>102</td>
+                        </tr>
+                        <tr>
+                            <td>33787878</td>
+                            <td>BADACSONYI KÉKNYELÜ 0.35 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>273</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>33789878</td>
+                            <td>SZEKSZÁRDI KABERNET 0.7 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>382</td>
+                            <td>40</td>
+                        </tr>
+                        <tr>
+                            <td>33813987</td>
+                            <td>EGRI OLASZRIZLING 0.7 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>336</td>
+                            <td>192</td>
+                        </tr>
+                        <tr>
+                            <td>33895777</td>
+                            <td>BADACSONYI SZÜRKEBARÁT 0.7 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>554</td>
+                            <td>128</td>
+                        </tr>
+                        <tr>
+                            <td>33989890</td>
+                            <td>BADACSONYI SZÜRKEBARÁT 0.35 L</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>279</td>
+                            <td>39</td>
+                        </tr>
+                        <tr>
+                            <td>35899877</td>
+                            <td>SZOVJET PEZSGŐ</td>
+                            <td>PALACK</td>
+                            <td>25</td>
+                            <td>1096</td>
+                            <td>66</td>
+                        </tr>
+                        <tr>
+                            <td>41133404</td>
+                            <td>GIPSY L CSOKOLÁDÉS OSTYA</td>
+                            <td>KARTON</td>
+                            <td>25</td>
+                            <td>100</td>
+                            <td>27</td>
+                        </tr>
+                        <tr>
+                            <td>41322761</td>
+                            <td>HÁZTARTÁSI KEKSZ</td>
+                            <td>KG</td>
+                            <td>0</td>
+                            <td>90</td>
+                            <td>55</td>
+                        </tr>
+                        <tr>
+                            <td>41377694</td>
+                            <td>MÉZES LINZER</td>
+                            <td>DOBOZ</td>
+                            <td>0</td>
+                            <td>129</td>
+                            <td>56</td>
+                        </tr>
+                        <tr>
+                            <td>41437665</td>
+                            <td>KAKAÓS LINZER</td>
+                            <td>DOBOZ</td>
+                            <td>0</td>
+                            <td>188</td>
+                            <td>122</td>
+                        </tr>
+                        <tr>
+                            <td>41439436</td>
+                            <td>CSOKOLÁDÉS MOGYORÓS PEREC</td>
+                            <td>DOBOZ</td>
+                            <td>0</td>
+                            <td>185</td>
+                            <td>13</td>
+                        </tr>
+                        <tr>
+                            <td>41476627</td>
+                            <td>CSOKOLÁDÉS TERE-FERE</td>
+                            <td>KG</td>
+                            <td>0</td>
+                            <td>133</td>
+                            <td>87</td>
+                        </tr>
+                        <tr>
+                            <td>41773474</td>
+                            <td>HÁZTARTÁSI KEKSZ 250 G/TASAK</td>
+                            <td>TASAK</td>
+                            <td>0</td>
+                            <td>74</td>
+                            <td>180</td>
+                        </tr>
+                        <tr>
+                            <td>41777322</td>
+                            <td>MAXI SAJTOS KEKSZ</td>
+                            <td>DOBOZ</td>
+                            <td>0</td>
+                            <td>51</td>
+                            <td>56</td>
+                        </tr>
+                        <tr>
+                            <td>41877900</td>
+                            <td>SAJTOS WAFFEL TALLÉR 200 G</td>
+                            <td>CSOMAG</td>
+                            <td>0</td>
+                            <td>168</td>
+                            <td>129</td>
+                        </tr>
+                        <tr>
+                            <td>41994589</td>
+                            <td>ÁNIZSOS PASZTILLA</td>
+                            <td>TASAK</td>
+                            <td>0</td>
+                            <td>22</td>
+                            <td>214</td>
+                        </tr>
+                        <tr>
+                            <td>48777238</td>
+                            <td>INSTANT KAKAÓPOR 400 GRAMM/DOB</td>
+                            <td>DOBOZ</td>
+                            <td>25</td>
+                            <td>474</td>
+                            <td>184</td>
+                        </tr>
+                        <tr>
+                            <td>55001517</td>
+                            <td>KÁVÉ NIGHT AND DAY</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>191</td>
+                            <td>220</td>
+                        </tr>
+                        <tr>
+                            <td>55109103</td>
+                            <td>CAFE AMAZONAS INST KÁVÉ 55GR</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>88</td>
+                            <td>191</td>
+                        </tr>
+                        <tr>
+                            <td>55456668</td>
+                            <td>GYERMEKKÁVÉ 250 GRAMM</td>
+                            <td>DOBOZ</td>
+                            <td>25</td>
+                            <td>305</td>
+                            <td>283</td>
+                        </tr>
+                        <tr>
+                            <td>55457888</td>
+                            <td>KONZUM MOKKA 100 G</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>414</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>55477689</td>
+                            <td>ORIENT MOKKA 100 G</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>1123</td>
+                            <td>34</td>
+                        </tr>
+                        <tr>
+                            <td>55678993</td>
+                            <td>ARANY MOKKA KÁVÉ 500 GRAMM</td>
+                            <td>TASAK</td>
+                            <td>25</td>
+                            <td>831</td>
+                            <td>283</td>
+                        </tr>
+                        <tr>
+                            <td>55787799</td>
+                            <td>KONZUM MOKKA 500 G</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>974</td>
+                            <td>255</td>
+                        </tr>
+                        <tr>
+                            <td>55787877</td>
+                            <td>CAFE DO BRASIL 100 G</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>301</td>
+                            <td>139</td>
+                        </tr>
+                        <tr>
+                            <td>55788787</td>
+                            <td>CAFE DO BRASIL 200 G</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>598</td>
+                            <td>290</td>
+                        </tr>
+                        <tr>
+                            <td>55898999</td>
+                            <td>KONZUM MOKKA 200 G</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>439</td>
+                            <td>193</td>
+                        </tr>
+                        <tr>
+                            <td>55989898</td>
+                            <td>ARANY MOKKA 100 G</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>667</td>
+                            <td>289</td>
+                        </tr>
+                        <tr>
+                            <td>74433456</td>
+                            <td>POLIETILEN HULLADÉKGYÜJTŐ</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>69</td>
+                            <td>182</td>
+                        </tr>
+                        <tr>
+                            <td>74812888</td>
+                            <td>POLIETILEN TASAK</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>7</td>
+                            <td>107</td>
+                        </tr>
+                        <tr>
+                            <td>74999889</td>
+                            <td>POLIETILEN TÁSKA</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>48</td>
+                            <td>52</td>
+                        </tr>
+                        <tr>
+                            <td>92766677</td>
+                            <td>NUTELLA MOGYORÓKRÉM</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>559</td>
+                            <td>157</td>
+                        </tr>
+                        <tr>
+                            <td>98110505</td>
+                            <td>PEZ GYÜMÖLCSÍZŰ CUKOR 17GR</td>
+                            <td>TASAK</td>
+                            <td>25</td>
+                            <td>52</td>
+                            <td>279</td>
+                        </tr>
+                        <tr>
+                            <td>98250145</td>
+                            <td>CHUPA-CHUPS NYALÓKA</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>173</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>98455023</td>
+                            <td>NYALÓKA CHUPA-CHUPS</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>23</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>98552992</td>
+                            <td>MELODY FÜTYÜLŐS NYALÓKA</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>28</td>
+                            <td>169</td>
+                        </tr>
+                        <tr>
+                            <td>98650276</td>
+                            <td>NYALÓKA CHUPA-CHUPS</td>
+                            <td>DARAB</td>
+                            <td>25</td>
+                            <td>13</td>
+                            <td>270</td>
+                        </tr>
+                        <tr>
+                            <td>98808830</td>
+                            <td>OMLÓS CUKORKA</td>
+                            <td>CSOMAG</td>
+                            <td>25</td>
+                            <td>57</td>
+                            <td>225</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
