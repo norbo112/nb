@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <label for="megyseg">Mennyiségi egység:</label>
-                    <select class="form-control" name="megyseg" size="${megysegekSzama}">
+                    <select class="form-control" name="megyseg" size="${megysegekSzama}" multiple="true">
                         ${megysegek}
                     </select>
                 </div>
@@ -58,7 +58,7 @@
                     <input class="form-control" name="minAr" type="number" value="${minAr}"/>
                 </div>
                 <div class="form-group">
-                    <label for="maxAr">Min. ár:
+                    <label for="maxAr">Max. ár:
                     <input class="form-control" name="maxAr" type="number" value="${maxAr}"/>
                 </div>
                 <button type="submit" class="btn btn-default">Szűrés</button>
