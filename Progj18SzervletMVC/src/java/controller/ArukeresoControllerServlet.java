@@ -34,7 +34,7 @@ public class ArukeresoControllerServlet extends HttpServlet {
         view = new SajatViewModel();
         
         try {
-            htmlSablon = new String(Files.readAllBytes(Paths.get(getServletContext().getRealPath("template.html"))), "UTF-8");
+            htmlSablon = new String(Files.readAllBytes(Paths.get(getServletContext().getRealPath("progj18template.html"))), "UTF-8");
         } catch (IOException ex) {
             Logger.getLogger(ArukeresoControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
