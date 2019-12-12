@@ -281,7 +281,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             if(button instanceof NapButton) {
                 NapButton b = (NapButton)button;
                 if(Integer.parseInt(b.getText()) == from.getDayOfMonth() && from.getMonth() == datum.getMonth()) {
-                    ((NapButton)button).setFilenev(sz.getFilenev());
+                    ((NapButton)button).setSzamlaLista(sz);
                 }
             }
         }
@@ -343,22 +343,18 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     public void actionPerformed(ActionEvent event) {
         NapButton b = ((NapButton)event.getSource());
         Szamla sz = getSzamlaByNap(Integer.parseInt(b.getText()));
-        if(b.isKijelolve() && b.getFilenev() != null) {
-            if(sz != null) {
-                JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+
-                        " számlának befizetési határideje\n"+
-                        "Elmentett számla mentés volt: \n"+b.getFilenev(), "Naptár",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else if(b.getFilenev() != null) {
-            JOptionPane.showMessageDialog(this, "Elmentett számla mentés volt: \n"+b.getFilenev(),"Naptár",
-                        JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            if(sz != null) {
-                JOptionPane.showMessageDialog(this, sz.getMegjelenoNev()+
-                        " számlának befizetési határideje", "Naptár",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
+        if(b.isKijelolve()) {
+            CegSzamlaDialog ceg = new CegSzamlaDialog((JFrame) mainframe, false, sz);
+            ceg.setVisible(true);
+        } 
+        
+        if(b.getSzamlaLista() != null) {
+//            JOptionPane.showMessageDialog(this, "Elmentett számla mentés volt: \n"+b.getFilenev(),"Naptár",
+//                        JOptionPane.INFORMATION_MESSAGE);
+            //sajár dialog kell amin meglehet tehkinteni a fájlt
+            SzamlaListaDialog szdialog = new SzamlaListaDialog((JFrame) mainframe, false, b.getSzamlaLista());
+            szdialog.setVisible(true);
+            
         }
     }
     

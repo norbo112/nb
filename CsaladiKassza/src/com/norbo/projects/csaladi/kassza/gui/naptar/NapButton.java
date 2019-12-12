@@ -5,6 +5,7 @@
  */
 package com.norbo.projects.csaladi.kassza.gui.naptar;
 
+import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaLista;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.Action;
@@ -25,7 +26,7 @@ public class NapButton extends JButton {
     }
 
     private boolean kijelolve = false;
-    private String filenev;
+    private SzamlaLista szamlaLista;
     private final ImageIcon haveikon = new ImageIcon(getClass().getClassLoader().getResource("resources/button/kassza_button_have.png"));
     
     private Orient orient = Orient.DNY;
@@ -54,19 +55,23 @@ public class NapButton extends JButton {
     }
 
     public String getFilenev() {
-        return filenev;
+        return szamlaLista.getFilenev();
     }
 
-    public void setFilenev(String filenev) {
-        this.filenev = filenev;
+    public void setSzamlaLista(SzamlaLista szamlaLista) {
+        this.szamlaLista = szamlaLista;
         repaint();
+    }
+
+    public SzamlaLista getSzamlaLista() {
+        return szamlaLista;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if(filenev != null) {
+        if(szamlaLista != null) {
             switch (orient) {
                 case DK : 
                     g.drawImage(haveikon.getImage(), 5, getHeight() - 20, 20, 20, null);
