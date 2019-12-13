@@ -2,6 +2,7 @@ package com.norbo.projects.csaladi.kassza.adatok.utils;
 
 import com.norbo.projects.csaladi.kassza.adatok.Szamla;
 import com.norbo.projects.csaladi.kassza.adatok.SzamlaAdatokDialog;
+import com.norbo.projects.csaladi.kassza.settings.Beallitas;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,13 +20,34 @@ import java.util.logging.Logger;
  * Új felvitele, módosítás
  * @author igloi
  */
-public class SzamlaMelos {
+public class DBMelos {
+    private static final Beallitas BEALLITAS = new Beallitas();
+    private static Connection conn;
     /**
-     * Kapcsolat url
+     * Kapcsolat url MySql-hez
      */
     public static final String CONNURL = "jdbc:mysql://localhost:3306/csaladikassza"+
             "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC"+
             "&useUnicode=true&characterEncoding=UTF-8";
+    /**
+     * Kapcsolat url Java DB-hez
+     */
+    public static final String DERBYURL = "jdbc:derby://localhost:1527/derbykassza";
+    
+    
+    static {
+        try {
+            if (BEALLITAS.getDbProp("DB").equals("mysql")) {
+                conn = DriverManager.getConnection(CONNURL, "root", "JuanScript18");
+            } else {
+                conn = DriverManager.getConnection(DERBYURL, "kuser", "kuser0105");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBMelos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     
     /**
      * Elkészíti a számla listát az adatbázisból
@@ -34,7 +56,8 @@ public class SzamlaMelos {
     public static List<Szamla> getSzamlakFromDB() {
         List<Szamla> sl = new ArrayList<>();
         try {
-            Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
+            //connection init itt volt
+            
             Statement stmt = conn.createStatement();
             
             ResultSet result = stmt.executeQuery("SELECT * FROM szamlak");
@@ -64,7 +87,6 @@ public class SzamlaMelos {
      */
     public static Szamla getSzamlaFromDB(String szamlaszam) {
         try {
-            Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
             Statement stmt = conn.createStatement();
             
             ResultSet result = stmt.executeQuery("SELECT * FROM szamlak WHERE szamlaszam = '"+szamlaszam+"'");
@@ -95,7 +117,6 @@ public class SzamlaMelos {
      */
     public static boolean addSzamlaToDB(String dburl, Szamla szamla) {
         try {
-            Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
             PreparedStatement pst = conn.prepareStatement("INSERT INTO szamlak "+
                     "(szamlaszam, megjelenitnev, befizetesideje, prioritas, vartosszeg, szine) "+
                     "VALUES (?,?,?,?,?,?)");
@@ -115,7 +136,7 @@ public class SzamlaMelos {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SzamlaMelos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBMelos.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -128,9 +149,8 @@ public class SzamlaMelos {
      */
     public static boolean setSzamlaInDB(String dburl, Szamla szamla) {
         try {
-            Connection conn = DriverManager.getConnection(CONNURL,"root","JuanScript18");
             PreparedStatement pst = conn.prepareStatement("UPDATE szamlak SET szamlaszam = ?, megjelenitnev = ?, "+
-                    "befizetesideje = ?, prioritas = ?, vartosszeg = ?, szine= ? WHERE id = ?;");
+                    "befizetesideje = ?, prioritas = ?, vartosszeg = ?, szine= ? WHERE id = ?");
             pst.setString(1, szamla.getSzamlaSzam());
             pst.setString(2, szamla.getMegjelenoNev());
             pst.setString(3, szamla.getBefizetesHatarido().toString());
@@ -149,7 +169,7 @@ public class SzamlaMelos {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SzamlaMelos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBMelos.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }

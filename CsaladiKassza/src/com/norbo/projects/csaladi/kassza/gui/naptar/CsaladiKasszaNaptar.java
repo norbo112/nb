@@ -5,6 +5,8 @@ import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
 import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaLista;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -18,6 +20,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Scrollable;
 import javax.swing.SwingUtilities;
 
 /**

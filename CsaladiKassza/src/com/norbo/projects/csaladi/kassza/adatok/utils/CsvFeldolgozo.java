@@ -55,7 +55,7 @@ public class CsvFeldolgozo implements AdatFeldolgozas<File, List<BeSzamla>>{
             String line = br.readLine(); //fejléc off
             while((line = br.readLine()) != null) {
                 String[] splitted = line.split(";");
-                Szamla szamla = SzamlaMelos.getSzamlaFromDB(splitted[1]); //lehet hogy itt csak üres számlát kellene használnom
+                Szamla szamla = DBMelos.getSzamlaFromDB(splitted[1]); //lehet hogy itt csak üres számlát kellene használnom
                 
                 LocalDateTime ido = LocalDateTime.parse(splitted[2]);
                 double osszeg = Double.parseDouble(splitted[3]);

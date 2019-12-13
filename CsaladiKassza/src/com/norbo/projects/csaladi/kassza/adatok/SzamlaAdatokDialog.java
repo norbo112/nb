@@ -7,8 +7,9 @@ package com.norbo.projects.csaladi.kassza.adatok;
 
 import com.norbo.projects.csaladi.kassza.adatok.table.SzinkodLabel;
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
-import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
+import com.norbo.projects.csaladi.kassza.adatok.utils.DBMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
+import com.norbo.projects.csaladi.kassza.settings.Beallitas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -371,14 +372,14 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
             if(szamlaadatokTable.getSelectedRow() != -1) {
                 Szamla a = szamlak.get(szamlaadatokTable.getSelectedRow());
                 Szamla sz = new Szamla(a.getId(), tfSzamlaszam.getText(), 
-                        tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()), 
+                        tfMegjNev.getText(), DBMelos.getPrior(cbPrioritas.getSelectedItem().toString()), 
                         LocalDate.of(Integer.parseInt(tfEv.getText()),
                                 Integer.parseInt(tfHonap.getText()),
                                 Integer.parseInt(tfNap.getText())), Double.parseDouble(tfVartOsszeg.getText()),
                         GuiUtils.getColorStr(btnSzinkod.getBackground().getRed(), 
                                 btnSzinkod.getBackground().getGreen(),
                                 btnSzinkod.getBackground().getBlue()));
-                if(!SzamlaMelos.setSzamlaInDB(SzamlaMelos.CONNURL, sz)) {
+                if(!DBMelos.setSzamlaInDB(DBMelos.CONNURL, sz)) {
                     JOptionPane.showMessageDialog(null, "Nem sikerült frissíteni az adatokat", "Számla",
                         JOptionPane.ERROR_MESSAGE);
                 }
@@ -515,7 +516,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initme() {
-        szamlak = SzamlaMelos.getSzamlakFromDB();
+        szamlak = DBMelos.getSzamlakFromDB();
         
         //tábla init
         szamlaadatokTable.setModel(new CegAdatokTableModel(szamlak));
@@ -528,7 +529,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     private void szamlaAdatBeallito(Szamla sz) {
         LocalDate hatarido = sz.getBefizetesHatarido();
         tfEv.setText("" + hatarido.getYear());
-        tfHonap.setText(Integer.toString(hatarido.getMonthValue() - 1));
+        tfHonap.setText(Integer.toString(hatarido.getMonthValue()));
         tfNap.setText("" + hatarido.getDayOfMonth());
         tfSzamlaszam.setText(sz.getSzamlaSzam());
         tfMegjNev.setText(sz.getMegjelenoNev());

@@ -21,6 +21,7 @@ public class Beallitas {
     
     private final String BEALLITASFILE = "settings.properties";
     private final String ALAPEGYENLEG = "100000.0";
+    private final String KASSZADB = "mysql";
     
     private Properties prop;
 
@@ -55,8 +56,12 @@ public class Beallitas {
      * @param key keresett properties kulcs
      * @return visszatér a kulcs értékével vagy null-al ha nincs
      */
-    public String getProp(String key) {
+    public String getEgyenlegProp(String key) {
         return prop.getProperty(key, ALAPEGYENLEG);
+    }
+    
+    public String getDbProp(String key) {
+        return prop.getProperty(key, KASSZADB);
     }
 
     public void saveBeallitas() {

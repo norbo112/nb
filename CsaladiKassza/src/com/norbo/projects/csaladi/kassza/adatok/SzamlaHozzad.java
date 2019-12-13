@@ -6,7 +6,7 @@
 package com.norbo.projects.csaladi.kassza.adatok;
 
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
-import com.norbo.projects.csaladi.kassza.adatok.utils.SzamlaMelos;
+import com.norbo.projects.csaladi.kassza.adatok.utils.DBMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
 import java.awt.Color;
 import java.time.LocalDate;
@@ -320,12 +320,12 @@ public class SzamlaHozzad extends javax.swing.JDialog {
             //számla id-je a szerkesztéshez szükséges
             Color vlszin = btnSzinKod.getBackground();
             szamla = new Szamla(0,tfSzamlaszam.getText(),
-            tfMegjNev.getText(), SzamlaMelos.getPrior(cbPrioritas.getSelectedItem().toString()),
+            tfMegjNev.getText(), DBMelos.getPrior(cbPrioritas.getSelectedItem().toString()),
                     LocalDate.parse(tfEv.getText() + "-" + tfHonap.getText() + "-" + tfNap.getText()),
                     Integer.parseInt(tfVartOsszeg.getText()), 
                     GuiUtils.getColorStr(vlszin.getRed(), vlszin.getGreen(), vlszin.getBlue()));
             
-            if(!SzamlaMelos.addSzamlaToDB(SzamlaMelos.CONNURL, szamla)) {
+            if(!DBMelos.addSzamlaToDB(DBMelos.CONNURL, szamla)) {
                 JOptionPane.showMessageDialog(this, "Sikertelen adatbázis beszúrás!", "Számla",
                     JOptionPane.ERROR_MESSAGE);
             } else {
