@@ -55,13 +55,13 @@ public class SzamlaListaDialog extends javax.swing.JDialog {
         tableScollPane = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblOsszeg = new javax.swing.JLabel();
+        btnNyomtat = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lblMentesiDatum = new javax.swing.JLabel();
-        btnNyomtat = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Befizetés adatok");
@@ -129,14 +129,6 @@ public class SzamlaListaDialog extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(0, 102, 153));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton1, java.awt.BorderLayout.EAST);
-
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Befizetések összege:");
         jPanel4.add(jLabel2, java.awt.BorderLayout.WEST);
@@ -145,6 +137,14 @@ public class SzamlaListaDialog extends javax.swing.JDialog {
         lblOsszeg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblOsszeg.setText("jLabel3");
         jPanel4.add(lblOsszeg, java.awt.BorderLayout.CENTER);
+
+        btnNyomtat.setText("Nyomtatás");
+        btnNyomtat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNyomtatActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnNyomtat, java.awt.BorderLayout.LINE_END);
 
         jPanel5.setBackground(new java.awt.Color(0, 102, 153));
         jPanel5.setLayout(new java.awt.BorderLayout());
@@ -158,13 +158,13 @@ public class SzamlaListaDialog extends javax.swing.JDialog {
         lblMentesiDatum.setText("jLabel3");
         jPanel5.add(lblMentesiDatum, java.awt.BorderLayout.CENTER);
 
-        btnNyomtat.setText("Nyomtatás");
-        btnNyomtat.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNyomtatActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel5.add(btnNyomtat, java.awt.BorderLayout.LINE_END);
+        jPanel5.add(jButton1, java.awt.BorderLayout.LINE_END);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,7 +189,7 @@ public class SzamlaListaDialog extends javax.swing.JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
