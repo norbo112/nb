@@ -20,6 +20,7 @@ import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.JsonSorozatTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.ObjTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.SorozatMento;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
+import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -515,7 +516,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         );
 
         jMenu1.setMnemonic('F');
-        jMenu1.setText("File");
+        jMenu1.setText("Fájl");
 
         menuMentes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menuMentes.setText("Mentés");
@@ -1016,6 +1017,10 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
             });
         });
         sorozatTable.setComponentPopupMenu(sorozatTablePopup);
+        
+        jScrollPane1.getViewport().setBackground(new Color(101,199,255));
+        jScrollPane2.getViewport().setBackground(new Color(101,199,255));
+        
         initIzomCsopLista();
     }
 

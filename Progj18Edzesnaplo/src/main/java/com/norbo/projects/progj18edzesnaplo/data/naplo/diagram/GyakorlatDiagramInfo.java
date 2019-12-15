@@ -30,6 +30,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableColumnModel;
 
 /**
  *
@@ -432,7 +434,7 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
                 table.setBorder(new LineBorder(Color.BLACK, 1, true));
                 
                 sp.setViewportView(table);
-                sp.setBackground(tablaSzinHatter);
+                sp.getViewport().setBackground(tablaSzinHatter);
                 
                 mpanel.add(new JLabel(sorV.getName(), SwingConstants.CENTER));
                 mpanel.add(sp);

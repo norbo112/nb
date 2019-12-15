@@ -9,13 +9,17 @@ import com.norbo.projects.progj18edzesnaplo.data.naplo.MultiLineCellRenderer;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatInterface;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatTableModel;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.JsonSorozatTransform;
-import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.ObjTransform;
+import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -97,6 +101,7 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
      */
     private class NaploBetolto extends SwingWorker<List<SorozatInterface>, String> {
         private List<SorozatInterface> sorozat;
+        private MentettNaploModel naplomodel;
 
         public NaploBetolto() {
             sorozat = new ArrayList<>();
@@ -105,7 +110,7 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         @Override
         protected List<SorozatInterface> doInBackground() throws Exception {
             statusPanel.setVisible(true);
-            MentettNaploModel naplomodel = naploListModel.getNaploModel(naploList.getSelectedIndex());
+            naplomodel = naploListModel.getNaploModel(naploList.getSelectedIndex());
 //            List<SorozatInterface> sorozatlista = new ObjTransform().betolt(naplomodel.getEleresiut());
             List<SorozatInterface> sorozatlista = 
                     new JsonSorozatTransform().betolt(naplomodel.getEleresiut());
@@ -120,6 +125,13 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         protected void done() {
             statusPanel.setVisible(false);
             sorozatTableModel.setSorozatok(sorozat);
+            if(naplomodel != null)  {
+                File f = new File(naplomodel.getEleresiut());
+                lblNaploMeret.setText(Long.toString(f.length())+" bájt");
+                lblNaploTime.setText(Instant.ofEpochMilli(f.lastModified()).atZone(ZoneId.of("GMT+1"))
+                        .format(DateTimeFormatter.ofPattern("YYYY-M-dd H:m:s")));
+                lblNaploOsszsuly.setText(""+getOsszSuly(sorozat)+" Kg");
+            }
             JOptionPane.showMessageDialog(MentettNaplok.this, "Betöltés befejeződött!");
         }
 
@@ -136,7 +148,13 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
 //        }
     }
     
-    
+    private int getOsszSuly(List<SorozatInterface> sorozat) {
+        int s = 0;
+        for (SorozatInterface sor : sorozat) {
+            s += sor.getOsszSuly();
+        }
+        return s;
+    }
             
     /**
      * Creates new form MentettNaplok
@@ -172,6 +190,13 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         sorozatTabla = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblNaploMeret = new javax.swing.JLabel();
+        lblNaploOsszsuly = new javax.swing.JLabel();
+        lblNaploTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mentett Naplók");
@@ -312,7 +337,7 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         );
 
         jPanel5.setBackground(new java.awt.Color(136, 207, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)), "Megtekintő", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)), "Megtekintő", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
         sorozatTabla.setBackground(new java.awt.Color(255, 255, 255));
         sorozatTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -336,8 +361,82 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        jPanel7.setBackground(new java.awt.Color(136, 207, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Információ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Napló mentés mérete:");
+        jLabel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        jLabel4.setOpaque(true);
+
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Napló mentés ideje:");
+        jLabel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        jLabel5.setOpaque(true);
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Összesen megmozgatott súly: ");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        jLabel6.setOpaque(true);
+
+        lblNaploMeret.setBackground(new java.awt.Color(255, 255, 255));
+        lblNaploMeret.setForeground(new java.awt.Color(0, 0, 0));
+        lblNaploMeret.setText(" ");
+        lblNaploMeret.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        lblNaploMeret.setOpaque(true);
+
+        lblNaploOsszsuly.setBackground(new java.awt.Color(255, 255, 255));
+        lblNaploOsszsuly.setForeground(new java.awt.Color(0, 0, 0));
+        lblNaploOsszsuly.setText(" ");
+        lblNaploOsszsuly.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        lblNaploOsszsuly.setOpaque(true);
+
+        lblNaploTime.setBackground(new java.awt.Color(255, 255, 255));
+        lblNaploTime.setForeground(new java.awt.Color(0, 0, 0));
+        lblNaploTime.setText(" ");
+        lblNaploTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        lblNaploTime.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNaploMeret, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNaploOsszsuly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNaploTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblNaploMeret))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblNaploTime))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblNaploOsszsuly))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -348,7 +447,9 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
                 .addGap(12, 12, 12)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -358,8 +459,11 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,15 +548,22 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFajlFeldolgoz;
+    private javax.swing.JLabel lblNaploMeret;
+    private javax.swing.JLabel lblNaploOsszsuly;
+    private javax.swing.JLabel lblNaploTime;
     private javax.swing.JList<String> naploList;
     private javax.swing.JTable sorozatTabla;
     private javax.swing.JPanel statusPanel;
@@ -490,6 +601,8 @@ public class MentettNaplok extends javax.swing.JDialog implements PropertyChange
         
         //adatok feldolgozása és kijelzése
         statusPanel.setVisible(false);
+        
+        jScrollPane1.getViewport().setBackground(new Color(101,199,255));
     }
     
     /**

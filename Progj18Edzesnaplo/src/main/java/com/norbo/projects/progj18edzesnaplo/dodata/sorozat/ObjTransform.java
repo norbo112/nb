@@ -1,6 +1,5 @@
 package com.norbo.projects.progj18edzesnaplo.dodata.sorozat;
 
-import com.norbo.projects.progj18edzesnaplo.data.naplo.Sorozat;
 import com.norbo.projects.progj18edzesnaplo.data.naplo.SorozatInterface;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
