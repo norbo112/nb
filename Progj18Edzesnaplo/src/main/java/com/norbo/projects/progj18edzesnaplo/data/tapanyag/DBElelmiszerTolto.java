@@ -52,5 +52,27 @@ public class DBElelmiszerTolto implements DBToltoInterface {
         
         return elelmiszers;
     }
+
+    @Override
+    public List<String> getTapanyagFajta(Map<String, String> params) {
+        List<String> fajtak = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(params.get("dburl"),
+                    params.get("user"),
+                    params.get("pass"));
+            
+            Statement stmt = con.createStatement();
+            
+            ResultSet result = stmt.executeQuery("SELECT fajta FROM "+params.get("tabla"));
+            while(result.next()) {
+                fajtak.add(result.getString("fajta"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBElelmiszerTolto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return fajtak;
+    }
+    
     
 }

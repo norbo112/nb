@@ -72,4 +72,27 @@ public class WebElelmiszerTolto implements DBToltoInterface {
         
         return sb.toString();
     }
+
+    @Override
+    public List<String> getTapanyagFajta(Map<String, String> params) {
+        List<String> fajtak = new ArrayList<>();
+        try {
+            HttpURLConnection con = (HttpURLConnection) new URL(params.get("url")).openConnection();
+            String result = getInputString(con.getInputStream());
+            
+            JSONObject obj = new JSONObject(result);
+            JSONArray arr = obj.getJSONArray("tapanyagfajta");
+            
+            for (int i = 0; i < arr.length(); i++) {
+                fajtak.add(arr.getString(i));
+            }
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WebElelmiszerTolto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebElelmiszerTolto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return fajtak;
+    }
 }

@@ -15,4 +15,11 @@ public interface DBToltoInterface {
      * @return élelmiszer lista
      */
     public List<Elelmiszer> getElelmiszerList(Map<String, String> parameters);
+    
+    /**
+     * Tápanyag fajtájának listáját készíti el
+     * @param params
+     * @return 
+     */
+    public List<String> getTapanyagFajta(Map<String, String> params);
 }
