@@ -30,8 +30,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableColumnModel;
 
 /**
  *
@@ -186,7 +184,8 @@ public class GyakorlatDiagramInfo extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gyakorlat(ok) kiválasztása", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        gyakorlatJList.setBackground(new java.awt.Color(102, 204, 255));
+        gyakorlatJList.setBackground(new java.awt.Color(255, 255, 255));
+        gyakorlatJList.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         gyakorlatJList.setForeground(new java.awt.Color(0, 0, 0));
         gyakorlatJList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };

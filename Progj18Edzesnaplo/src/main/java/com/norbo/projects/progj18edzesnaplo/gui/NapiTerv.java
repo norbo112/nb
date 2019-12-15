@@ -20,6 +20,7 @@ import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.JsonSorozatTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.ObjTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.SorozatMento;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
+import com.norbo.projects.progj18edzesnaplo.gui.tapanyagtabla.TapanyagDialog;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -197,6 +198,8 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         jMenuItem3 = new javax.swing.JMenuItem();
         naplokMenu = new javax.swing.JMenuItem();
         menuDiagram = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        menuTapanyagTabla = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -539,7 +542,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
 
         jMenu5.setText("Import");
 
-        importJsonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/json.png"))); // NOI18N
+        importJsonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fjson.png"))); // NOI18N
         importJsonMenu.setText("JSON");
         importJsonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -548,11 +551,11 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         });
         jMenu5.add(importJsonMenu);
 
-        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/csv.png"))); // NOI18N
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fcsv.png"))); // NOI18N
         jMenuItem10.setText("CSV");
         jMenu5.add(jMenuItem10);
 
-        excelImportMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excel.png"))); // NOI18N
+        excelImportMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fexcel.png"))); // NOI18N
         excelImportMenu.setText("Excel");
         excelImportMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -565,7 +568,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
 
         jMenu4.setText("Export");
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/json.png"))); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fjson.png"))); // NOI18N
         jMenuItem6.setText("JSON");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -574,7 +577,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         });
         jMenu4.add(jMenuItem6);
 
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/csv.png"))); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fcsv.png"))); // NOI18N
         jMenuItem7.setText("CSV");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -583,7 +586,7 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         });
         jMenu4.add(jMenuItem7);
 
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excel.png"))); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fexcel.png"))); // NOI18N
         jMenuItem8.setText("Excel");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -634,6 +637,16 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
             }
         });
         jMenu2.add(menuDiagram);
+        jMenu2.add(jSeparator4);
+
+        menuTapanyagTabla.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        menuTapanyagTabla.setText("Tápanyagtábla");
+        menuTapanyagTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTapanyagTablaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuTapanyagTabla);
 
         jMenuBar1.add(jMenu2);
 
@@ -913,6 +926,10 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
         GyakorlatDiagramInfo.showDialog(this, gyakorlatList);
     }//GEN-LAST:event_menuDiagramActionPerformed
 
+    private void menuTapanyagTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTapanyagTablaActionPerformed
+        new TapanyagDialog(this, true).setVisible(true);
+    }//GEN-LAST:event_menuTapanyagTablaActionPerformed
+
     /**
      * 
      */
@@ -987,11 +1004,13 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JLabel lblOsszes;
     private javax.swing.JLabel lblStopper;
     private javax.swing.JMenuItem menuBetoltes;
     private javax.swing.JMenuItem menuDiagram;
     private javax.swing.JMenuItem menuMentes;
+    private javax.swing.JMenuItem menuTapanyagTabla;
     private javax.swing.JMenuItem naplokMenu;
     private javax.swing.JTable sorozatTable;
     private javax.swing.JPopupMenu sorozatTablePopup;

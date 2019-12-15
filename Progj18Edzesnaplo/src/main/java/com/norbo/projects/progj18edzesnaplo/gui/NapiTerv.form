@@ -73,7 +73,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="importJsonMenu">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/json.png"/>
+                      <Image iconType="3" name="/fjson.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="JSON"/>
                   </Properties>
@@ -84,7 +84,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/csv.png"/>
+                      <Image iconType="3" name="/fcsv.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="CSV"/>
                   </Properties>
@@ -92,7 +92,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="excelImportMenu">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/excel.png"/>
+                      <Image iconType="3" name="/fexcel.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Excel"/>
                   </Properties>
@@ -110,7 +110,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/json.png"/>
+                      <Image iconType="3" name="/fjson.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="JSON"/>
                   </Properties>
@@ -121,7 +121,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/csv.png"/>
+                      <Image iconType="3" name="/fcsv.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="CSV"/>
                   </Properties>
@@ -132,7 +132,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/excel.png"/>
+                      <Image iconType="3" name="/fexcel.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Excel"/>
                   </Properties>
@@ -191,6 +191,19 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDiagramActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator4">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuTapanyagTabla">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+T"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="T&#xe1;panyagt&#xe1;bla"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuTapanyagTablaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

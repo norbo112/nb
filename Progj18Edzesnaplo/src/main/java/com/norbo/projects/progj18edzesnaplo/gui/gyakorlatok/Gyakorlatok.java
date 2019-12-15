@@ -68,12 +68,12 @@ public class Gyakorlatok extends javax.swing.JFrame {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch(columnIndex) {
-                    case 1: return Integer.class;
-                    case 2: return Izomcsoport.class;
+                    case 0: return Integer.class;
+                    case 1: return Izomcsoport.class;
+                    case 2: return String.class;
                     case 3: return String.class;
                     case 4: return String.class;
-                    case 5: return String.class;
-                    case 6: return Integer.class;
+                    case 5: return Integer.class;
                 }
                 
                 return String.class;
@@ -209,6 +209,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gyakorlatok", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
+        gyakorlatTabla.setAutoCreateRowSorter(true);
         gyakorlatTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
