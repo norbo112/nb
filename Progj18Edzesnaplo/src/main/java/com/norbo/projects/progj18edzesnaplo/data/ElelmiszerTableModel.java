@@ -48,5 +48,9 @@ public class ElelmiszerTableModel extends AbstractTableModel {
         }
         return null;
     }
-    
+
+    public void setTapok(List<Elelmiszer> tapok) {
+        this.tapok = tapok;
+        fireTableDataChanged();
+    }
 }

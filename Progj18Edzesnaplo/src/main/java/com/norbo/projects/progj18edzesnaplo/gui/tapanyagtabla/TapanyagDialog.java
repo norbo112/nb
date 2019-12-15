@@ -4,14 +4,18 @@ import com.norbo.projects.progj18edzesnaplo.data.Elelmiszer;
 import com.norbo.projects.progj18edzesnaplo.data.ElelmiszerTableModel;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.DBElelmiszerTolto;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.DBToltoInterface;
+import com.norbo.projects.progj18edzesnaplo.data.tapanyag.TapanyagSzuro;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.WebElelmiszerTolto;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import org.apache.http.util.TextUtils;
 
 /**
  *
@@ -51,7 +55,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
         cbFajta = new javax.swing.JComboBox<>();
         tfNev = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        rostvane = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         tfCHmin = new javax.swing.JTextField();
         tfChMax = new javax.swing.JTextField();
@@ -62,6 +66,13 @@ public class TapanyagDialog extends javax.swing.JDialog {
         tfZsirmin = new javax.swing.JTextField();
         tfZsirmax = new javax.swing.JTextField();
         btnSzures = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        tfCalmin = new javax.swing.JTextField();
+        tfCalmax = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tfEnermin = new javax.swing.JTextField();
+        tfEnermax = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tápanyagtáblázat");
@@ -93,7 +104,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 153));
@@ -131,8 +142,8 @@ public class TapanyagDialog extends javax.swing.JDialog {
         jLabel1.setLabelFor(tfNev);
         jLabel1.setText("Élelmiszer neve:");
 
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Rost");
+        rostvane.setForeground(new java.awt.Color(255, 255, 255));
+        rostvane.setText("Rost");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Szénhidrát min - max");
@@ -143,7 +154,25 @@ public class TapanyagDialog extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Zsír min - max");
 
-        btnSzures.setText("SZűr");
+        btnSzures.setText("Szűr");
+        btnSzures.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSzuresActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("CLR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Kalóória min - max");
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Energia mini - max");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -152,36 +181,53 @@ public class TapanyagDialog extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbFajta, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfCHmin))
-                    .addComponent(cbFajta, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCalmin)
+                            .addComponent(tfCHmin))))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfNev)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rostvane))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(tfChMax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfFehmin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfFehmax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfZsirmin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfZsirmax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfNev)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox1))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSzures)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(tfChMax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
+                        .addComponent(tfCalmax, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfFehmin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfFehmax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfEnermin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfZsirmin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfZsirmax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSzures)
+                        .addComponent(tfEnermax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -192,22 +238,29 @@ public class TapanyagDialog extends javax.swing.JDialog {
                     .addComponent(cbFajta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jCheckBox1))
+                    .addComponent(rostvane)
+                    .addComponent(btnSzures))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfCHmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfChMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfFehmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfFehmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(tfZsirmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfZsirmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSzures))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(tfFehmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfZsirmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfZsirmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(tfFehmin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfCalmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCalmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(tfEnermin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfEnermax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -257,24 +310,96 @@ public class TapanyagDialog extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnSzuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSzuresActionPerformed
+        List<Predicate<Elelmiszer>> szur = new ArrayList<>();
+        List<Elelmiszer> elelmiszerlista = dbtolto.getElelmiszerList(dbparams);
+        
+        if(cbFajta.getSelectedIndex() != 0) {
+            String fajta = cbmodel.getElementAt(cbFajta.getSelectedIndex());
+            szur.add(el -> el.getFajta().equals(fajta));
+        }
+        
+        if(! TextUtils.isEmpty(tfNev.getText())) {
+            szur.add(el -> el.getNev().toLowerCase().contains(tfNev.getText().toLowerCase()));
+        }
+        
+        if(! TextUtils.isEmpty(tfCHmin.getText())) {
+            szur.add(el -> el.getSzenhidrat() >= Double.parseDouble(tfCHmin.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfChMax.getText())) {
+            szur.add(el -> el.getSzenhidrat() <= Double.parseDouble(tfChMax.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfFehmin.getText())) {
+            szur.add(el -> el.getFeherje() >= Double.parseDouble(tfFehmin.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfFehmax.getText())) {
+            szur.add(el -> el.getFeherje() <= Double.parseDouble(tfFehmax.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfZsirmin.getText())) {
+            szur.add(el -> el.getZsir() >= Double.parseDouble(tfZsirmin.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfZsirmax.getText())) {
+            szur.add(el -> el.getZsir() <= Double.parseDouble(tfZsirmax.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfCalmin.getText())) {
+            szur.add(el -> el.getKcal() >= Double.parseDouble(tfCalmin.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfCalmax.getText())) {
+            szur.add(el -> el.getKcal()<= Double.parseDouble(tfCalmax.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfEnermin.getText())) {
+            szur.add(el -> el.getKj() >= Double.parseDouble(tfEnermin.getText()));
+        }
+        
+        if(! TextUtils.isEmpty(tfEnermax.getText())) {
+            szur.add(el -> el.getKj()<= Double.parseDouble(tfEnermax.getText()));
+        }
+        
+        if(rostvane.isSelected()) {
+            szur.add(el -> el.getRost() > 0);
+        }
+        
+        List<Elelmiszer> szurtLista = TapanyagSzuro.getSzurtLista(elelmiszerlista, szur);
+        tableModel.setTapok(szurtLista);
+    }//GEN-LAST:event_btnSzuresActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        tableModel.setTapok(tapanyagok);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSzures;
     private javax.swing.JComboBox<String> cbFajta;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox rostvane;
     private javax.swing.JTable taptabla;
     private javax.swing.JTextField tfCHmin;
+    private javax.swing.JTextField tfCalmax;
+    private javax.swing.JTextField tfCalmin;
     private javax.swing.JTextField tfChMax;
+    private javax.swing.JTextField tfEnermax;
+    private javax.swing.JTextField tfEnermin;
     private javax.swing.JTextField tfFehmax;
     private javax.swing.JTextField tfFehmin;
     private javax.swing.JTextField tfNev;
