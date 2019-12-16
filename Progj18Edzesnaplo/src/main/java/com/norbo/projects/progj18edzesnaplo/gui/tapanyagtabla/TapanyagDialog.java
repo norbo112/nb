@@ -7,14 +7,23 @@ import com.norbo.projects.progj18edzesnaplo.data.tapanyag.DBToltoInterface;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.TapanyagSzuro;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.WebElelmiszerTolto;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import org.apache.http.util.TextUtils;
 
 /**
@@ -33,6 +42,9 @@ public class TapanyagDialog extends javax.swing.JDialog {
     public TapanyagDialog(JFrame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        setIconImage(new ImageIcon(getClass().getClassLoader().getResource("enlogo.png")).getImage());
+        
         initMe();
     }
 
@@ -44,6 +56,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -51,11 +64,12 @@ public class TapanyagDialog extends javax.swing.JDialog {
         taptabla = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        lblLoader = new javax.swing.JLabel();
+        szuroPanel = new javax.swing.JPanel();
         cbFajta = new javax.swing.JComboBox<>();
         tfNev = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        rostvane = new javax.swing.JCheckBox();
+        jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         tfCHmin = new javax.swing.JTextField();
         tfChMax = new javax.swing.JTextField();
@@ -65,14 +79,15 @@ public class TapanyagDialog extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         tfZsirmin = new javax.swing.JTextField();
         tfZsirmax = new javax.swing.JTextField();
-        btnSzures = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         tfCalmin = new javax.swing.JTextField();
         tfCalmax = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         tfEnermin = new javax.swing.JTextField();
         tfEnermax = new javax.swing.JTextField();
+        rostvane = new javax.swing.JCheckBox();
+        btnSzures = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tápanyagtáblázat");
@@ -104,11 +119,12 @@ public class TapanyagDialog extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -116,25 +132,15 @@ public class TapanyagDialog extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel3.add(jButton1, java.awt.BorderLayout.EAST);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1))
-        );
+        lblLoader.setBackground(new java.awt.Color(0, 102, 153));
+        lblLoader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLoader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loader.gif"))); // NOI18N
+        jPanel3.add(lblLoader, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setBackground(new java.awt.Color(0, 79, 158));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Szűrő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        szuroPanel.setBackground(new java.awt.Color(0, 79, 158));
+        szuroPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Szűrő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         cbFajta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -142,17 +148,111 @@ public class TapanyagDialog extends javax.swing.JDialog {
         jLabel1.setLabelFor(tfNev);
         jLabel1.setText("Élelmiszer neve:");
 
-        rostvane.setForeground(new java.awt.Color(255, 255, 255));
-        rostvane.setText("Rost");
+        jPanel5.setBackground(new java.awt.Color(0, 153, 204));
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
+        java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
+        jPanel5Layout.columnWidths = new int[] {0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0};
+        jPanel5Layout.rowHeights = new int[] {0, 5, 0};
+        jPanel5Layout.columnWeights = new double[] {1.0};
+        jPanel5Layout.rowWeights = new double[] {1.0};
+        jPanel5.setLayout(jPanel5Layout);
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Szénhidrát min - max");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel5.add(jLabel2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 20;
+        jPanel5.add(tfCHmin, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 20;
+        jPanel5.add(tfChMax, gridBagConstraints);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Fehérje min - max");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        jPanel5.add(jLabel3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 20;
+        jPanel5.add(tfFehmin, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 20;
+        jPanel5.add(tfFehmax, gridBagConstraints);
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Zsír min - max");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 0;
+        jPanel5.add(jLabel4, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 14;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 20;
+        jPanel5.add(tfZsirmin, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 20;
+        jPanel5.add(tfZsirmax, gridBagConstraints);
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Kalória min - max");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(jLabel5, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel5.add(tfCalmin, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel5.add(tfCalmax, gridBagConstraints);
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Energia min - max");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(jLabel6, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel5.add(tfEnermin, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel5.add(tfEnermax, gridBagConstraints);
+
+        rostvane.setForeground(new java.awt.Color(255, 255, 255));
+        rostvane.setText("Rost");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(rostvane, gridBagConstraints);
 
         btnSzures.setText("Szűr");
         btnSzures.addActionListener(new java.awt.event.ActionListener() {
@@ -160,107 +260,49 @@ public class TapanyagDialog extends javax.swing.JDialog {
                 btnSzuresActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 14;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(btnSzures, gridBagConstraints);
 
-        jButton2.setText("CLR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setText("CLR");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(btnClear, gridBagConstraints);
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Kalóória min - max");
-
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Energia mini - max");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout szuroPanelLayout = new javax.swing.GroupLayout(szuroPanel);
+        szuroPanel.setLayout(szuroPanelLayout);
+        szuroPanelLayout.setHorizontalGroup(
+            szuroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(szuroPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbFajta, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5))
+                .addGroup(szuroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(szuroPanelLayout.createSequentialGroup()
+                        .addComponent(cbFajta, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCalmin)
-                            .addComponent(tfCHmin))))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfNev)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rostvane))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(tfChMax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfFehmin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfFehmax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfZsirmin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfZsirmax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSzures)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfCalmax, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfEnermin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfEnermax, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfNev, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        szuroPanelLayout.setVerticalGroup(
+            szuroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(szuroPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(szuroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbFajta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(rostvane)
-                    .addComponent(btnSzures))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfCHmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfChMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfFehmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(tfZsirmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfZsirmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(tfFehmin))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(tfCalmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfCalmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfEnermin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfEnermax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jLabel1))
+                .addGap(6, 6, 6)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -270,7 +312,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(szuroPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -278,11 +320,12 @@ public class TapanyagDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(szuroPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -291,8 +334,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,10 +347,6 @@ public class TapanyagDialog extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSzuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSzuresActionPerformed
         List<Predicate<Elelmiszer>> szur = new ArrayList<>();
@@ -360,27 +398,59 @@ public class TapanyagDialog extends javax.swing.JDialog {
         }
         
         if(! TextUtils.isEmpty(tfEnermax.getText())) {
-            szur.add(el -> el.getKj()<= Double.parseDouble(tfEnermax.getText()));
+            szur.add(el -> el.getKj() <= Double.parseDouble(tfEnermax.getText()));
         }
         
         if(rostvane.isSelected()) {
             szur.add(el -> el.getRost() > 0);
         }
         
-        List<Elelmiszer> szurtLista = TapanyagSzuro.getSzurtLista(elelmiszerlista, szur);
-        tableModel.setTapok(szurtLista);
+//        List<Elelmiszer> szurtLista = TapanyagSzuro.getSzurtLista(elelmiszerlista, szur);
+//        tableModel.setTapok(szurtLista);
+        CompletableFuture<List<Elelmiszer>> cflist = TapanyagSzuro.getSzurtListaCF(elelmiszerlista, szur);
+        SwingUtilities.invokeLater(() -> {
+            
+            while(!cflist.isDone()) {
+                lblLoader.setVisible(true);
+            }
+            lblLoader.setVisible(false);
+            try {
+                tableModel.setTapok(cflist.get());
+            } catch (InterruptedException | ExecutionException ex) {
+                Logger.getLogger(TapanyagDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
     }//GEN-LAST:event_btnSzuresActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        cbFajta.setSelectedIndex(0);
+        
+        tfNev.setText("");
+        tfCHmin.setText("");
+        tfChMax.setText("");
+        tfFehmin.setText("");
+        tfFehmax.setText("");
+        tfZsirmin.setText("");
+        tfZsirmax.setText("");
+        tfEnermin.setText("");
+        tfEnermax.setText("");
+        tfCalmin.setText("");
+        tfCalmax.setText("");
+        
         tableModel.setTapok(tapanyagok);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSzures;
     private javax.swing.JComboBox<String> cbFajta;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -390,9 +460,11 @@ public class TapanyagDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblLoader;
     private javax.swing.JCheckBox rostvane;
+    private javax.swing.JPanel szuroPanel;
     private javax.swing.JTable taptabla;
     private javax.swing.JTextField tfCHmin;
     private javax.swing.JTextField tfCalmax;
@@ -408,6 +480,8 @@ public class TapanyagDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initMe() {
+        lblLoader.setVisible(false);
+        
         dbparams = getDBParams();
 //        dbtolto = new DBElelmiszerTolto();
         dbtolto = new WebElelmiszerTolto();

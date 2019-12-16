@@ -22,6 +22,7 @@ import com.norbo.projects.progj18edzesnaplo.dodata.sorozat.SorozatMento;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
 import com.norbo.projects.progj18edzesnaplo.gui.tapanyagtabla.TapanyagDialog;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -927,7 +929,13 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     }//GEN-LAST:event_menuDiagramActionPerformed
 
     private void menuTapanyagTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTapanyagTablaActionPerformed
-        new TapanyagDialog(this, true).setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                TapanyagDialog tp = new TapanyagDialog(new JFrame(), true);
+                tp.setVisible(true);
+            }
+        });
     }//GEN-LAST:event_menuTapanyagTablaActionPerformed
 
     /**
