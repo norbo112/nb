@@ -6,12 +6,10 @@ import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigye
 import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaLista;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.Scrollable;
 import javax.swing.SwingUtilities;
 
 /**
@@ -32,6 +28,11 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     private Color defHatter = new Color(60,63,65);
     
     private final LocalDate most = LocalDate.now();
+    private final Dimension NAPGOMBMERET = new Dimension(30, 30);
+    private final String[] HONAPNEV = new String[] {
+        "", "Január", "Február","MÁrcius","Április","Május","Június","Július",
+        "Augusztus","Szeptember","Október","November","December"
+    };
     
     private LocalDate datum = LocalDate.now();
     private List<JComponent> buttons;
@@ -221,7 +222,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         buttons = new ArrayList<>();
         napokPanel.removeAll();
         
-        lblHonapNeve.setText(datum.getMonth().name());
+        lblHonapNeve.setText(HONAPNEV[datum.getMonthValue()]);
         int napokszama = datum.lengthOfMonth();
         
         LocalDate honap = LocalDate.of(datum.getYear(), datum.getMonth(), 1);
@@ -235,13 +236,13 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             JLabel lb = new JLabel(""+(el++));
             lb.setForeground(Color.white);
             lb.setHorizontalAlignment(SwingUtilities.CENTER);
-            lb.setSize(30, 30);
+            lb.setSize(NAPGOMBMERET);
             buttons.add(lb);
         }
         
         for (int i = 1; i <= napokszama; i++) {
             NapButton b = new NapButton(""+i);
-            b.setSize(30, 30);
+            b.setSize(NAPGOMBMERET);
             defHatter = b.getBackground();
             //mai nap kijelzése
             if(i == most.getDayOfMonth() && most.getMonth().equals(datum.getMonth())) {
@@ -257,7 +258,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             JLabel lb = new JLabel(""+i);
             lb.setForeground(Color.white);
             lb.setHorizontalAlignment(SwingUtilities.CENTER);
-            lb.setSize(30, 30);
+            lb.setSize(NAPGOMBMERET);
             buttons.add(lb);
         }
         //köv honap labelje, teszt vége
@@ -298,7 +299,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     public void hataridotKijelol(Szamla szamla) {
         for(JComponent c : buttons) {
             if(c instanceof NapButton && ((NapButton)c).getText().equals(
-                Integer.toString(szamla.getBefizetesHatarido().getDayOfMonth()))) {
+                Integer.toString(szamla.getBefizetesHatarido()))) {
                 ((NapButton)c).setBackground(GuiUtils.parseColor(szamla.getKijeloles()));
                 ((NapButton)c).setKijelolve(true);
                 //((NapButton)c).addActionListener(this);
@@ -311,7 +312,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             if(c instanceof NapButton) {
                 NapButton nb = ((NapButton)c);
                 int nap = Integer.parseInt(nb.getText());
-                if(nap == szamla.getBefizetesHatarido().getDayOfMonth() || 
+                if(nap == szamla.getBefizetesHatarido() || 
                         (nap == most.getDayOfMonth() && 
                         lblHonapNeve.getText().equals(most.getMonth().toString()))) {
                     c.setBorder(BorderFactory.createLineBorder(kijelolt, 1));
@@ -363,7 +364,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
     
     private Szamla getSzamlaByNap(int nap) {
         for(Szamla sz: szamlak) {
-            if(sz.getBefizetesHatarido().getDayOfMonth() == nap) {
+            if(sz.getBefizetesHatarido() == nap) {
                 return sz;
             }
         }

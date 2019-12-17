@@ -641,7 +641,7 @@ public class CsaladiKasszaMain extends javax.swing.JFrame implements AdatFrissit
             if(szamlaadatokTable.getSelectedRow() != -1) {
                 Szamla sz = szamlaLista.get(szamlaadatokTable.getSelectedRow());
                 lbVartOsszeg.setText(String.format("%,.2f Ft", sz.getOsszeg()));
-                lblHatarIdo.setText(sz.getBefizetesHatarido().toString());
+                lblHatarIdo.setText(""+sz.getBefizetesHatarido());
                 btnAddBeSzamla.setBackground(GuiUtils.parseColor(sz.getKijeloles()));
                 naptarPanel.setHataridoKijeloltSzamla(sz);
                 initVartOsszegIkon();

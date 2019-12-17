@@ -9,10 +9,7 @@ import com.norbo.projects.csaladi.kassza.adatok.table.SzinkodLabel;
 import com.norbo.projects.csaladi.kassza.adatok.utils.GuiUtils;
 import com.norbo.projects.csaladi.kassza.adatok.utils.DBMelos;
 import com.norbo.projects.csaladi.kassza.adatok.utils.frissito.AdatFrissitoFigyelo;
-import com.norbo.projects.csaladi.kassza.settings.Beallitas;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JFrame;
 import java.time.LocalDate;
@@ -48,7 +45,6 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -61,10 +57,6 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        tfEv = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        tfHonap = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         tfNap = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -135,58 +127,36 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
 
         jPanel10.setBackground(new java.awt.Color(0, 102, 153));
         jPanel10.setForeground(new java.awt.Color(255, 255, 255));
-        java.awt.GridBagLayout jPanel10Layout = new java.awt.GridBagLayout();
-        jPanel10Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
-        jPanel10Layout.rowHeights = new int[] {0};
-        jPanel10.setLayout(jPanel10Layout);
-
-        jLabel10.setBackground(new java.awt.Color(0, 102, 153));
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Év:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanel10.add(jLabel10, gridBagConstraints);
-
-        tfEv.setBackground(new java.awt.Color(0, 102, 153));
-        tfEv.setForeground(new java.awt.Color(255, 255, 255));
-        tfEv.setText("1994");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        jPanel10.add(tfEv, gridBagConstraints);
-
-        jLabel3.setBackground(new java.awt.Color(0, 102, 153));
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Hónap:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
-        jPanel10.add(jLabel3, gridBagConstraints);
-
-        tfHonap.setBackground(new java.awt.Color(0, 102, 153));
-        tfHonap.setForeground(new java.awt.Color(255, 255, 255));
-        tfHonap.setText("11");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
-        jPanel10.add(tfHonap, gridBagConstraints);
 
         jLabel11.setBackground(new java.awt.Color(0, 102, 153));
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Nap:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 0;
-        jPanel10.add(jLabel11, gridBagConstraints);
 
         tfNap.setBackground(new java.awt.Color(0, 102, 153));
         tfNap.setForeground(new java.awt.Color(255, 255, 255));
+        tfNap.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfNap.setText("12");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 0;
-        jPanel10.add(tfNap, gridBagConstraints);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfNap, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(6, 6, 6))
+        );
 
         jPanel6.add(jPanel10);
 
@@ -373,9 +343,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
                 Szamla a = szamlak.get(szamlaadatokTable.getSelectedRow());
                 Szamla sz = new Szamla(a.getId(), tfSzamlaszam.getText(), 
                         tfMegjNev.getText(), DBMelos.getPrior(cbPrioritas.getSelectedItem().toString()), 
-                        LocalDate.of(Integer.parseInt(tfEv.getText()),
-                                Integer.parseInt(tfHonap.getText()),
-                                Integer.parseInt(tfNap.getText())), Double.parseDouble(tfVartOsszeg.getText()),
+                                Integer.parseInt(tfNap.getText()), Double.parseDouble(tfVartOsszeg.getText()),
                         GuiUtils.getColorStr(btnSzinkod.getBackground().getRed(), 
                                 btnSzinkod.getBackground().getGreen(),
                                 btnSzinkod.getBackground().getBlue()));
@@ -411,14 +379,6 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
 
     private boolean validateFields() {
         try {
-            if(tfEv.getText().length() == 0 || !tfEv.getText().matches("[0-9]+")) {
-                return false;
-            }
-
-            if(tfHonap.getText().length() == 0 || !tfHonap.getText().matches("[0-9]+")) {
-                return false;
-            }
-
             if(tfNap.getText().length() == 0 || !tfNap.getText().matches("[0-9]+")) {
                 return false;
             }
@@ -485,9 +445,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnSzinkod;
     private javax.swing.JComboBox<String> cbPrioritas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -507,8 +465,6 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane scrollTable;
     private javax.swing.JTable szamlaadatokTable;
-    private javax.swing.JTextField tfEv;
-    private javax.swing.JTextField tfHonap;
     private javax.swing.JTextField tfMegjNev;
     private javax.swing.JTextField tfNap;
     private javax.swing.JTextField tfSzamlaszam;
@@ -527,10 +483,8 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
     }
     
     private void szamlaAdatBeallito(Szamla sz) {
-        LocalDate hatarido = sz.getBefizetesHatarido();
-        tfEv.setText("" + hatarido.getYear());
-        tfHonap.setText(Integer.toString(hatarido.getMonthValue()));
-        tfNap.setText("" + hatarido.getDayOfMonth());
+        int hatarido = sz.getBefizetesHatarido();
+        tfNap.setText("" + hatarido);
         tfSzamlaszam.setText(sz.getSzamlaSzam());
         tfMegjNev.setText(sz.getMegjelenoNev());
         cbPrioritas.setSelectedIndex(getPriorInt(sz));

@@ -37,12 +37,20 @@ public class DBMelos {
     
     static {
         try {
+            
             if (BEALLITAS.getDbProp("DB").equals("mysql")) {
-                conn = DriverManager.getConnection(CONNURL, "root", "JuanScript18");
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection(
+                        BEALLITAS.getDbUrl(), 
+                        BEALLITAS.getDbUser(),
+                        BEALLITAS.getDbPass());
             } else {
+                Class.forName("org.apache.derby.jdbc.Driver42");
                 conn = DriverManager.getConnection(DERBYURL, "kuser", "kuser0105");
             }
         } catch (SQLException ex) {
+            Logger.getLogger(DBMelos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBMelos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -70,7 +78,7 @@ public class DBMelos {
                 int vartosszeg = result.getInt("vartosszeg");
                 String kijeloles = result.getString("szine");
                 sl.add(new Szamla(id, szamlaszam, megjnev, getPrior(prior), 
-                        LocalDate.parse(befido), vartosszeg, kijeloles));
+                        Integer.parseInt(befido), vartosszeg, kijeloles));
             }
             
         } catch (SQLException ex) {
@@ -79,7 +87,7 @@ public class DBMelos {
         
         return sl;
     }
-    
+  
     /**
      * Az adatbázisból lekéri a szamlaszám paraméternek megfelelő számlát
      * @param szamlaszam
@@ -95,7 +103,7 @@ public class DBMelos {
                         result.getString("szamlaszam"), 
                         result.getString("megjelenitnev"), 
                         getPrior(result.getInt("prioritas")),
-                        LocalDate.parse(result.getString("befizetesideje")), 
+                        Integer.parseInt(result.getString("befizetesideje")), 
                         result.getInt("vartosszeg"),
                         result.getString("szine"));
             }
@@ -122,7 +130,7 @@ public class DBMelos {
                     "VALUES (?,?,?,?,?,?)");
             pst.setString(1, szamla.getSzamlaSzam());
             pst.setString(2, szamla.getMegjelenoNev());
-            pst.setString(3, szamla.getBefizetesHatarido().toString());
+            pst.setString(3, Integer.toString(szamla.getBefizetesHatarido()));
             pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
             pst.setInt(5, (int)szamla.getOsszeg());
             pst.setString(6, szamla.getKijeloles());
@@ -153,7 +161,7 @@ public class DBMelos {
                     "befizetesideje = ?, prioritas = ?, vartosszeg = ?, szine= ? WHERE id = ?");
             pst.setString(1, szamla.getSzamlaSzam());
             pst.setString(2, szamla.getMegjelenoNev());
-            pst.setString(3, szamla.getBefizetesHatarido().toString());
+            pst.setString(3, Integer.toString(szamla.getBefizetesHatarido()));
             pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
             pst.setInt(5, (int)szamla.getOsszeg());
             pst.setString(6, szamla.getKijeloles());

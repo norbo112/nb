@@ -31,7 +31,7 @@ public class Szamla {
     private String szamlaSzam;
     private String megjelenoNev;
     private Prior prioritas;
-    private LocalDate befizetesHatarido;
+    private int befizetesHatarido;
     private double osszeg;
     private int id;
     private String kijeloles = "0,255,0";
@@ -40,7 +40,7 @@ public class Szamla {
     public Szamla() {
     }
 
-    public Szamla(int id, String szamlaSzam, String megjelenoNev, Prior prioritas, LocalDate befizetesHatarido, double osszeg) {
+    public Szamla(int id, String szamlaSzam, String megjelenoNev, Prior prioritas, int befizetesHatarido, double osszeg) {
         this.id = id;
         this.szamlaSzam = szamlaSzam;
         this.megjelenoNev = megjelenoNev;
@@ -50,7 +50,7 @@ public class Szamla {
     }
 
     public Szamla(int id, String szamlaSzam, 
-            String megjelenoNev, Prior prioritas, LocalDate befizetesHatarido, 
+            String megjelenoNev, Prior prioritas, int befizetesHatarido, 
             double osszeg, String kijeloles) {
         this.id = id;
         this.szamlaSzam = szamlaSzam;
@@ -79,7 +79,7 @@ public class Szamla {
         return prioritas;
     }
 
-    public LocalDate getBefizetesHatarido() {
+    public int getBefizetesHatarido() {
         return befizetesHatarido;
     }
 

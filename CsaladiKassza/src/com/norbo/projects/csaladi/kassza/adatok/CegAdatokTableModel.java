@@ -58,7 +58,7 @@ public class CegAdatokTableModel extends AbstractTableModel {
         switch (arg1) {
             case 0: return sz.getMegjelenoNev();
             case 1: return sz.getSzamlaSzam();
-            case 2: return sz.getBefizetesHatarido().toString();
+            case 2: return sz.getBefizetesHatarido();
             case 3: return String.format("%,.2f (Ft)", sz.getOsszeg());
             case 4: return Integer.valueOf(sz.getPrioritas().toString());
             case 5: return sz.getKijeloles();

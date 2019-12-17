@@ -23,6 +23,12 @@ public class Beallitas {
     private final String ALAPEGYENLEG = "100000.0";
     private final String KASSZADB = "mysql";
     
+    private final String DEFDBURL = "jdbc:mysql://localhost:3306/csaladikassza"+
+            "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC"+
+            "&useUnicode=true&characterEncoding=UTF-8";
+    private final String DEFUSER = "root";
+    private final String DEFPASS = "JuanScript18";
+    
     private Properties prop;
 
     public Beallitas() {
@@ -63,10 +69,35 @@ public class Beallitas {
     public String getDbProp(String key) {
         return prop.getProperty(key, KASSZADB);
     }
+    
+    public String getDbUrl() {
+        return prop.getProperty("dburl", DEFDBURL);
+    }
+    
+    public String getDbUser() {
+        return prop.getProperty("user", DEFUSER);
+    }
+    
+    public String getDbPass() {
+        return prop.getProperty("pass", DEFPASS);
+    }
 
     public void saveBeallitas() {
         try {
             File f = new File(BEALLITASFILE);
+            
+            if(prop.getProperty("user") == null) {
+                prop.setProperty("user", DEFUSER);
+            }
+            
+            if(prop.getProperty("pass") == null) {
+                prop.setProperty("pass", DEFPASS);
+            }
+            
+            if(prop.getProperty("dburl") == null) {
+                prop.setProperty("dburl", DEFDBURL);
+            }
+            
             prop.store(new FileOutputStream(f), "Családi Kassza beállításai");
         } catch (IOException e) {
             System.out.println("Probléma merült fel a properties elmentése közben: "+e);

@@ -12,7 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Befizetett számlák tábla modellje
  * @author igloi
  */
 public class SzamlakTableModel extends AbstractTableModel {

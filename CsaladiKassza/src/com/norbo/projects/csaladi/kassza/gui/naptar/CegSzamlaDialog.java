@@ -301,7 +301,7 @@ public class CegSzamlaDialog extends javax.swing.JDialog {
 
     private void initMe() {
         lblSzamlaszam.setText(szamla.getSzamlaSzam());
-        lblHatarido.setText(szamla.getBefizetesHatarido().format(formatter));
+        lblHatarido.setText(""+szamla.getBefizetesHatarido());
         lblMegjelenonev.setText(szamla.getMegjelenoNev());
         lblVartOsszeg.setText(String.format("%,.2f (Ft)", szamla.getOsszeg()));
         lblSzinkod.setBackground(GuiUtils.parseColor(szamla.getKijeloles()));
