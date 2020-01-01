@@ -6,12 +6,15 @@
 package com.norbo.projects.csaladi.kassza.gui.naptar;
 
 import com.norbo.projects.csaladi.kassza.adatok.utils.szamlalista.SzamlaLista;
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
+import java.time.LocalDate;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.border.Border;
 
 /**
  *
@@ -27,8 +30,13 @@ public class NapButton extends JButton {
 
     private boolean kijelolve = false;
     private SzamlaLista szamlaLista;
-    private final ImageIcon haveikon = new ImageIcon(getClass().getClassLoader().getResource("resources/button/kassza_button_have.png"));
+    private boolean aktkijelolve = false;
+    private final ImageIcon haveikon = new ImageIcon(
+            getClass().getClassLoader().getResource("resources/button/kassza_button_have.png"));
     
+    public final Border blinkOn = BorderFactory.createLineBorder(Color.yellow);
+    public final Border blinkOff = BorderFactory.createEmptyBorder();
+
     private Orient orient = Orient.DNY;
     
     public NapButton() {
@@ -85,7 +93,4 @@ public class NapButton extends JButton {
             }
         }
     }
-    
-    
-    
 }

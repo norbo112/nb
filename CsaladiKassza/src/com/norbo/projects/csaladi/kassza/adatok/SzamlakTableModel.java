@@ -57,7 +57,12 @@ public class SzamlakTableModel extends AbstractTableModel {
     public Object getValueAt(int arg0, int arg1) {
         BeSzamla sz = szamlak.get(arg0);
         switch (arg1) {
-            case 0: return sz.getSzamla().getMegjelenoNev();
+            case 0:  {
+                if(sz!=null && sz.getSzamla() != null)
+                    return sz.getSzamla().getMegjelenoNev();
+                
+                return "Ismeretlen";
+            }
             case 1: {
                 LocalDateTime loc = sz.getBefizetesiido();
                 return loc.toString().replace('T', ' ').substring(0, loc.toString().lastIndexOf('.'));

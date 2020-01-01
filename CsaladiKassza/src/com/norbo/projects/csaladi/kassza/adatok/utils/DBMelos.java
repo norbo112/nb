@@ -64,21 +64,19 @@ public class DBMelos {
     public static List<Szamla> getSzamlakFromDB() {
         List<Szamla> sl = new ArrayList<>();
         try {
-            //connection init itt volt
-            
-            Statement stmt = conn.createStatement();
-            
-            ResultSet result = stmt.executeQuery("SELECT * FROM szamlak");
-            while(result.next()) {
-                int id = result.getInt("id");
-                String szamlaszam = result.getString("szamlaszam");
-                int prior = result.getInt("prioritas");
-                String befido = result.getString("befizetesideje");
-                String megjnev = result.getString("megjelenitnev");
-                int vartosszeg = result.getInt("vartosszeg");
-                String kijeloles = result.getString("szine");
-                sl.add(new Szamla(id, szamlaszam, megjnev, getPrior(prior), 
-                        Integer.parseInt(befido), vartosszeg, kijeloles));
+            try (Statement stmt = conn.createStatement()) {
+                ResultSet result = stmt.executeQuery("SELECT * FROM szamlak");
+                while(result.next()) {
+                    int id = result.getInt("id");
+                    String szamlaszam = result.getString("szamlaszam");
+                    int prior = result.getInt("prioritas");
+                    String befido = result.getString("befizetesideje");
+                    String megjnev = result.getString("megjelenitnev");
+                    int vartosszeg = result.getInt("vartosszeg");
+                    String kijeloles = result.getString("szine");
+                    sl.add(new Szamla(id, szamlaszam, megjnev, getPrior(prior),
+                            Integer.parseInt(befido), vartosszeg, kijeloles));
+                }
             }
             
         } catch (SQLException ex) {
@@ -95,17 +93,17 @@ public class DBMelos {
      */
     public static Szamla getSzamlaFromDB(String szamlaszam) {
         try {
-            Statement stmt = conn.createStatement();
-            
-            ResultSet result = stmt.executeQuery("SELECT * FROM szamlak WHERE szamlaszam = '"+szamlaszam+"'");
-            while(result.next()) {
-                return new Szamla(result.getInt("id"),
-                        result.getString("szamlaszam"), 
-                        result.getString("megjelenitnev"), 
-                        getPrior(result.getInt("prioritas")),
-                        Integer.parseInt(result.getString("befizetesideje")), 
-                        result.getInt("vartosszeg"),
-                        result.getString("szine"));
+            try (Statement stmt = conn.createStatement()) {
+                ResultSet result = stmt.executeQuery("SELECT * FROM szamlak WHERE szamlaszam = '"+szamlaszam+"'");
+                while(result.next()) {
+                    return new Szamla(result.getInt("id"),
+                            result.getString("szamlaszam"),
+                            result.getString("megjelenitnev"),
+                            getPrior(result.getInt("prioritas")),
+                            Integer.parseInt(result.getString("befizetesideje")),
+                            result.getInt("vartosszeg"),
+                            result.getString("szine"));
+                }
             }
             
             return null;
@@ -124,20 +122,20 @@ public class DBMelos {
      * @return true ha sikeres volt a beszúrás egyébbként false
      */
     public static boolean addSzamlaToDB(String dburl, Szamla szamla) {
-        try {
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO szamlak "+
+        String query = "INSERT INTO szamlak "+
                     "(szamlaszam, megjelenitnev, befizetesideje, prioritas, vartosszeg, szine) "+
-                    "VALUES (?,?,?,?,?,?)");
+                    "VALUES (?,?,?,?,?,?)";
+        try (PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, szamla.getSzamlaSzam());
             pst.setString(2, szamla.getMegjelenoNev());
             pst.setString(3, Integer.toString(szamla.getBefizetesHatarido()));
             pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
-            pst.setInt(5, (int)szamla.getOsszeg());
+            pst.setInt(5, (int) szamla.getOsszeg());
             pst.setString(6, szamla.getKijeloles());
-            
+
             int cnt = pst.executeUpdate();
-            
-            if(cnt > 0) {
+
+            if (cnt > 0) {
                 return true;
             } else {
                 System.out.println("Nem tudtam hozzáadni a számlát!");
@@ -156,21 +154,21 @@ public class DBMelos {
      * @return 
      */
     public static boolean setSzamlaInDB(String dburl, Szamla szamla) {
-        try {
-            PreparedStatement pst = conn.prepareStatement("UPDATE szamlak SET szamlaszam = ?, megjelenitnev = ?, "+
-                    "befizetesideje = ?, prioritas = ?, vartosszeg = ?, szine= ? WHERE id = ?");
+        String query = "UPDATE szamlak SET szamlaszam = ?, megjelenitnev = ?, "
+                + "befizetesideje = ?, prioritas = ?, vartosszeg = ?, szine= ? WHERE id = ?";
+        
+        try (PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, szamla.getSzamlaSzam());
             pst.setString(2, szamla.getMegjelenoNev());
             pst.setString(3, Integer.toString(szamla.getBefizetesHatarido()));
             pst.setInt(4, Integer.parseInt(szamla.getPrioritas().toString()));
-            pst.setInt(5, (int)szamla.getOsszeg());
+            pst.setInt(5, (int) szamla.getOsszeg());
             pst.setString(6, szamla.getKijeloles());
             pst.setInt(7, szamla.getId());
-            
-            
+
             int cnt = pst.executeUpdate();
-            
-            if(cnt > 0) {
+
+            if (cnt > 0) {
                 return true;
             } else {
                 System.out.println("Nem tudtam frissíteni a számlát!");
@@ -208,5 +206,14 @@ public class DBMelos {
             case "Magas": return Szamla.Prior.HIGH;
         }
         return null;
+    }
+    
+    public static void closeConnection() {
+        try {
+            if(conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+        }
     }
 }

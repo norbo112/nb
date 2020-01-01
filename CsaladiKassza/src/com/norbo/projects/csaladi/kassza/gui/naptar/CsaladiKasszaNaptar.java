@@ -81,10 +81,9 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 102, 153));
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         napokPanel.setBackground(new java.awt.Color(0, 153, 204));
-        napokPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         napokPanel.setLayout(new java.awt.GridLayout(0, 7, 5, 5));
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 204));
@@ -133,7 +132,6 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         jPanel1.setLayout(new java.awt.GridLayout(1, 7));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -169,11 +167,10 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(napokPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(napokPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -245,9 +242,9 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
             b.setSize(NAPGOMBMERET);
             defHatter = b.getBackground();
             //mai nap kijelzése
-            if(i == most.getDayOfMonth() && most.getMonth().equals(datum.getMonth())) {
-                b.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
-            }
+//            if(i == most.getDayOfMonth() && most.getMonth().equals(datum.getMonth())) {
+//                b.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
+//            }
             buttons.add(b);
         }
         
@@ -266,7 +263,9 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         for(int i=0; i<buttons.size(); i++) {
             JComponent jc = buttons.get(i); 
             if(jc instanceof NapButton) {
-                ((NapButton)jc).addActionListener(this);
+                NapButton nb = (NapButton)jc;
+                nb.addActionListener(this);
+                setMaGomb(nb);
             }
             napokPanel.add(jc);
         }
@@ -307,33 +306,35 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         }
     }
     
-    public void setHataridoKijeloltSzamla(Szamla szamla) {
+    public NapButton setHataridoKijeloltSzamla(Szamla szamla) {
         for(JComponent c: buttons) {
             if(c instanceof NapButton) {
                 NapButton nb = ((NapButton)c);
                 int nap = Integer.parseInt(nb.getText());
-                if(nap == szamla.getBefizetesHatarido() || 
-                        (nap == most.getDayOfMonth() && 
-                        lblHonapNeve.getText().equals(most.getMonth().toString()))) {
-                    c.setBorder(BorderFactory.createLineBorder(kijelolt, 1));
+                if(nap == szamla.getBefizetesHatarido()) {    
+                    //c.setBorder(BorderFactory.createLineBorder(kijelolt, 1));
+                    ((NapButton) c).setBorder(BorderFactory.createLineBorder(kijelolt));
+                    return (NapButton) c;
                 } else {
-                    c.setBorder(BorderFactory.createEmptyBorder());
+                    //c.setBorder(BorderFactory.createEmptyBorder());
+                    ((NapButton) c).setBorder(BorderFactory.createEmptyBorder());
                 }
+                setMaGomb(nb);
             }
         }
+        
+        return null;
     }
     
-    public void clearHataridoKijeloltSzamlak() {
-        for(JComponent c: buttons) {
-            if(c instanceof NapButton) {
-                NapButton nb = ((NapButton)c);
-                int nap = Integer.parseInt(nb.getText());
-                if(nap == most.getDayOfMonth()) {
-                    c.setBorder(BorderFactory.createLineBorder(kijelolt, 1));
-                } else {
-                    c.setBorder(BorderFactory.createEmptyBorder());
-                }
-            }
+    private boolean isMavan(NapButton nb) {
+        return Integer.parseInt(nb.getText()) == most.getDayOfMonth() &&
+                        lblHonapNeve.getText().equals(HONAPNEV[most.getMonthValue()]);
+                    
+    }
+    
+    private void setMaGomb(NapButton nb) {
+        if(isMavan(nb)) {
+            nb.setBorder(BorderFactory.createLineBorder(Color.RED));
         }
     }
 
@@ -353,9 +354,7 @@ public class CsaladiKasszaNaptar extends javax.swing.JPanel implements ActionLis
         } 
         
         if(b.getSzamlaLista() != null) {
-//            JOptionPane.showMessageDialog(this, "Elmentett számla mentés volt: \n"+b.getFilenev(),"Naptár",
-//                        JOptionPane.INFORMATION_MESSAGE);
-            //sajár dialog kell amin meglehet tehkinteni a fájlt
+            System.out.println(b.getSzamlaLista());
             SzamlaListaDialog szdialog = new SzamlaListaDialog((JFrame) mainframe, false, b.getSzamlaLista());
             szdialog.setVisible(true);
             

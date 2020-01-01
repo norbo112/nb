@@ -185,7 +185,7 @@ public class CegSzamlaDialog extends javax.swing.JDialog {
 
         jLabel9.setBackground(new java.awt.Color(0, 102, 153));
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Színkód kiválasztása:");
+        jLabel9.setText("Cég színkódja:");
         jLabel9.setOpaque(true);
         jPanel12.add(jLabel9);
 

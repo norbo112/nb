@@ -56,7 +56,6 @@ public class CsvFeldolgozo implements AdatFeldolgozas<File, List<BeSzamla>>{
             while((line = br.readLine()) != null) {
                 String[] splitted = line.split(";");
                 Szamla szamla = DBMelos.getSzamlaFromDB(splitted[1]); //lehet hogy itt csak üres számlát kellene használnom
-                
                 LocalDateTime ido = LocalDateTime.parse(splitted[2]);
                 double osszeg = Double.parseDouble(splitted[3]);
                 result.add(new BeSzamla(szamla, ido, osszeg));
