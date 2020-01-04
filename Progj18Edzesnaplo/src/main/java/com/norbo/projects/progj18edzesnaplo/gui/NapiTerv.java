@@ -870,7 +870,8 @@ public class NapiTerv extends javax.swing.JFrame implements Gyakorlatok.Gyakorla
     }//GEN-LAST:event_lblStopperMouseClicked
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        AboutDialog.showDialog();
+        //AboutDialog.showDialog();
+        HelpDialog.showHelpDialog();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed

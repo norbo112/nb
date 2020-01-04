@@ -5,12 +5,14 @@
  */
 package com.norbo.projects.progj18edzesnaplo.dodata;
 
+import com.google.j2objc.annotations.J2ObjCIncompatible;
 import com.norbo.projects.progj18edzesnaplo.data.Gyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
 import com.norbo.projects.progj18edzesnaplo.data.Izomcsoport;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,6 +34,9 @@ public class JSONGyTransform extends AbstractTransform {
         JSONObject source = null;
         try {
             source = new JSONObject(getString(path, KERES_GYAKLEKER));
+        } catch(UnknownHostException ex) {
+            Logger.getLogger(JSONGyTransform.class.getName()).log(Level.SEVERE, "Elérhetetlen a szerver!");
+            return gyakorlats; //üres listát küld vissza, amit jelzek egy info ablakkal
         } catch (IOException ex) {
             Logger.getLogger(JSONGyTransform.class.getName()).log(Level.SEVERE, null, ex);
         }

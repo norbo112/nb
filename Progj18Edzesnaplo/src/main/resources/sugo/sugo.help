@@ -1,0 +1,36 @@
+[Program]
+Projekt neve=Edzésnapló
+Verzió=1.0
+Szerző=Iglói Norbert
+[/Program]
+[Links]
+Bemutatkozás
+Leírás
+Programozóknak
+Téma 3
+[/Links]
+[Bemutatkozás]
+Iglói Norbert vagyok, <b>java programozó</b>. Útóbbi két évben kezdtem el újra foglalkozni a Java programozással. 
+[/Bemutatkozás]
+[Leírás]
+<h2>Néhány információ és segítség a programról</h2>
+
+[/Leírás]
+[Programozóknak]
+<h2>Programozóknak</h2>
+<p>A legtöbb programkód a <b>Java SE</b> csomagjaival lett megvalósítva</p>
+<h3>Felhasznált Java SE api-k</h3>
+<ul>
+<li>Swing</li>
+<li>JCF</li>
+<li>File I/O</li>
+</ul>
+<h3>Nem beépített API-k</h3>
+<ul>
+<li>Apache POI</li>
+<li>JSON</li>
+</ul>
+[/Programozóknak]
+[Téma 3]
+Csak teszt jeleggel vettem fel ezt a témát
+[/Téma 3]

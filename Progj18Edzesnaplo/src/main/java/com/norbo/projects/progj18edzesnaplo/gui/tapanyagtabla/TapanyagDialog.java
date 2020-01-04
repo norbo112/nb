@@ -2,12 +2,10 @@ package com.norbo.projects.progj18edzesnaplo.gui.tapanyagtabla;
 
 import com.norbo.projects.progj18edzesnaplo.data.Elelmiszer;
 import com.norbo.projects.progj18edzesnaplo.data.ElelmiszerTableModel;
-import com.norbo.projects.progj18edzesnaplo.data.tapanyag.DBElelmiszerTolto;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.DBToltoInterface;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.TapanyagSzuro;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.WebElelmiszerTolto;
 import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +15,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import org.apache.http.util.TextUtils;
 
@@ -487,6 +482,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
         dbtolto = new WebElelmiszerTolto();
         tapanyagok = dbtolto.getElelmiszerList(dbparams);
         taptabla.setModel(tableModel = new ElelmiszerTableModel(tapanyagok));
+        setTitle("Tápanyagtáblázat - "+tapanyagok.size()+" db - ");
         jScrollPane1.getViewport().setBackground(new Color(48,108,147));
         
         cbmodel = new DefaultComboBoxModel<>();
