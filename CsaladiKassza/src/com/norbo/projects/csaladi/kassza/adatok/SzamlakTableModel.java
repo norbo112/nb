@@ -28,6 +28,15 @@ public class SzamlakTableModel extends AbstractTableModel {
     }
 
     @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(columnIndex == 3) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch(columnIndex) {
             case 0: return String.class;
@@ -72,6 +81,15 @@ public class SzamlakTableModel extends AbstractTableModel {
         }
         return null;
     }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        if(columnIndex == 3) {
+            szamlak.get(rowIndex).setAllapot((boolean)aValue);
+        }
+    }
+    
+    
 
     public List<BeSzamla> getSzamlak() {
         return szamlak;

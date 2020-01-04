@@ -17,7 +17,6 @@ import javax.swing.table.TableCellRenderer;
  * @author igloi
  */
 public class SajatCheckBox extends JCheckBox implements TableCellRenderer {
-
     public SajatCheckBox() {
     }
 
@@ -36,13 +35,12 @@ public class SajatCheckBox extends JCheckBox implements TableCellRenderer {
             setSelected(false);
         }
         
-        if(arg2) {
-            setBackground(UIManager.getColor("Table.selectionBackground"));
+        if(arg3) {
+            setForeground(UIManager.getColor("Table.selectionBackground"));
         } else {
-            setBackground(UIManager.getColor("Table.background"));
+            setForeground(UIManager.getColor("Table.background"));
         }
         
         return this;
-    }
-    
+    }  
 }

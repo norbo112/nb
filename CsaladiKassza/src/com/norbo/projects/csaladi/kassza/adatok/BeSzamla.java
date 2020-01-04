@@ -79,6 +79,10 @@ public class BeSzamla {
         return true;
     }
 
+    public void setAllapot(boolean b) {
+       this.befizetve = b;
+    }
+
     
     
 }
