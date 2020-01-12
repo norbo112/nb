@@ -13,6 +13,7 @@ import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatBetolto;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
 import com.norbo.projects.progj18edzesnaplo.dodata.JSONGyTransform;
 import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.szuro.GyakorlatSzuro;
+import java.awt.Color;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
@@ -85,6 +86,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
         loadGyaksik(gyakorlats);
         loadIzomcsoportok(izomcsoportok);
         
+        gyaklistasc.getViewport().setBackground(new Color(136,207,255));
         
     }
     
@@ -134,7 +136,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cbIzomcsop = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        gyaklistasc = new javax.swing.JScrollPane();
         gyakorlatTabla = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -226,19 +228,19 @@ public class Gyakorlatok extends javax.swing.JFrame {
                 gyakorlatTablaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(gyakorlatTabla);
+        gyaklistasc.setViewportView(gyakorlatTabla);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addComponent(gyaklistasc, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1))
+                .addComponent(gyaklistasc))
         );
 
         jPanel4.setBackground(new java.awt.Color(48, 108, 147));
@@ -555,6 +557,7 @@ public class Gyakorlatok extends javax.swing.JFrame {
     private javax.swing.JButton btnJson;
     private javax.swing.JComboBox<String> cbIzomcsop;
     private javax.swing.JCheckBox cbSzurte;
+    private javax.swing.JScrollPane gyaklistasc;
     private javax.swing.JTable gyakorlatTabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -565,7 +568,6 @@ public class Gyakorlatok extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
 }
