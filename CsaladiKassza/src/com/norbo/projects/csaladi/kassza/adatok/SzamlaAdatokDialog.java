@@ -349,6 +349,7 @@ public class SzamlaAdatokDialog extends javax.swing.JDialog {
                         GuiUtils.getColorStr(btnSzinkod.getBackground().getRed(), 
                                 btnSzinkod.getBackground().getGreen(),
                                 btnSzinkod.getBackground().getBlue()));
+                                
                 if(!DBMelos.setSzamlaInDB(DBMelos.CONNURL, sz)) {
                     JOptionPane.showMessageDialog(null, "Nem sikerült frissíteni az adatokat", "Számla",
                         JOptionPane.ERROR_MESSAGE);

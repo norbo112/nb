@@ -28,6 +28,12 @@ public class GuiUtils {
      * @return Color objektumot ad vissza a paraméterben megadott Stringből
      */
     public static Color parseColor(String colorstr) {
+        if(colorstr.startsWith("#")) return Color.getColor(colorstr);
+        
+        if(!colorstr.contains(",") && !colorstr.startsWith("#")) {
+            return Color.decode("#"+colorstr);
+        }
+        
         String[] split = colorstr.split(",");
         return new Color(
                 Integer.parseInt(split[0]), 
@@ -35,10 +41,17 @@ public class GuiUtils {
                 Integer.parseInt(split[2]));
     }
     
+    private static Color hex2Rgb(String colorStr) {
+        return new Color(
+                Integer.valueOf(colorStr.substring(1, 3), 16),
+                Integer.valueOf(colorStr.substring(3, 5), 16),
+                Integer.valueOf(colorStr.substring(5, 7), 16));
+    }
+    
     /**
      * Igazáól a getBackground-ra irtam, ott kiszedem az R,G,B-t majd átalakítom az
      * adatbázisban tárolt háttérszinre
-     * 
+     * Hex-re alakítom hogy ugyanezt tudjam használni JSF webalkalmazáshoz
      * Számla színkódjával kapcsolatos
      * 
      * @param r
@@ -47,7 +60,7 @@ public class GuiUtils {
      * @return 
      */
     public static String getColorStr(int r, int g, int b) {
-        return r+","+g+","+b;
+        return String.format("%02x%02x%02x", r, g, b);
     }
     
     /**
