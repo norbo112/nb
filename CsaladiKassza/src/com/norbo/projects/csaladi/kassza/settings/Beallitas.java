@@ -27,7 +27,7 @@ public class Beallitas {
             "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC"+
             "&useUnicode=true&characterEncoding=UTF-8";
     private final String DEFUSER = "root";
-    private final String DEFPASS = "JuanScript18";
+    private final String DEFPASS = "root";
     
     private Properties prop;
 

@@ -65,7 +65,7 @@ public class DBMelos {
         List<Szamla> sl = new ArrayList<>();
         try {
             try (Statement stmt = conn.createStatement()) {
-                ResultSet result = stmt.executeQuery("SELECT * FROM szamlak");
+                ResultSet result = stmt.executeQuery("SELECT * FROM szamla");
                 while(result.next()) {
                     int id = result.getInt("id");
                     String szamlaszam = result.getString("szamlaszam");
@@ -94,7 +94,7 @@ public class DBMelos {
     public static Szamla getSzamlaFromDB(String szamlaszam) {
         try {
             try (Statement stmt = conn.createStatement()) {
-                ResultSet result = stmt.executeQuery("SELECT * FROM szamlak WHERE szamlaszam = '"+szamlaszam+"'");
+                ResultSet result = stmt.executeQuery("SELECT * FROM szamla WHERE szamlaszam = '"+szamlaszam+"'");
                 while(result.next()) {
                     return new Szamla(result.getInt("id"),
                             result.getString("szamlaszam"),
@@ -122,7 +122,7 @@ public class DBMelos {
      * @return true ha sikeres volt a beszúrás egyébbként false
      */
     public static boolean addSzamlaToDB(String dburl, Szamla szamla) {
-        String query = "INSERT INTO szamlak "+
+        String query = "INSERT INTO szamla "+
                     "(szamlaszam, megjelenitnev, befizetesideje, prioritas, vartosszeg, szine) "+
                     "VALUES (?,?,?,?,?,?)";
         try (PreparedStatement pst = conn.prepareStatement(query)) {
@@ -154,7 +154,7 @@ public class DBMelos {
      * @return 
      */
     public static boolean setSzamlaInDB(String dburl, Szamla szamla) {
-        String query = "UPDATE szamlak SET szamlaszam = ?, megjelenitnev = ?, "
+        String query = "UPDATE szamla SET szamlaszam = ?, megjelenitnev = ?, "
                 + "befizetesideje = ?, prioritas = ?, vartosszeg = ?, szine= ? WHERE id = ?";
         
         try (PreparedStatement pst = conn.prepareStatement(query)) {
