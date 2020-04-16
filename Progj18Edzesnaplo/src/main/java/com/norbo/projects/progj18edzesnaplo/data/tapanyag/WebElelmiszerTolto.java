@@ -47,11 +47,11 @@ public class WebElelmiszerTolto implements DBToltoInterface {
                                 Double.parseDouble(objtap.getString("rost")))
                 );
             }
-            Logger.getLogger(WebElelmiszerTolto.class.getName()).log(Level.INFO, "Töltés befejeződott a webről");
+            LOG.log(Level.INFO, "Töltés befejeződott a webről");
         } catch (MalformedURLException ex) {
-            Logger.getLogger(WebElelmiszerTolto.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(WebElelmiszerTolto.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
         
         return elelmiszers;
@@ -88,9 +88,9 @@ public class WebElelmiszerTolto implements DBToltoInterface {
             }
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(WebElelmiszerTolto.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(WebElelmiszerTolto.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
         
         return fajtak;

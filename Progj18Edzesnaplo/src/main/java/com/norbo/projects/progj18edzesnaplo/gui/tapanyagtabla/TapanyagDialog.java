@@ -6,6 +6,10 @@ import com.norbo.projects.progj18edzesnaplo.data.tapanyag.DBToltoInterface;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.TapanyagSzuro;
 import com.norbo.projects.progj18edzesnaplo.data.tapanyag.WebElelmiszerTolto;
 import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.apache.http.util.TextUtils;
 
@@ -57,9 +63,6 @@ public class TapanyagDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taptabla = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        lblLoader = new javax.swing.JLabel();
         szuroPanel = new javax.swing.JPanel();
         cbFajta = new javax.swing.JComboBox<>();
         tfNev = new javax.swing.JTextField();
@@ -83,6 +86,12 @@ public class TapanyagDialog extends javax.swing.JDialog {
         rostvane = new javax.swing.JCheckBox();
         btnSzures = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        lblLoader = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(265, 0), new java.awt.Dimension(32767, 32767));
+        btnCsvSave = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tápanyagtáblázat");
@@ -116,23 +125,6 @@ public class TapanyagDialog extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
         );
-
-        jPanel3.setBackground(new java.awt.Color(0, 102, 153));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        jPanel3.setLayout(new java.awt.BorderLayout());
-
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton1, java.awt.BorderLayout.EAST);
-
-        lblLoader.setBackground(new java.awt.Color(0, 102, 153));
-        lblLoader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLoader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loader.gif"))); // NOI18N
-        jPanel3.add(lblLoader, java.awt.BorderLayout.CENTER);
 
         szuroPanel.setBackground(new java.awt.Color(0, 79, 158));
         szuroPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Szűrő", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -300,6 +292,36 @@ public class TapanyagDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel4.setLayout(new java.awt.BorderLayout(5, 5));
+
+        jPanel3.setBackground(new java.awt.Color(0, 102, 153));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        lblLoader.setBackground(new java.awt.Color(0, 102, 153));
+        lblLoader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLoader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loader.gif"))); // NOI18N
+        jPanel3.add(lblLoader);
+        jPanel3.add(filler1);
+
+        btnCsvSave.setText("toCSV");
+        btnCsvSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCsvSaveActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnCsvSave);
+
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1);
+
+        jPanel4.add(jPanel3, java.awt.BorderLayout.EAST);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -309,7 +331,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(szuroPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -319,7 +341,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -440,11 +462,40 @@ public class TapanyagDialog extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnCsvSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCsvSaveActionPerformed
+        JFileChooser fch = new JFileChooser(System.getProperty("user.home"));
+        int showSaveDialog = fch.showSaveDialog(this);
+        if(showSaveDialog == JFileChooser.APPROVE_OPTION) {
+            File f = fch.getSelectedFile();
+            
+            try(BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+                for (Elelmiszer tap : tapanyagok) {
+                    bw.append(tap.getFajta()).append("\t");
+                    bw.append(tap.getNev()).append("\t");
+                    bw.append(Integer.toString(tap.getKj())).append("\t");
+                    bw.append(Integer.toString(tap.getKcal())).append("\t");
+                    bw.append(Double.toString(tap.getFeherje())).append("\t");
+                    bw.append(Double.toString(tap.getSzenhidrat())).append("\t");
+                    bw.append(Double.toString(tap.getZsir())).append("\t");
+                    bw.append(Double.toString(tap.getRost())).append("\t");
+                    bw.append("\n");
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(this, "Sikerestelen mentés :( !",f.getName(),JOptionPane.ERROR_MESSAGE);
+            }
+            
+            JOptionPane.showMessageDialog(this, "Sikeres mentés!",f.getName(),JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCsvSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnCsvSave;
     private javax.swing.JButton btnSzures;
     private javax.swing.JComboBox<String> cbFajta;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -455,6 +506,7 @@ public class TapanyagDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLoader;

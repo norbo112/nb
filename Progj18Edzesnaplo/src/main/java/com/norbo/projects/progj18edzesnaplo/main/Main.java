@@ -1,10 +1,10 @@
 package com.norbo.projects.progj18edzesnaplo.main;
 
 import com.norbo.projects.progj18edzesnaplo.data.IGyakorlat;
+import com.norbo.projects.progj18edzesnaplo.data.log.ENLogger;
 import com.norbo.projects.progj18edzesnaplo.dodata.AbstractTransform;
 import com.norbo.projects.progj18edzesnaplo.dodata.GyakorlatListaKeszito;
 import com.norbo.projects.progj18edzesnaplo.gui.NapiTerv;
-import com.norbo.projects.progj18edzesnaplo.gui.gyakorlatok.Gyakorlatok;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
@@ -30,5 +30,7 @@ public class Main {
             System.out.println("Hiba törént az adatok elérése közben: "+ex);
         }
         
+        ENLogger.loginfo("Saját formázás létrehozása, tesztelése");
+        ENLogger.loginfo("Működik csak még néhány kisebb módosítás");
     }
 }

@@ -40,7 +40,6 @@ public class SugoDialog extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setBackground(new Color(0,102,204));
         
-        
         JPanel topPanel = getTopPanel();
         JPanel centerPanel = getContextPanel();
         
